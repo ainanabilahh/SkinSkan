@@ -1,6 +1,6 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import AuthLoadingScreen from './src/components/auth';
-import TabNavigator from './src/components/bottomTab';
+import TabNavigator from './src/components/tabNavigator';
 import CreateUser from './src/pages/createUser';
 import DeleteUser from './src/pages/deleteUser';
 import Login from './src/pages/login';

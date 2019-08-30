@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Alert, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import styles from '../css/styles';
-import { NavigationActions, SwitchActions, StackActions } from 'react-navigation';
 
 class Scan extends Component {
 
@@ -22,10 +21,8 @@ class Scan extends Component {
     return (
       <View style={styles.ContentContainer}>
         <StatusBar backgroundColor="#70ebdb" barStyle="light-content" />
-        <View style={[styles.header, { height: 136 }]}>
-          <Image style={[styles.avatar, { flex: 1, marginTop: 76 }]} source={require('../images/002-serum.png')} />
-          <Text style={styles.headerText}>Scan Ingredients</Text>
-        </View>
+        <View style={[styles.header, { height: 80 }]} />
+        <Image style={[styles.avatar, { flex: 1, marginTop: 20 }]} source={require('../images/002-serum.png')} />
         <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
           <Image style={{ marginTop: 40, width: 280, height: 295 }} source={require('../images/steps.png')} />
           <View style={styles.TextInputContainer}>
@@ -37,7 +34,7 @@ class Scan extends Component {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </View >
     );
 
   }
