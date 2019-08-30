@@ -1,0 +1,67 @@
+import AsyncStorage from '@react-native-community/async-storage';
+import { Component } from 'react';
+import { Alert } from 'react-native';
+import { NavigationActions, StackActions } from 'react-navigation';
+
+class DeleteUser extends Component {
+
+  render() {
+    return (null);
+  }
+
+  /*static navigationOptions = () => {
+    return {
+      tabBarOnPress: ({ navigation, defaultHandler }) => {
+        navigation.state.params.DeleteUser();
+        defaultHandler();
+      },
+    };
+  };
+
+  constructor(props) {
+    super(props);
+    props.navigation.setParams({
+      DeleteUser: this.DeleteUser,
+    });
+  }*/
+
+  abortController = new AbortController()
+
+  async componentDidMount() {
+
+    fetch('http://192.168.49.185/skinskan/deleteUser.php', {
+      signal: this.abortController.signal,
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+
+        username: username,
+
+      })
+
+    }).then((response) => response.json())
+      .then((responseJson) => {
+        
+        Alert.alert(responseJson);
+
+      }).catch((error) => {
+        console.error(error);
+      });
+
+    AsyncStorage.removeItem('isLoggedIn');
+    AsyncStorage.removeItem('username');
+    
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Auth' })],
+    });
+    this.props.navigation.dispatch(resetAction);
+
+  }
+
+}
+
+export default DeleteUser;
