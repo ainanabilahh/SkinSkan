@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, ScrollView, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from '../css/styles';
 
@@ -50,11 +50,11 @@ class UpdateUser extends Component {
     const { goBack } = this.props.navigation;
 
     return (
-      <View style={styles.ContentContainer}>
+      <ScrollView style={styles.ContentContainer}>
         <View style={[styles.header, { height: 80 }]} />
         <Image style={[styles.avatar, { marginTop: 20 }]} source={require('../images/001-shampoo.png')} />
         <View style={{ alignItems: 'center', justifyContent: 'center', flex: 2 }}>
-          <Text style={[styles.usernameLabel, { marginTop: 80 }]}>{username}</Text>
+          <Text style={styles.usernameLabel}>{username}</Text>
           <View style={styles.TextInputContainer}>
             <Text style={{ fontSize: 12, color: 'red' }}>*Leave email or password blank if don't {"\n"}want to change any of them.</Text>
             <View style={{ flexDirection: 'row' }}>
@@ -89,7 +89,7 @@ class UpdateUser extends Component {
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

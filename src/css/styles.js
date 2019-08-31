@@ -86,10 +86,11 @@ export default {
   },
 
   usernameLabel: {
-    fontFamily: 'moonbright',
+    fontFamily: 'Moonbright-JRmWo',
     marginVertical: 20,
     fontSize: 50,
     color: '#70ebdb',
+    marginTop: 100,
     fontWeight: '500',
     textAlign: 'center'
   },

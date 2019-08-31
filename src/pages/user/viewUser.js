@@ -75,7 +75,7 @@ class ViewUser extends Component {
             <View style={[styles.header, { height: 80 }]} />
             <Image style={[styles.avatar, { marginTop: 20 }]} source={require('../../images/004-cream.png')} />
             <View style={{ alignItems: 'center', justifyContent: 'center', flex: 2 }}>
-               <Text style={[styles.usernameLabel, { marginTop: 100 }]}>{this.state.username}</Text>
+               <Text style={styles.usernameLabel}>{this.state.username}</Text>
                <View style={styles.TextInputContainer}>
                   <View style={{ flexDirection: 'row' }}>
                      <Icon size={30} color='#b7b7b7' name="md-ribbon"></Icon>
