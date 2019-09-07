@@ -24,7 +24,7 @@ class CreateUser extends Component {
       Alert.alert("Email is not valid.")
     } else {
 
-      fetch('http://192.168.42.22/skinskan/register.php', {
+      fetch('http://192.168.49.185/skinskan/register.php', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
