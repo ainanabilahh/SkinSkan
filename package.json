@@ -9,11 +9,11 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.1",
-    "react": "16.8.6",
+    "react": "^16.9.0",
     "react-native": "0.60.5",
     "react-native-camera": "^3.3.0",
-    "react-native-elements": "^1.1.0",
     "react-native-gesture-handler": "^1.3.0",
+    "react-native-global-props": "^1.1.5",
     "react-native-ionicons": "^4.6.1",
     "react-native-paper": "^2.16.0",
     "react-native-text-detector": "0.0.6",

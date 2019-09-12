@@ -2,9 +2,7 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 import AuthLoadingScreen from './src/components/auth';
 import TabNavigator from './src/components/tabNavigator';
 import CreateUser from './src/pages/createUser';
-import DeleteUser from './src/pages/deleteUser';
 import Login from './src/pages/login';
-import UpdateUser from './src/pages/updateUser';
 
 const StackNavigator = createStackNavigator(
   {
@@ -16,18 +14,6 @@ const StackNavigator = createStackNavigator(
     },
     CreateUser: {
       screen: CreateUser,
-      navigationOptions: ({ navigation }) => ({
-        header: null
-      }),
-    },
-    UpdateUser: {
-      screen: UpdateUser,
-      navigationOptions: ({ navigation }) => ({
-        header: null
-      }),
-    },
-    DeleteUser: {
-      screen: DeleteUser,
       navigationOptions: ({ navigation }) => ({
         header: null
       }),

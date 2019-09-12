@@ -30,15 +30,12 @@ export default {
   },
 
   inputBox: {
+    backgroundColor: '#fff',
     width: 300,
     height: 60,
     margin: 60,
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-    borderRadius: 10,
-    paddingHorizontal: 16,
-    fontSize: 16,
-    color: '#fff',
-    marginVertical: 10
+    paddingHorizontal: 8,
+    marginVertical: 8
   },
 
   inputBoxInside: {
@@ -48,15 +45,13 @@ export default {
     color: '#333367',
   },
   inputBox2: {
-    width: 265,
     height: 60,
-    marginHorizontal: 10,
+    marginHorizontal: 8,
     borderRadius: 10,
     fontSize: 16,
-    paddingHorizontal: 16,
-    marginVertical: 10,
+    paddingHorizontal: 8,
+    marginVertical: 8,
     backgroundColor: 'rgba(243, 243, 243, 0.5)',
-    color: '#9a9a9a',
   },
   floatingLabel: {
     fontSize: 16,
@@ -71,28 +66,17 @@ export default {
   },
 
   button: {
-    borderRadius: 10,
-    marginHorizontal: 10,
-    paddingVertical: 13,
-    marginVertical: 20
-  },
-
-  buttonText: {
-    margin: 5,
-    fontSize: 16,
-    color: '#fff',
-    fontWeight: '500',
-    textAlign: 'center'
+    backgroundColor: '#673AB7',
+    marginHorizontal: 8,
+    paddingVertical: 8,
+    marginVertical: 8
   },
 
   usernameLabel: {
-    fontFamily: 'Moonbright-JRmWo',
-    marginVertical: 20,
-    fontSize: 50,
-    color: '#70ebdb',
-    marginTop: 100,
-    fontWeight: '500',
-    textAlign: 'center'
+    fontSize: 20,
+    marginHorizontal: 20, 
+    color: '#000',
+    fontWeight: 'bold',
   },
 
   headerText: {
@@ -113,7 +97,8 @@ export default {
 
   //Logo
   LogoContainer: {
-    paddingBottom: 10
+    elevation: 50,
+    backgroundColor: 'rgba(255, 255, 255, 0.0)'
   },
   //End of Logo
 
@@ -125,20 +110,20 @@ export default {
   },
 
   footerText: {
-    color: 'rgba(255,255,255,0.8)',
+    color: '#673AB7',
     fontSize: 16
   },
 
   footerButton: {
-    color: '#fff',
+    color: '#673AB7',
     fontSize: 16,
-    fontWeight: '500'
+    fontWeight: 'bold'
   },
   //End of Footer
 
   //ViewProfile
   header: {
-    backgroundColor: "#70ebdb",
+    backgroundColor: "#673AB7",
   },
 
   avatar: {
@@ -148,6 +133,15 @@ export default {
     borderWidth: 4,
     borderColor: "white",
     alignSelf: 'center',
+    position: 'absolute',
+  },
+
+  avatar2: {
+    width: 100,
+    height: 100,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
     position: 'absolute',
   },
 

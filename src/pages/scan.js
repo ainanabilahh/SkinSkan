@@ -65,9 +65,7 @@ class Scan extends Component {
 
     return (
       <View style={styles.ContentContainer}>
-        <StatusBar backgroundColor="#70ebdb" barStyle="light-content" />
-        <View style={[styles.header, { height: 80 }]} />
-        <Image style={[styles.avatar, { flex: 1, marginTop: 20 }]} source={require('../images/002-serum.png')} />
+        <StatusBar backgroundColor="#512DA8" barStyle="light-content" />
         <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
           <Image style={{ marginTop: 40, width: 280, height: 295 }} source={require('../images/steps.png')} />
           <View style={styles.TextInputContainer}>

@@ -9,22 +9,6 @@ class DeleteUser extends Component {
     return (null);
   }
 
-  /*static navigationOptions = () => {
-    return {
-      tabBarOnPress: ({ navigation, defaultHandler }) => {
-        navigation.state.params.DeleteUser();
-        defaultHandler();
-      },
-    };
-  };
-
-  constructor(props) {
-    super(props);
-    props.navigation.setParams({
-      DeleteUser: this.DeleteUser,
-    });
-  }*/
-
   abortController = new AbortController()
 
   async componentDidMount() {

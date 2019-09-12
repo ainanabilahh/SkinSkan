@@ -1,7 +1,9 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import DeleteUser from '../pages/deleteUser';
-import UpdateUser from '../pages/updateUser';
+import ChangeEmail from '../pages/changeEmail';
+import ChangePassword from '../pages/changePassword';
 import ViewUser from '../pages/user/viewUser';
+import Logout from '../pages/logout';
 
 const ProfileNavigator = createStackNavigator(
   {
@@ -11,31 +13,49 @@ const ProfileNavigator = createStackNavigator(
         title: 'Manage Account',
         headerTintColor: '#ffffff',
         headerStyle: {
-          backgroundColor: '#70ebdb',
+          backgroundColor: '#673AB7',
           elevation: 0,
         },
         headerTitleStyle: {
-          fontSize: 25,
-          fontWeight: '500',
+          fontSize: 20,
           textAlign: 'center',
+          fontFamily: 'Montserrat-Bold',
           flex: 1, 
         },
       }),   
     },
-    UpdateUser: { 
-      screen: UpdateUser,
+    ChangeEmail: { 
+      screen: ChangeEmail,
       navigationOptions: ({ navigation }) => ({
         title: 'Update Account',
         headerTintColor: '#ffffff',
         headerStyle: {
-          backgroundColor: '#70ebdb',
+          backgroundColor: '#673AB7',
           elevation: 0,
         },
         headerTitleStyle: {
-          fontSize: 25,
           marginLeft:-40,
-          fontWeight: '500',
+          fontSize: 20,
           textAlign: 'center',
+          fontFamily: 'Montserrat-Bold',
+          flex: 1, 
+        },
+      }),   
+    },
+	ChangePassword: { 
+      screen: ChangePassword,
+      navigationOptions: ({ navigation }) => ({
+        title: 'Update Account',
+        headerTintColor: '#ffffff',
+        headerStyle: {
+          backgroundColor: '#673AB7',
+          elevation: 0,
+        },
+        headerTitleStyle: {
+          marginLeft:-40,
+          fontSize: 20,
+          textAlign: 'center',
+          fontFamily: 'Montserrat-Bold',
           flex: 1, 
         },
       }),   
@@ -46,14 +66,32 @@ const ProfileNavigator = createStackNavigator(
         title: 'Delete Account',
         headerTintColor: '#ffffff',
         headerStyle: {
-          backgroundColor: '#70ebdb',
+          backgroundColor: '#673AB7',
           elevation: 0,
         },
         headerTitleStyle: {
-          fontSize: 25,
           marginLeft:-40,
-          fontWeight: '500',
+          fontSize: 20,
           textAlign: 'center',
+          fontFamily: 'Montserrat-Bold',
+          flex: 1, 
+        },
+      }),   
+    },
+    Logout: { 
+      screen: Logout,
+      navigationOptions: ({ navigation }) => ({
+        title: 'Delete Account',
+        headerTintColor: '#ffffff',
+        headerStyle: {
+          backgroundColor: '#673AB7',
+          elevation: 0,
+        },
+        headerTitleStyle: {
+          marginLeft:-40,
+          fontSize: 20,
+          textAlign: 'center',
+          fontFamily: 'Montserrat-Bold',
           flex: 1, 
         },
       }),   

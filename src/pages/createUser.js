@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StatusBar, Alert, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, Text, View, TouchableOpacity } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
 import styles from '../css/styles';
 
 class CreateUser extends Component {
@@ -60,38 +61,38 @@ class CreateUser extends Component {
   render() {
     return (
 
-      <View style={[styles.MainContainer, { backgroundColor: '#eb7080' }]}>
-        <StatusBar backgroundColor="#eb7080" barStyle="light-content" />
+      <View style={styles.MainContainer}>
         <View style={styles.LogoContainer}>
-          <Image style={{ width: 200, height: 227 }} source={require('../images/register.png')} resizeMode="contain" />
+          <Image style={{ width: 300, height: 244 }} source={require('../images/2.png')} resizeMode="contain" />
         </View>
-        <Text style={{ fontSize: 12, color: '#fff' }}>*Username cannot be changed later. Choose carefully.</Text>
+        <Text style={{ color: '#673AB7', fontSize: 25, fontWeight: 'bold' }}>SIGN UP</Text>
+        {/*<Text style={{ fontSize: 12, color: '#ccc' }}>*Username cannot be changed later. Choose carefully.</Text>*/}
         <TextInput
-          placeholder="Username"
-          placeholderTextColor="#fff"
-          onChangeText={TextInputValue => this.setState({ username: TextInputValue })}
-          underlineColorAndroid='transparent'
+          mode="outlined"
+          label="Username"
+          value={this.state.username}
+          onChangeText={username => this.setState({ username })}underlineColorAndroid='transparent'
           style={styles.inputBox}
         />
         <TextInput
-          placeholder="Email"
+          mode="outlined"
           type="email"
-          placeholderTextColor="#fff"
-          onChangeText={TextInputValue => this.setState({ email: TextInputValue })}
+          label="Email"
+          value={this.state.email}
+          onChangeText={email => this.setState({ email })}
           underlineColorAndroid='transparent'
           style={styles.inputBox}
         />
         <TextInput
-          placeholder="Password"
-          placeholderTextColor="#fff"
-          onChangeText={TextInputValue => this.setState({ password: TextInputValue })}
-          underlineColorAndroid='transparent'
+          mode="outlined"
+          label="Password"
+          value={this.state.password}
+          onChangeText={password => this.setState({ password })}underlineColorAndroid='transparent'
           secureTextEntry={true}
           style={styles.inputBox}
         />
-        <TouchableOpacity activeOpacity={.4} style={[styles.button, { width: 300, backgroundColor: '#fff' }]} onPress={this.CreateUser} >
-          <Text style={[styles.buttonText, { color: '#eb7080' }]}> Sign Up </Text>
-        </TouchableOpacity>
+
+        <Button style={[styles.button, { width: 300 }]} icon="add" mode="contained" onPress={this.CreateUser} >Sign Up</Button>
 
         {/*<TouchableOpacity activeOpacity = { .4 } style={styles.buttonL} onPress={this.GoTo_Show_StudentList_Activity_Function} >
           <Text style={styles.buttonText}> SHOW ALL INSERTED STUDENT RECORDS IN LISTVIEW </Text>

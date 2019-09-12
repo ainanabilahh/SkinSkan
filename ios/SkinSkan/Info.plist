@@ -74,6 +74,13 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Montserrat-Regular.otf</string>
+		<string>Montserrat-MediumItalic.otf</string>
+		<string>FontsFree-Net-Proxima-Nova-Bold.otf</string>
+		<string>FontsFree-Net-Proxima-Nova-Thin.otf</string>
+		<string>Proxima Nova Th.otf</string>
+		<string>Montserrat-ExtraBold.otf</string>
+		<string>Montserrat-Bold.otf</string>
 	</array>
 </dict>
 </plist>

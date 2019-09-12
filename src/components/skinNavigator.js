@@ -1,29 +1,28 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation';
-import Camera from '../pages/camera';
+import Skin from '../pages/skin';
 
-const CameraNavigator = createStackNavigator(
+const SkinNavigator = createStackNavigator(
   {
-    Camera: { 
-      screen: Camera,
+    Skin: { 
+      screen: Skin,
       navigationOptions: ({ navigation }) => ({
-        title: 'Camera',
+        title: 'Skin Preferences',
         headerTintColor: '#ffffff',
         headerStyle: {
-          backgroundColor: '#70ebdb',
+          backgroundColor: '#673AB7',
           elevation: 0,
         },
         headerTitleStyle: {
-          fontSize: 25,
-          marginLeft:-40,
-          fontWeight: '500',
+          fontSize: 20,
           textAlign: 'center',
+          fontFamily: 'Montserrat-Bold',
           flex: 1, 
         },
       }),   
     },
   },
   {
-    initialRouteName: "Camera", 
+    initialRouteName: "Skin", 
     navigationOptions: {
       tabBarOnPress: ({ navigation, defaultHandler }) => {
         defaultHandler();
@@ -33,4 +32,4 @@ const CameraNavigator = createStackNavigator(
     },
 );
 
-export default createAppContainer(CameraNavigator);
+export default createAppContainer(SkinNavigator);

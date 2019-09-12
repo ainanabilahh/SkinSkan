@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Alert, Image, StatusBar, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
 import styles from '../css/styles';
 
 class Login extends Component {
@@ -50,33 +51,31 @@ class Login extends Component {
   render() {
     return (
 
-      <View style={[styles.MainContainer, { backgroundColor: '#70ebdb' }]}>
-        <StatusBar backgroundColor="#70ebdb" barStyle="light-content" />
+      <View style={styles.MainContainer}>
+        <StatusBar backgroundColor="#512DA8" barStyle="light-content" />
         <View style={styles.LogoContainer}>
-          <Image style={{ width: 200, height: 227 }} source={require('../images/login.png')} resizeMode="contain" />
+          <Image style={{ width: 300, height: 244 }} source={require('../images/1.png')} resizeMode="contain" />
         </View>
+        <Text style={{ color: '#673AB7', fontSize: 25, fontWeight: 'bold' }}>SIGN IN</Text>
         <TextInput
-          placeholder="Username"
+          mode="outlined"
+          label="Username"
           autoCapitalize="none"
-          placeholderTextColor="#fff"
-          onChangeText={TextInputValue => this.setState({ username: TextInputValue })}
-          underlineColorAndroid='transparent'
+          value={this.state.username}
+          onChangeText={username => this.setState({ username })}
           style={styles.inputBox}
         />
-
         <TextInput
-          placeholder="Password"
+          mode="outlined"
           autoCapitalize="none"
-          placeholderTextColor="#fff"
-          onChangeText={TextInputValue => this.setState({ password: TextInputValue })}
-          underlineColorAndroid='transparent'
+          label="Password"
+          value={this.state.password}
+          onChangeText={password => this.setState({ password })}
           secureTextEntry={true}
           style={styles.inputBox}
         />
 
-        <TouchableOpacity activeOpacity={.4} style={[styles.button, { width: 300, backgroundColor: '#fff' }]} onPress={this._login} >
-          <Text style={[styles.buttonText, { color: '#70ebdb' }]}> Sign In </Text>
-        </TouchableOpacity>
+        <Button style={[styles.button, { width: 300 }]} mode="contained" icon="check" onPress={this._login} >Sign In</Button>
 
         <View style={styles.footerContainer}>
           <Text style={styles.footerText}>Do not have an account yet?</Text>

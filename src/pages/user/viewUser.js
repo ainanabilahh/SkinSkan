@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Alert, Image, RefreshControl, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { RefreshControl, ScrollView, Text, View } from 'react-native';
+import { Avatar, Divider, List } from 'react-native-paper';
 import styles from '../../css/styles';
 
 class ViewUser extends Component {
@@ -59,58 +59,67 @@ class ViewUser extends Component {
    }
 
 
-   UpdateUser = () => {
-      this.props.navigation.navigate('UpdateUser')
+   ChangeEmail = () => {
+      this.props.navigation.navigate('ChangeEmail')
+   };
+
+   ChangePassword = () => {
+      this.props.navigation.navigate('ChangePassword')
    };
 
    DeleteUser = () => {
       this.props.navigation.navigate('DeleteUser');
    };
 
-   render() {
+   Logout = () => {
+      this.props.navigation.navigate('Logout');
+   };
 
+   render() {
       return (
-         <ScrollView style={styles.ContentContainer} refreshControl={this._refreshControl()}>
-            <StatusBar backgroundColor="#70ebdb" barStyle="light-content" />
-            <View style={[styles.header, { height: 80 }]} />
-            <Image style={[styles.avatar, { marginTop: 20 }]} source={require('../../images/004-cream.png')} />
-            <View style={{ alignItems: 'center', justifyContent: 'center', flex: 2 }}>
-               <Text style={styles.usernameLabel}>{this.state.username}</Text>
-               <View style={styles.TextInputContainer}>
-                  <View style={{ flexDirection: 'row' }}>
-                     <Icon size={30} color='#b7b7b7' name="md-ribbon"></Icon>
-                     <TextInput
-                        editable={false}
-                        value={this.state.description}
-                        style={styles.inputBox2}
-                     />
-                  </View>
-                  <View style={{ flexDirection: 'row' }}>
-                     <Icon size={30} color='#b7b7b7' name="md-mail"></Icon>
-                     <TextInput
-                        editable={false}
-                        value={this.state.email}
-                        style={styles.inputBox2}
-                     />
-                  </View>
-                  <View style={{ flexDirection: 'row' }}>
-                     <TouchableOpacity activeOpacity={.4} style={[styles.button, { width: 140, backgroundColor: '#70ebdb' }]} onPress={this.UpdateUser} >
-                        <Text style={styles.buttonText}>Update</Text>
-                     </TouchableOpacity>
-                     <TouchableOpacity activeOpacity={.4} style={[styles.button, { width: 140, backgroundColor: '#eb7080' }]} onPress={() => Alert.alert(
-                        'Delete Confirmation',
-                        'We will miss you :( \nPress OK to proceed.',
-                        [
-                           { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
-                           { text: 'OK', onPress: this.DeleteUser },
-                        ],
-                        { cancelable: false }
-                     )}>
-                        <Text style={styles.buttonText}>Delete</Text>
-                     </TouchableOpacity>
+         <ScrollView style={{ backgroundColor: '#efefef' }} refreshControl={this._refreshControl()}>
+            <List.Section style={{ backgroundColor: '#fff' }}>
+               <List.Subheader style={{ backgroundColor: '#efefef' }}>ACCOUNT</List.Subheader>
+               <View style={{ flexDirection: 'row', margin: 20 }}>
+                  <Avatar.Icon style={{ backgroundColor: '#673AB7' }} icon="person" />
+                  <View style={{ flexDirection: 'column', alignSelf: 'center' }}>
+                     <Text style={styles.usernameLabel}>{this.state.username}</Text>
+                     <Text style={{ marginHorizontal: 20 }}>{this.state.email}</Text>
                   </View>
                </View>
-            </View>
+               <Divider />
+               <List.Item
+                  title="Change Email"
+                  style={{ paddingVertical: -10 }}
+                  onPress={this.ChangeEmail}
+                  left={() => <List.Icon color="#a3a3a3" icon="mail" />}
+               />
+               <List.Item
+                  title="Change Password"
+                  style={{ paddingVertical: -10 }}
+                  onPress={this.ChangePassword}
+                  left={() => <List.Icon color="#a3a3a3" icon="lock" />}
+               />
+               <List.Subheader style={{ backgroundColor: '#efefef' }}>MORE</List.Subheader>
+               <List.Item
+                  title="Credit"
+                  style={{ paddingVertical: -10 }}
+                  left={() => <List.Icon color="#a3a3a3" icon="note" />}
+               />
+               <List.Subheader style={{ backgroundColor: '#efefef' }}>OTHERS</List.Subheader>
+               <List.Item
+                  title="Delete Account"
+                  onPress={this.DeleteUser}
+                  style={{ paddingVertical: -10 }}
+                  left={() => <List.Icon color="#a3a3a3" icon="delete" />}
+               />
+               <List.Item
+                  title="Sign Out"
+                  onPress={this.Logout}
+                  style={{ paddingVertical: -10 }}
+                  left={() => <List.Icon color="#a3a3a3" icon="exit-to-app" />}
+               />
+            </List.Section>
          </ScrollView>
       );
    }

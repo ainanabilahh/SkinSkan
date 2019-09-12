@@ -34,6 +34,13 @@
 		DA918AD4F4AF466095384D82 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8965594E3695491C81C804A0 /* Octicons.ttf */; };
 		3566568184244D078CF0D1FA /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD0DAE4C46684828A94BBA26 /* SimpleLineIcons.ttf */; };
 		BD96A1C94F0E4DE48E4BCF39 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4619611D24DD4DF5940F3511 /* Zocial.ttf */; };
+		BBC4AB93F81F48FA99D8C550 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E79A9BF6A034F539AD9C58D /* Montserrat-Regular.otf */; };
+		DD349F8AA69A4BC9BEE63433 /* Montserrat-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = FBC2A93223654C498F6833AF /* Montserrat-MediumItalic.otf */; };
+		DEA116C1B7664D36AAD8BB43 /* FontsFree-Net-Proxima-Nova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BB0B78391C4C4A16B6A886B4 /* FontsFree-Net-Proxima-Nova-Bold.otf */; };
+		C7FD74CDB8914DBB898D9CC2 /* FontsFree-Net-Proxima-Nova-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 522711318E42432DB9F57F2F /* FontsFree-Net-Proxima-Nova-Thin.otf */; };
+		C21656695B254DDC86D148B6 /* Proxima Nova Th.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1B659D8EA68946B6835E3813 /* Proxima Nova Th.otf */; };
+		3F3B706919F342B89EFEF512 /* Montserrat-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 98AFEEC1951F4B47A9E9ABD0 /* Montserrat-ExtraBold.otf */; };
+		10F0F99814C2434696ACA3A8 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C355B046B6B04CE6B309D84C /* Montserrat-Bold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +95,13 @@
 		8965594E3695491C81C804A0 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		DD0DAE4C46684828A94BBA26 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		4619611D24DD4DF5940F3511 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4E79A9BF6A034F539AD9C58D /* Montserrat-Regular.otf */ = {isa = PBXFileReference; name = "Montserrat-Regular.otf"; path = "../src/fonts/Montserrat-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FBC2A93223654C498F6833AF /* Montserrat-MediumItalic.otf */ = {isa = PBXFileReference; name = "Montserrat-MediumItalic.otf"; path = "../src/fonts/Montserrat-MediumItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BB0B78391C4C4A16B6A886B4 /* FontsFree-Net-Proxima-Nova-Bold.otf */ = {isa = PBXFileReference; name = "FontsFree-Net-Proxima-Nova-Bold.otf"; path = "../src/fonts/FontsFree-Net-Proxima-Nova-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		522711318E42432DB9F57F2F /* FontsFree-Net-Proxima-Nova-Thin.otf */ = {isa = PBXFileReference; name = "FontsFree-Net-Proxima-Nova-Thin.otf"; path = "../src/fonts/FontsFree-Net-Proxima-Nova-Thin.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1B659D8EA68946B6835E3813 /* Proxima Nova Th.otf */ = {isa = PBXFileReference; name = "Proxima Nova Th.otf"; path = "../src/fonts/Proxima Nova Th.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		98AFEEC1951F4B47A9E9ABD0 /* Montserrat-ExtraBold.otf */ = {isa = PBXFileReference; name = "Montserrat-ExtraBold.otf"; path = "../src/fonts/Montserrat-ExtraBold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C355B046B6B04CE6B309D84C /* Montserrat-Bold.otf */ = {isa = PBXFileReference; name = "Montserrat-Bold.otf"; path = "../src/fonts/Montserrat-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +231,13 @@
 				8965594E3695491C81C804A0 /* Octicons.ttf */,
 				DD0DAE4C46684828A94BBA26 /* SimpleLineIcons.ttf */,
 				4619611D24DD4DF5940F3511 /* Zocial.ttf */,
+				4E79A9BF6A034F539AD9C58D /* Montserrat-Regular.otf */,
+				FBC2A93223654C498F6833AF /* Montserrat-MediumItalic.otf */,
+				BB0B78391C4C4A16B6A886B4 /* FontsFree-Net-Proxima-Nova-Bold.otf */,
+				522711318E42432DB9F57F2F /* FontsFree-Net-Proxima-Nova-Thin.otf */,
+				1B659D8EA68946B6835E3813 /* Proxima Nova Th.otf */,
+				98AFEEC1951F4B47A9E9ABD0 /* Montserrat-ExtraBold.otf */,
+				C355B046B6B04CE6B309D84C /* Montserrat-Bold.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -377,6 +398,13 @@
 				DA918AD4F4AF466095384D82 /* Octicons.ttf in Resources */,
 				3566568184244D078CF0D1FA /* SimpleLineIcons.ttf in Resources */,
 				BD96A1C94F0E4DE48E4BCF39 /* Zocial.ttf in Resources */,
+				BBC4AB93F81F48FA99D8C550 /* Montserrat-Regular.otf in Resources */,
+				DD349F8AA69A4BC9BEE63433 /* Montserrat-MediumItalic.otf in Resources */,
+				DEA116C1B7664D36AAD8BB43 /* FontsFree-Net-Proxima-Nova-Bold.otf in Resources */,
+				C7FD74CDB8914DBB898D9CC2 /* FontsFree-Net-Proxima-Nova-Thin.otf in Resources */,
+				C21656695B254DDC86D148B6 /* Proxima Nova Th.otf in Resources */,
+				3F3B706919F342B89EFEF512 /* Montserrat-ExtraBold.otf in Resources */,
+				10F0F99814C2434696ACA3A8 /* Montserrat-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

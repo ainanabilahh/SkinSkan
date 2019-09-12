@@ -9,30 +9,21 @@ class Logout extends React.Component {
     return (null);
   }
 
-  static navigationOptions = () => {
-    return {
-      tabBarOnPress: ({ navigation, defaultHandler }) => {
-        navigation.state.params.Logout();
-        defaultHandler();
-      },
-    };
-  };
-
   constructor(props) {
     super(props);
     this.state = {
       refreshing: false,
       username: '',
-   }
+    }
     props.navigation.setParams({
       Logout: this.Logout,
     });
   }
 
-  Logout = async () => {
+  async componentDidMount() {
     AsyncStorage.removeItem('isLoggedIn');
     AsyncStorage.removeItem('username');
-    
+
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'Auth' })],
@@ -40,9 +31,7 @@ class Logout extends React.Component {
     this.props.navigation.dispatch(resetAction);
 
     Alert.alert('You have been logged out.');
-
-  };
-
+  }
 }
 
 export default Logout;
