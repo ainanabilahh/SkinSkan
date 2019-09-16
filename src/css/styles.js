@@ -23,10 +23,27 @@ export default {
     flex: 0,
     backgroundColor: '#fff',
     borderRadius: 5,
-    padding: 15,
+    padding: 10,
     paddingHorizontal: 20,
     alignSelf: 'center',
     margin: 20,
+  },
+
+  radioButtonContainer: {
+    flexDirection: 'row', 
+    backgroundColor: '#fafafa', 
+    borderColor: 'transparent', 
+    borderRadius: 5, 
+    borderWidth: 1,
+    marginVertical: 5,
+    padding: 5, 
+    borderColor: '#efefef'
+  },
+
+  radioButtonStyle: {
+    marginTop: 7,
+    fontWeight: 'bold', 
+    color: '#484d51'
   },
 
   inputBox: {
