@@ -42,12 +42,13 @@ class CreateUser extends Component {
       }).then((response) => response.json())
         .then((responseJson) => {
 
-          Alert.alert(JSON.stringify(responseJson));
+          Alert.alert(responseJson);
 
         }).catch((error) => {
           console.error(error);
         });
     }
+    this.props.navigation.navigate("Login");
   }
 
   Login = () => {
@@ -71,7 +72,7 @@ class CreateUser extends Component {
           mode="outlined"
           label="Username"
           value={this.state.username}
-          onChangeText={username => this.setState({ username })}underlineColorAndroid='transparent'
+          onChangeText={username => this.setState({ username })} underlineColorAndroid='transparent'
           style={styles.inputBox}
         />
         <TextInput
@@ -87,7 +88,7 @@ class CreateUser extends Component {
           mode="outlined"
           label="Password"
           value={this.state.password}
-          onChangeText={password => this.setState({ password })}underlineColorAndroid='transparent'
+          onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
           secureTextEntry={true}
           style={styles.inputBox}
         />

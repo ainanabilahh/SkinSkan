@@ -32,8 +32,14 @@ class Login extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
 
-        if (responseJson === 'Data Matched') {
-          this.props.navigation.navigate('Homepage');
+        if (responseJson.message === 'Data Matched')
+        { 
+          if (responseJson.status == 0) {
+            this.props.navigation.navigate('Skin');
+          }
+          else if (responseJson.status == 1) {
+            this.props.navigation.navigate('Homepage');
+          }
         }
         else {
           Alert.alert(responseJson);

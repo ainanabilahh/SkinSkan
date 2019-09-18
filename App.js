@@ -3,6 +3,7 @@ import AuthLoadingScreen from './src/components/auth';
 import TabNavigator from './src/components/tabNavigator';
 import CreateUser from './src/pages/createUser';
 import Login from './src/pages/login';
+import Skin from './src/pages/skin';
 
 const StackNavigator = createStackNavigator(
   {
@@ -26,6 +27,12 @@ const StackNavigator = createStackNavigator(
     },
     Homepage: {
       screen: TabNavigator,
+      navigationOptions: ({ navigation }) => ({
+        header: null
+      }),
+    },
+    Skin: {
+      screen: Skin,
       navigationOptions: ({ navigation }) => ({
         header: null
       }),
