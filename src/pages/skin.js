@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, Styl } from 'react-native';
 import { Button, RadioButton, Avatar, Divider, List } from 'react-native-paper';
-import { CheckBox, ButtonGroup } from 'react-native-elements';
+import { CheckBox, ButtonGroup, ThemeConsumer } from 'react-native-elements';
 import styles from '../css/styles';
 import { Alert } from 'react-native';
 
@@ -22,23 +22,65 @@ class Skin extends Component {
             acnefight: false,
             brightening: false,
             uvprotect: false,
+            value: '',
         }
     }
 
+    InsertSkinPreferences = () => {
 
-    Check2 = () => {
+        const ing_eff = [];
+        const prod_pref = [];
+
+        if (this.state.antiaging)
+            ing_eff.push("1")
+        if (this.state.woundhealing)
+            ing_eff.push("2")
+        if (this.state.acnefight)
+            ing_eff.push("3")
+        if (this.state.brightening)
+            ing_eff.push("4")
+        if (this.state.uvprotect)
+            ing_eff.push("5")
+
         if (this.state.paraben == true)
-            Alert.alert("paraben")
-        console.log(this.state.sulfate)
-        console.log(this.state.alcohol)
-        console.log(this.state.silicone)
-        console.log(this.state.allergen)
-        console.log(this.state.fungal)
-    };
+            prod_pref.push("1")
+        if (this.state.sulfate == true)
+            prod_pref.push("2")
+        if (this.state.alcohol == true)
+            prod_pref.push("3")
+        if (this.state.silicone == true)
+            prod_pref.push("4")
+        if (this.state.allergen == true)
+            prod_pref.push("5")
+        if (this.state.fungal == true)
+            prod_pref.push("6")
+
+        fetch('http://192.168.49.185/skinskan/updateSkin.php', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+
+                skin_type: this.state.value,
+                prod_pref: prod_pref,
+                ing_eff: ing_eff
+
+            })
+
+        }).then((response) => response.json())
+            .then((responseJson) => {
+
+                Alert.alert(responseJson);
+
+            }).catch((error) => {
+                console.error(error);
+            });
+    }
 
     render() {
 
-        const { skintype } = this.state;
         const { paraben, sulfate, alcohol, allergen, fungal, silicone } = this.state;
         const { antiaging, woundhealing, acnefight, brightening, uvprotect } = this.state;
 
@@ -53,19 +95,19 @@ class Skin extends Component {
                     >
                         <View style={{ flexDirection: 'column', marginHorizontal: 10 }}>
                             <View style={styles.radioButtonContainer}>
-                                <RadioButton value="Dry" color="#2289dc" />
+                                <RadioButton value="1" color="#2289dc" />
                                 <Text style={styles.radioButtonStyle}> Dry Skin</Text>
                             </View>
                             <View style={styles.radioButtonContainer}>
-                                <RadioButton value="Normal" color="#2289dc" />
+                                <RadioButton value="2" color="#2289dc" />
                                 <Text style={styles.radioButtonStyle}> Normal Skin</Text>
                             </View>
                             <View style={styles.radioButtonContainer}>
-                                <RadioButton value="Combination" color="#2289dc" />
+                                <RadioButton value="3" color="#2289dc" />
                                 <Text style={styles.radioButtonStyle}> Combination Skin</Text>
                             </View>
                             <View style={styles.radioButtonContainer}>
-                                <RadioButton value="Oily" color="#2289dc" />
+                                <RadioButton value="4" color="#2289dc" />
                                 <Text style={styles.radioButtonStyle}> Oily Skin</Text>
                             </View>
                         </View>
@@ -133,7 +175,7 @@ class Skin extends Component {
 
                     </View>
                 </List.Section>
-                <Button style={styles.button} mode="contained" icon="check" onPress={this.Check2}>Submit</Button>
+                <Button style={styles.button} mode="contained" icon="check" onPress={this.InsertSkinPreferences}>Submit</Button>
             </ScrollView >
         );
     }
