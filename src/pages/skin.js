@@ -1,16 +1,17 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { View, ScrollView, Text, Styl } from 'react-native';
-import { Button, RadioButton, Avatar, Divider, List } from 'react-native-paper';
-import { CheckBox, ButtonGroup, ThemeConsumer } from 'react-native-elements';
+import { Alert, ScrollView, Text, View } from 'react-native';
+import { CheckBox } from 'react-native-elements';
+import { Button, List, RadioButton } from 'react-native-paper';
 import styles from '../css/styles';
-import { Alert } from 'react-native';
 
 class Skin extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            skintype: false,
+            ing_eff: '',
+            prod_pref: '',
             paraben: false,
             sulfate: false,
             alcohol: false,
@@ -24,6 +25,63 @@ class Skin extends Component {
             uvprotect: false,
             value: '',
         }
+    }
+
+    async componentDidMount() {
+
+        username = await AsyncStorage.getItem('username') || 'undefined';
+
+        fetch('http://192.168.49.185/skinskan/viewSkin.php', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+            }),
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    value: responseJson.skin_type,
+                    ing_eff: responseJson.ing_eff,
+                    prod_pref: responseJson.prod_pref
+                })
+
+                ing_eff = this.state.ing_eff
+                prod_pref = this.state.prod_pref
+
+                for (i = 0; i < ing_eff.length; i++) {
+                    if (ing_eff[i].includes("1"))
+                        this.setState({ antiaging: true })
+                    if (ing_eff[i].includes("2"))
+                        this.setState({ woundhealing: true })
+                    if (ing_eff.includes("3"))
+                        this.setState({ acnefight: true })
+                    if (ing_eff.includes("4"))
+                        this.setState({ brightening: true })
+                    if (ing_eff.includes("5"))
+                        this.setState({ uvprotect: true })
+                }
+
+                for (i = 0; i < prod_pref.length; i++) {
+                    if (prod_pref.includes("1"))
+                        this.setState({ paraben: true })
+                    if (prod_pref.includes("2"))
+                        this.setState({ sulfate: true })
+                    if (prod_pref.includes("3"))
+                        this.setState({ alcohol: true })
+                    if (prod_pref.includes("4"))
+                        this.setState({ silicone: true })
+                    if (prod_pref.includes("5"))
+                        this.setState({ allergen: true })
+                    if (prod_pref.includes("6"))
+                        this.setState({ fungal: true })
+                }
+            }).catch((err) => {
+                if (err.name == 'AbortError') return
+                throw err
+            });
     }
 
     InsertSkinPreferences = () => {
@@ -63,6 +121,7 @@ class Skin extends Component {
             },
             body: JSON.stringify({
 
+                username: username,
                 skin_type: this.state.value,
                 prod_pref: prod_pref,
                 ing_eff: ing_eff
