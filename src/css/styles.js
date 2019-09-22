@@ -55,12 +55,7 @@ export default {
     marginVertical: 8
   },
 
-  inputBoxInside: {
-    marginTop: -15,
-    height: 60,
-    fontSize: 16,
-    color: '#333367',
-  },
+
   inputBox2: {
     height: 60,
     marginHorizontal: 8,
@@ -70,16 +65,18 @@ export default {
     marginVertical: 8,
     backgroundColor: 'rgba(243, 243, 243, 0.5)',
   },
-  floatingLabel: {
+
+  inputBoxMultiLine: {
+    height: 200,
+    width: 300,
+    marginHorizontal: 8,
+    borderRadius: 10,
     fontSize: 16,
-    marginTop: 5,
-    marginHorizontal: 10,
-    color: '#b7b7b7',
-  },
-  label: {
-    fontSize: 16,
-    textAlign: 'left',
-    color: '#b7b7b7',
+    paddingHorizontal: 8,
+    marginVertical: 8,
+    borderColor: '#673AB7',
+    borderWidth: 2,
+    backgroundColor: 'rgba(243, 243, 243, 0.5)',
   },
 
   button: {
@@ -103,12 +100,6 @@ export default {
     color: '#fff',
     fontWeight: '500',
     textAlign: 'center'
-  },
-  InsideContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    backgroundColor: '#fff'
   },
   //End of Global
 
@@ -143,36 +134,9 @@ export default {
     backgroundColor: "#673AB7",
   },
 
-  avatar: {
-    width: 130,
-    height: 130,
-    borderRadius: 63,
-    borderWidth: 4,
-    borderColor: "white",
-    alignSelf: 'center',
-    position: 'absolute',
-  },
-
-  avatar2: {
-    width: 100,
-    height: 100,
-    borderRadius: 63,
-    borderWidth: 4,
-    borderColor: "white",
-    position: 'absolute',
-  },
-
   ContentContainer: {
     flex: 3,
     backgroundColor: '#fff',
-  },
-
-  TextInputContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 0,
-    //marginTop:50,
-    backgroundColor: '#fff'
   },
 
   //End of ViewProfile

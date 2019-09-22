@@ -132,10 +132,12 @@ class Skin extends Component {
             .then((responseJson) => {
 
                 Alert.alert(responseJson);
-
+            
             }).catch((error) => {
                 console.error(error);
             });
+            this.props.navigation.navigate("Homepage");
+
     }
 
     render() {
