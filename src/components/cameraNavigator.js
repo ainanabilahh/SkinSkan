@@ -2,6 +2,7 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 import Camera from '../pages/camera';
 import Ingredients from '../pages/ingredients';
 import Scan from '../pages/scan';
+import Result from '../pages/result';
 
 const CameraNavigator = createStackNavigator(
   {
@@ -44,6 +45,24 @@ const CameraNavigator = createStackNavigator(
       screen: Ingredients,
       navigationOptions: ({ navigation }) => ({
         title: 'List of Ingredients',
+        headerTintColor: '#ffffff',
+        headerStyle: {
+          backgroundColor: '#673AB7',
+          elevation: 0,
+        },
+        headerTitleStyle: {
+          marginLeft:-40,
+          fontSize: 20,
+          textAlign: 'center',
+          fontFamily: 'Montserrat-Bold',
+          flex: 1, 
+        },
+      }),   
+    },
+    Result: { 
+      screen: Result,
+      navigationOptions: ({ navigation }) => ({
+        title: 'Result',
         headerTintColor: '#ffffff',
         headerStyle: {
           backgroundColor: '#673AB7',

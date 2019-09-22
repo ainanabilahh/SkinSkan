@@ -1,7 +1,8 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { TextInput, Alert, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, ScrollView, View, Text, TextInput } from 'react-native';
+import { ActivityIndicator, Button, List } from 'react-native-paper';
 import styles from '../css/styles';
-import { Button } from 'react-native-paper';
 
 class Ingredients extends Component {
 
@@ -10,11 +11,16 @@ class Ingredients extends Component {
         this.state = {
             isLoading: true,
             username: '',
-            ingredients: ''
+            ingredients: '',
+            result: null,
         }
     }
 
-    ListofIngredients = () => {
+    ListofIngredients = async () => {
+
+        this.props.navigation.navigate('Result', { result: this.state.result })
+
+        username = await AsyncStorage.getItem('username') || 'undefined';
 
         fetch('http://192.168.49.185/skinskan/scan.php', {
             method: 'POST',
@@ -24,38 +30,46 @@ class Ingredients extends Component {
             },
             body: JSON.stringify({
 
+                username: username,
                 ingredients: this.state.ingredients
             })
 
         }).then((response) => response.json())
             .then((responseJson) => {
 
-                Alert.alert(responseJson);
+                this.setState({ result: responseJson })
+                this.props.navigation.navigate('Result', { result: this.state.result })
 
             }).catch((error) => {
                 console.error(error);
             });
     }
 
+    ActivityIndicator = () => {
+
+        return (<Text>Aina</Text>)
+    }
+
 
     render() {
-
         return (
-            <View style={styles.MainContainer}>
-                <StatusBar backgroundColor="#512DA8" barStyle="light-content" />
-                <TextInput
-                    mode="flat"
-                    multiline
-                    numberOfLines={20}
-                    maxLength={1000}
-                    value={this.state.ingredients}
-                    onChangeText={ingredients => this.setState({ ingredients })}
-                    style={styles.inputBoxMultiLine}
-                />
-                <Button style={styles.button} mode="contained" icon="check" onPress={this.ListofIngredients}>Confirm</Button>
-            </View >
+            <ScrollView style={{ backgroundColor: '#efefef' }}>
+                <List.Section style={{ backgroundColor: '#fff' }}>
+                    <List.Subheader style={{ backgroundColor: '#efefef' }}>LIST OF INGREDIENTS</List.Subheader>
+                    <Text style={{ margin: 15 }}>Please re-check the ingredients below before proceed.</Text>
+                    <TextInput
+                        mode="flat"
+                        multiline
+                        numberOfLines={20}
+                        maxLength={1000}
+                        value={this.state.ingredients}
+                        onChangeText={ingredients => this.setState({ ingredients })}
+                        style={styles.inputBoxMultiLine}
+                    />
+                </List.Section>
+                <Button style={styles.button} mode="contained" icon="check" onPress={this.ListofIngredients}>Proceed</Button>
+            </ScrollView>
         );
-
     }
 }
 

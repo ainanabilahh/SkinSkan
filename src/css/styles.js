@@ -68,14 +68,11 @@ export default {
 
   inputBoxMultiLine: {
     height: 200,
-    width: 300,
     marginHorizontal: 8,
     borderRadius: 10,
     fontSize: 16,
     paddingHorizontal: 8,
     marginVertical: 8,
-    borderColor: '#673AB7',
-    borderWidth: 2,
     backgroundColor: 'rgba(243, 243, 243, 0.5)',
   },
 
