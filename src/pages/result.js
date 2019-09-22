@@ -14,6 +14,7 @@ class Result extends Component {
             username: '',
             ingredients: '',
             result: null,
+            isVisible: true
         }
     }
 
@@ -24,24 +25,39 @@ class Result extends Component {
         }
     }
 
+    Back = () => {
+        this.props.navigation.navigate('Ingredients');
+    }
+
     render() {
 
         if (!this.state.result) {
             return (
-                <View style={styles.MainContainer}>
-                    <ActivityIndicator
-                        animating={true}
-                        style={styles.indicator}
-                        size="large"
-                    />
-                </View>
+                <Overlay height={200} isVisible={this.state.isVisible}>
+                    <View style={styles.MainContainer}>
+                        <Text style={{ paddingBottom: 50 }}>This will take just a short while.</Text>
+                        <ActivityIndicator
+                            animating={true}
+                            style={styles.indicator}
+                            size="large"
+                        />
+                    </View>
+                </Overlay>
             );
         }
 
         return (
-            <View style={styles.MainContainer}>
-                <Text>{this.state.result}</Text>
-            </View>
+            <ScrollView style={{ backgroundColor: '#efefef' }}>
+                <List.Section style={{ backgroundColor: '#fff' }}>
+                    <List.Subheader style={{ backgroundColor: '#efefef' }}>YOUR RESULT</List.Subheader>
+                    <View style={[styles.MainContainer,{ paddingVertical: 100 }]}>
+                        <Text style={[styles.usernameLabel, { fontSize: 50 }]}>{this.state.result}%</Text>
+                        <Text style={styles.usernameLabel}>match with your skin preferences!</Text>
+                    </View>
+                </List.Section>
+                <Button style={styles.button} mode="contained" icon="check" onPress={this.Back}>Back</Button>
+            </ScrollView>
+
         );
     }
 }

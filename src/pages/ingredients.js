@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Alert, ScrollView, View, Text, TextInput } from 'react-native';
-import { ActivityIndicator, Button, List } from 'react-native-paper';
+import { ScrollView, Text, TextInput } from 'react-native';
+import { Button, List } from 'react-native-paper';
 import styles from '../css/styles';
 
 class Ingredients extends Component {
