@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
-import { ScrollView, TextInput, Alert, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
-import styles from '../css/styles';
-import { Button, ActivityIndicator, List } from 'react-native-paper';
+import { ScrollView, Text, View } from 'react-native';
 import { Overlay } from 'react-native-elements';
+import { ActivityIndicator, Button, List } from 'react-native-paper';
+import ProgressBar from 'react-native-progress/Bar';
+import styles from '../css/styles';
 
 class Result extends Component {
 
@@ -31,6 +31,17 @@ class Result extends Component {
 
     render() {
 
+        result = parseFloat(this.state.result)
+        result = result / 100
+
+        if (result < 0.31)
+            color = "#eb0000"
+        else if (result > 0.3 && result < 0.61)
+            color = "#ebeb00"
+        else if (result > 0.6)
+            color = "#76eb00"
+
+
         if (!this.state.result) {
             return (
                 <Overlay height={200} isVisible={this.state.isVisible}>
@@ -45,13 +56,19 @@ class Result extends Component {
                 </Overlay>
             );
         }
-
         return (
             <ScrollView style={{ backgroundColor: '#efefef' }}>
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>YOUR RESULT</List.Subheader>
-                    <View style={[styles.MainContainer,{ paddingVertical: 100 }]}>
+                    <View style={[styles.MainContainer, { paddingVertical: 100 }]}>
                         <Text style={[styles.usernameLabel, { fontSize: 50 }]}>{this.state.result}%</Text>
+                        <ProgressBar
+                            style={{ marginVertical: 10 }}
+                            progress={result}
+                            borderRadius={100}
+                            color={color}
+                            width={200}
+                            height={20} />
                         <Text style={styles.usernameLabel}>match with your skin preferences!</Text>
                     </View>
                 </List.Section>

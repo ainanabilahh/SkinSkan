@@ -66,6 +66,21 @@ export default {
     backgroundColor: 'rgba(243, 243, 243, 0.5)',
   },
 
+  buttonContainer: {
+    marginTop: 15,
+  },
+  separator: {
+    marginVertical: 30,
+    borderWidth: 0.5,
+    borderColor: '#DCDCDC',
+  },
+  label: {
+    color: '#999',
+    fontSize: 14,
+    fontWeight: '500',
+    marginBottom: 10,
+  },
+
   inputBoxMultiLine: {
     height: 200,
     marginHorizontal: 8,
