@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { ScrollView, Text, TextInput } from 'react-native';
-import { Button, List } from 'react-native-paper';
+import { View, ScrollView, Text, TextInput } from 'react-native';
+import { Button, List, Chip } from 'react-native-paper';
 import styles from '../css/styles';
 
 class Ingredients extends Component {
@@ -13,7 +13,8 @@ class Ingredients extends Component {
             username: '',
             ingredients: '',
             result: null,
-        }
+        },
+        ingredientsArr = []
     }
 
     ListofIngredients = async () => {
@@ -45,11 +46,11 @@ class Ingredients extends Component {
             });
     }
 
-    ActivityIndicator = () => {
-
-        return (<Text>Aina</Text>)
+    Chip = () => {
+        this.state.ingredients = this.state.ingredients.replace(/ *\([^)]*\) */g, "");
+        this.state.ingredients = this.state.ingredients.split(", ");
+        ingredientsArr = this.state.ingredients
     }
-
 
     render() {
         return (
@@ -66,7 +67,14 @@ class Ingredients extends Component {
                         onChangeText={ingredients => this.setState({ ingredients })}
                         style={styles.inputBoxMultiLine}
                     />
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                        {ingredientsArr.map((ing,index) =>
+                            <Chip key={index} mode="outlined">{ing}</Chip>
+                        )}
+                    </View>
                 </List.Section>
+
+                <Button style={styles.button} mode="contained" icon="check" onPress={this.Chip}>Test</Button>
                 <Button style={styles.button} mode="contained" icon="check" onPress={this.ListofIngredients}>Proceed</Button>
             </ScrollView>
         );
