@@ -36,39 +36,9 @@ class Scan extends Component {
     }
   }
 
-  flash = () => {
-    if (this.state.flashMode == RNCamera.Constants.FlashMode.off) {
-      this.setState({ flashMode: RNCamera.Constants.FlashMode.torch });
-    } else this.setState({ flashMode: RNCamera.Constants.FlashMode.off });
-  };
-
-  takePicture = async () => {
-    const { memoStore } = this.props.store;
-    try {
-      memoStore.loaderTrue();
-      console.log('try', memoStore.loader);
-      const options = {
-        quality: 0.8,
-        base64: true,
-        skipProcessing: true,
-      };
-      const { uri } = await this.camera.takePictureAsync(options);
-      const visionResp = await RNTextDetector.detectFromUri(uri);
-      this.props.store.memoStore.addItem(visionResp);
-      console.log('visionResp', visionResp);
-    } catch (e) {
-      console.warn(e);
-    }
-    memoStore.loaderFalse();
-    let id = memoStore.memoArray.length - 1;
-    memoStore.setEditId(parseInt(id));
-    this.props.navigation.navigate('MemoView', {
-      otherParam: id,
-    });
-    console.log('try outside', memoStore.loader);
-  };
-
-
+  Camera = () => {
+    this.props.navigation.navigate('Camera')
+  }
   Scan = () => {
     this.props.navigation.navigate('Ingredients')
   }
@@ -82,7 +52,7 @@ class Scan extends Component {
         <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
           <Image style={{ marginTop: 40, width: 280, height: 295 }} source={require('../images/steps.png')} />
           <View style={styles.TextInputContainer}>
-            <TouchableOpacity activeOpacity={.4} style={[styles.button, { borderRadius: 0, width: 280, marginVertical: 0, backgroundColor: '#70ebdb' }]} onPress={this.Scan} >
+            <TouchableOpacity activeOpacity={.4} style={[styles.button, { borderRadius: 0, width: 280, marginVertical: 0, backgroundColor: '#70ebdb' }]} onPress={this.Camera} >
               <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
                 <Image style={{ width: 27, height: 27 }} source={require('../images/numbers/006-four.png')} />
                 <Text style={styles.buttonText}> Start Scan </Text>
