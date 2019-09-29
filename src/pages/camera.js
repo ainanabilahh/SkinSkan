@@ -2,8 +2,6 @@ import CameraRoll from "@react-native-community/cameraroll";
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View, PermissionsAndroid } from 'react-native';
 import { RNCamera } from 'react-native-camera';
-import * as RNFS from 'react-native-fs';
-import RNFetchBlob from 'react-native-fetch-blob'
 import styles from '../css/styles';
 
 class Camera extends Component {
@@ -136,7 +134,6 @@ class Camera extends Component {
       console.log(error);
     });*/
   }
-};
 }
 
 export default Camera;

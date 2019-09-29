@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import { BackHandler, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { BackHandler, StatusBar, View } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
+import { Button } from 'react-native-paper';
 import styles from '../css/styles';
 
+const options = {
+  title: 'Select Image',
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
+
 class Scan extends Component {
-
-  state = {
-    progress: 20,
-    progressWithOnComplete: 0,
-    progressCustomized: 0,
-  }
-
-  increase = (key, value) => {
-    this.setState({
-      [key]: this.state[key] + value,
-    });
-  }
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressed);
@@ -32,8 +30,75 @@ class Scan extends Component {
     super(props);
     this.state = {
       isLoading: true,
-      username: ''
+      username: '',
+      result: null,
+      photo: null,
+      selectedOption: '',
+      imageModalVisible: true
     }
+  }
+
+  handleImage = () => {
+
+    let body = new FormData();
+
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = { uri: response.uri };
+        const base64 = { uri: response.data };
+
+        this.setState({
+          photo: source,
+        });
+
+        body.append('photo', { uri: base64, name: 'photo.png', filename: 'imageName.png', type: 'image/png' });
+        body.append('Content-Type', 'image/png');
+
+        fetch("http://192.168.49.185/skinskan/uploadImage.php", {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: console.log(JSON.stringify({
+            username: "yang",
+            image_name: response.fileName,
+            image_data: response.data,
+          }))
+        }).then((response) => response.json())
+          .then((responseJson) => {
+
+            this.props.navigation.navigate('Result', { result: this.state.result })
+
+          }).catch((error) => {
+            console.error(error);
+          });
+
+
+        /*fetch("http://192.168.49.185/skinskan/uploadImage.php", {
+          method: "POST",
+          body: console.log(createFormData(this.state.photo, { username: "yang" }))
+        })
+          .then(response => response.json())
+          .then(response => {
+            console.log("upload succes", response);
+            alert("Upload success!");
+            this.setState({ photo: null });
+          })
+          .catch(error => {
+            console.log("upload error", error);
+            alert("Upload failed!");
+          });*/
+      }
+    });
   }
 
   Camera = () => {
@@ -50,15 +115,7 @@ class Scan extends Component {
       <View style={styles.ContentContainer}>
         <StatusBar backgroundColor="#512DA8" barStyle="light-content" />
         <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-          <Image style={{ marginTop: 40, width: 280, height: 295 }} source={require('../images/steps.png')} />
-          <View style={styles.TextInputContainer}>
-            <TouchableOpacity activeOpacity={.4} style={[styles.button, { borderRadius: 0, width: 280, marginVertical: 0, backgroundColor: '#70ebdb' }]} onPress={this.Camera} >
-              <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
-                <Image style={{ width: 27, height: 27 }} source={require('../images/numbers/006-four.png')} />
-                <Text style={styles.buttonText}> Start Scan </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+          <Button style={styles.button} mode="contained" icon="check" onPress={this.selectPhoto}>Select Image</Button>
         </View>
       </View >
     );
