@@ -4,14 +4,6 @@ import { Button } from 'react-native-paper';
 import ImagePicker from 'react-native-image-crop-picker';
 import styles from '../css/styles';
 
-const options = {
-  title: 'Select Image',
-  storageOptions: {
-    skipBackup: true,
-    path: 'images',
-  },
-};
-
 class Scan extends Component {
 
   componentDidMount() {
@@ -113,11 +105,6 @@ class Scan extends Component {
       console.log(e), this.setState({ imageModalVisible: false })
     });
   }
-
-  Scan = () => {
-    this.props.navigation.navigate('Ingredients')
-  }
-
 
   render() {
 
