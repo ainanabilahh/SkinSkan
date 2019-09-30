@@ -22,7 +22,7 @@ class ViewUser extends Component {
 
       username = await AsyncStorage.getItem('username') || 'undefined';
 
-      fetch('http://192.168.49.185/skinskan/ViewUser.php', {
+      fetch('http://192.168.42.194/skinskan/ViewUser.php', {
          signal: this.abortController.signal,
          method: 'POST',
          headers: {
