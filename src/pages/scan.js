@@ -40,7 +40,7 @@ class Scan extends Component {
     }).then(response => {
       this.setState({ imageModalVisible: false })
 
-      fetch("http://192.168.42.194/skinskan/uploadImage.php", {
+      fetch("http://127.0.0.1/skinskan/uploadImage.php", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -80,7 +80,7 @@ class Scan extends Component {
 
       this.props.navigation.navigate('Result', { result: this.state.result })
 
-      fetch("http://192.168.42.194/skinskan/uploadImage.php", {
+      fetch("http://127.0.0.1/skinskan/uploadImage.php", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

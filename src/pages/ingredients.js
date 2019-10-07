@@ -23,7 +23,7 @@ class Ingredients extends Component {
 
         username = await AsyncStorage.getItem('username') || 'undefined';
 
-        fetch('http://192.168.42.194/skinskan/scan.php', {
+        fetch('http://127.0.0.1/skinskan/scan.php', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
