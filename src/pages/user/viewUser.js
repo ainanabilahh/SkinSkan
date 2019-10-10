@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { RefreshControl, ScrollView, Text, View } from 'react-native';
+import { Alert, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { Avatar, Divider, List } from 'react-native-paper';
 import styles from '../../css/styles';
 
@@ -22,7 +22,7 @@ class ViewUser extends Component {
 
       username = await AsyncStorage.getItem('username') || 'undefined';
 
-      fetch('http://127.0.0.1/skinskan/ViewUser.php', {
+      fetch('http://192.168.49.185/skinskan/ViewUser.php', {
          signal: this.abortController.signal,
          method: 'POST',
          headers: {
@@ -68,7 +68,22 @@ class ViewUser extends Component {
    };
 
    DeleteUser = () => {
-      this.props.navigation.navigate('DeleteUser');
+
+      Alert.alert(
+         'Delete Confirmation',
+         'Are you sure you want to delete your account?',
+         [
+           {
+             text: 'Cancel',
+             onPress: () => console.log('Cancel Pressed'),
+             style: 'cancel',
+           },
+           {text: 'Yes', onPress: () => this.props.navigation.navigate('DeleteUser')},
+         ],
+         {cancelable: false},
+       );
+
+      //this.props.navigation.navigate('DeleteUser');
    };
 
    Logout = () => {

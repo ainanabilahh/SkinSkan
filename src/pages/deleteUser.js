@@ -13,7 +13,7 @@ class DeleteUser extends Component {
 
   async componentDidMount() {
 
-    fetch('http://127.0.0.1/skinskan/deleteUser.php', {
+    fetch('http://192.168.49.185/skinskan/deleteUser.php', {
       signal: this.abortController.signal,
       method: 'POST',
       headers: {

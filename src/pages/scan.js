@@ -1,12 +1,14 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { BackHandler, StatusBar, View, Alert } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Alert, BackHandler, StatusBar, View } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
+import { Button } from 'react-native-paper';
 import styles from '../css/styles';
 
 class Scan extends Component {
 
-  componentDidMount() {
+  async componentDidMount() {
+    username = await AsyncStorage.getItem('username') || 'undefined';
     BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressed);
   }
 
@@ -40,22 +42,23 @@ class Scan extends Component {
     }).then(response => {
       this.setState({ imageModalVisible: false })
 
-      fetch("http://127.0.0.1/skinskan/uploadImage.php", {
+      this.props.navigation.navigate('Result', { result: this.state.result })
+
+      fetch("http://192.168.49.185/skinskan/uploadImage.php", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         body: console.log(JSON.stringify({
-          username: "yang",
+          username: username,
           image_name: response.modificationDate,
           image_data: response.data,
         }))
       }).then((response) => response.json())
         .then((responseJson) => {
 
-          Alert.alert(responseJson);
-
+          this.setState({ result: responseJson })
           this.props.navigation.navigate('Result', { result: this.state.result })
 
         }).catch((error) => {
@@ -80,14 +83,14 @@ class Scan extends Component {
 
       this.props.navigation.navigate('Result', { result: this.state.result })
 
-      fetch("http://127.0.0.1/skinskan/uploadImage.php", {
+      fetch("http://192.168.49.185/skinskan/uploadImage.php", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: "yang",
+          username: username,
           image_name: response.modificationDate,
           image_data: response.data,
         })

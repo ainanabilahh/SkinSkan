@@ -21,7 +21,7 @@ class Login extends Component {
     await AsyncStorage.setItem('isLoggedIn', '1');
     await AsyncStorage.setItem('username', this.state.username);
 
-    fetch('http://127.0.0.1/skinskan/login.php', {
+    fetch('http://192.168.49.185/skinskan/login.php', {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -42,7 +42,7 @@ class Login extends Component {
           }
         }
         else {
-          Alert.alert(responseJson);
+          Alert.alert(responseJson.message);
         }
 
       }).catch((error) => {
