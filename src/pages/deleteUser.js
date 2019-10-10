@@ -29,7 +29,7 @@ class DeleteUser extends Component {
     }).then((response) => response.json())
       .then((responseJson) => {
         
-        Alert.alert(responseJson);
+        alert(responseJson);
 
       }).catch((error) => {
         console.error(error);

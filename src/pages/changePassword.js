@@ -38,7 +38,7 @@ class ChangePassword extends Component {
           this.props.navigation.navigate('ViewUser');
         }
         else {
-          Alert.alert(responseJson);
+          alert(responseJson);
         }
 
       }).catch((error) => {

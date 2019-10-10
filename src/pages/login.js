@@ -42,7 +42,7 @@ class Login extends Component {
           }
         }
         else {
-          Alert.alert(responseJson.message);
+          alert(responseJson.message);
         }
 
       }).catch((error) => {

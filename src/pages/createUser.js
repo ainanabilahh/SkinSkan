@@ -14,41 +14,54 @@ class CreateUser extends Component {
     }
   }
 
-  validateEmail = (email) => {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  };
+  validate = (username, email, password) => {
+    var u = /^(([a-zA-Z0-9]{5,15}$))/
+    var e = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var p = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
+
+    if (u.test(username) == false)
+      alert("Username must be more than 5 characters.")
+
+    if (e.test(email) == false)
+      alert("Email is not valid.")
+
+    if (p.test(password) == false)
+      alert("Your password must contain at least one lowercase letter, one number digit and more than 6 characters.")
+  }
 
   CreateUser = () => {
 
-    if (!this.validateEmail(this.state.email)) {
-      Alert.alert("Email is not valid.")
-    } else {
+    this.validate(this.state.username, this.state.email, this.state.password)
 
-      fetch('http://192.168.49.185/skinskan/register.php', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+    fetch('http://192.168.49.185/skinskan/register.php', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: console.log(JSON.stringify({
 
-          username: this.state.username,
-          email: this.state.email,
-          password: this.state.password
+        username: this.state.username,
+        email: this.state.email,
+        password: this.state.password
 
-        })
+      }))
 
-      }).then((response) => response.json())
-        .then((responseJson) => {
+    }).then((response) => response.json())
+      .then((responseJson) => {
 
-          Alert.alert(responseJson);
+        alert(responseJson);
 
-        }).catch((error) => {
-          console.error(error);
-        });
-    }
-    this.props.navigation.navigate("Login");
+        if (responseJson === 'User created.')
+        { 
+          this.props.navigation.navigate("Login");
+        }
+        
+      }).catch((error) => {
+        console.error(error);
+      });
+
+    
   }
 
   Login = () => {
