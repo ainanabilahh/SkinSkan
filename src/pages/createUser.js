@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Image, Text, View, TouchableOpacity } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import styles from '../css/styles';
 
@@ -11,7 +11,12 @@ class CreateUser extends Component {
       username: '',
       email: '',
       password: '',
+      hidePassword: true
     }
+  }
+
+  managePasswordVisibility = () => {
+    this.setState({ hidePassword: !this.state.hidePassword });
   }
 
   validate = (username, email, password) => {
@@ -39,29 +44,26 @@ class CreateUser extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: console.log(JSON.stringify({
+      body: JSON.stringify({
 
         username: this.state.username,
         email: this.state.email,
         password: this.state.password
 
-      }))
+      })
 
     }).then((response) => response.json())
       .then((responseJson) => {
 
         alert(responseJson);
 
-        if (responseJson === 'User created.')
-        { 
+        if (responseJson === 'User created.') {
           this.props.navigation.navigate("Login");
         }
-        
+
       }).catch((error) => {
         console.error(error);
       });
-
-    
   }
 
   Login = () => {
@@ -97,14 +99,20 @@ class CreateUser extends Component {
           underlineColorAndroid='transparent'
           style={styles.inputBox}
         />
-        <TextInput
-          mode="outlined"
-          label="Password"
-          value={this.state.password}
-          onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
-          secureTextEntry={true}
-          style={styles.inputBox}
-        />
+        <View style={styles.textBoxBtnHolder}>
+          <TextInput
+            mode="outlined"
+            label="Password"
+            value={this.state.password}
+            onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
+            style={styles.inputBox}
+            secureTextEntry={this.state.hidePassword}
+          />
+
+          <TouchableOpacity activeOpacity={0.8} style={styles.visibilityBtn} onPress={this.managePasswordVisibility}>
+            <Image source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')} style={styles.btnImage} />
+          </TouchableOpacity>
+        </View>
 
         <Button style={[styles.button, { width: 300 }]} icon="add" mode="contained" onPress={this.CreateUser} >Sign Up</Button>
 

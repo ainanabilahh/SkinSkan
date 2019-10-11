@@ -9,6 +9,29 @@ export default {
     flex: 1,
   },
 
+  textBoxBtnHolder:
+  {
+    position: 'relative',
+    justifyContent: 'center'
+  },
+  
+  visibilityBtn:
+  {
+    position: 'absolute',
+    bottom: 10,
+    right: 65,
+    height: 40,
+    width: 35,
+    padding: 5
+  },
+ 
+  btnImage:
+  {
+    resizeMode: 'contain',
+    height: '100%',
+    width: '100%'
+  },
+
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -52,7 +75,7 @@ export default {
     height: 60,
     margin: 60,
     paddingHorizontal: 8,
-    marginVertical: 8
+    marginVertical: 8,
   },
 
 

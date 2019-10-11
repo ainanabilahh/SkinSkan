@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { Component } from 'react';
-import { Alert } from 'react-native';
 import { NavigationActions, StackActions } from 'react-navigation';
 
 class DeleteUser extends Component {
@@ -28,7 +27,7 @@ class DeleteUser extends Component {
 
     }).then((response) => response.json())
       .then((responseJson) => {
-        
+
         alert(responseJson);
 
       }).catch((error) => {
@@ -37,7 +36,7 @@ class DeleteUser extends Component {
 
     AsyncStorage.removeItem('isLoggedIn');
     AsyncStorage.removeItem('username');
-    
+
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'Auth' })],

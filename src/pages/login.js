@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Alert, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import styles from '../css/styles';
 
@@ -11,7 +11,12 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
+      hidePassword: true
     }
+  }
+
+  managePasswordVisibility = () => {
+    this.setState({ hidePassword: !this.state.hidePassword });
   }
 
   _login = async () => {
@@ -32,8 +37,7 @@ class Login extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
 
-        if (responseJson.message === 'Data Matched')
-        { 
+        if (responseJson.message === 'Data Matched') {
           if (responseJson.status == 0) {
             this.props.navigation.navigate('Skin');
           }
@@ -71,15 +75,20 @@ class Login extends Component {
           onChangeText={username => this.setState({ username })}
           style={styles.inputBox}
         />
-        <TextInput
-          mode="outlined"
-          autoCapitalize="none"
-          label="Password"
-          value={this.state.password}
-          onChangeText={password => this.setState({ password })}
-          secureTextEntry={true}
-          style={styles.inputBox}
-        />
+        <View style={styles.textBoxBtnHolder}>
+          <TextInput
+            mode="outlined"
+            label="Password"
+            value={this.state.password}
+            onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
+            style={styles.inputBox}
+            secureTextEntry={this.state.hidePassword}
+          />
+
+          <TouchableOpacity activeOpacity={0.8} style={styles.visibilityBtn} onPress={this.managePasswordVisibility}>
+            <Image source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')} style={styles.btnImage} />
+          </TouchableOpacity>
+        </View>
 
         <Button style={[styles.button, { width: 300 }]} mode="contained" icon="check" onPress={this._login} >Sign In</Button>
 

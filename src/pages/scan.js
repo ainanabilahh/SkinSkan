@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Alert, BackHandler, StatusBar, View } from 'react-native';
+import { BackHandler, StatusBar, View } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import { Button } from 'react-native-paper';
 import styles from '../css/styles';
