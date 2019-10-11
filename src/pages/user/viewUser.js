@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Alert, RefreshControl, ScrollView, Text, View } from 'react-native';
+import { Image, Alert, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { Avatar, Divider, List } from 'react-native-paper';
 import styles from '../../css/styles';
 
@@ -15,6 +15,7 @@ class ViewUser extends Component {
          username: '',
          email: '',
          description: '',
+         verified: false,
       }
    }
 
@@ -37,12 +38,18 @@ class ViewUser extends Component {
             this.setState({
                username: username,
                email: responseJson.email,
-               description: responseJson.description
+               description: responseJson.description,
+               verified: responseJson.verified
             })
+
+            if (this.state.verified == 1)
+               this.setState({ verified: true })
+            else if (this.state.verified == 0)
+               this.setState({ verified: false })
+
          }).catch((err) => {
             if (err.name == 'AbortError') return
             throw err
-
          });
    }
 
@@ -71,17 +78,17 @@ class ViewUser extends Component {
 
       Alert.alert(
          'Delete Confirmation',
-         'Are you sure you want to delete your account?',
+         'Are you sure you want to delete your account? This action cannot be undo.',
          [
-           {
-             text: 'Cancel',
-             onPress: () => console.log('Cancel Pressed'),
-             style: 'cancel',
-           },
-           {text: 'Yes', onPress: () => this.props.navigation.navigate('DeleteUser')},
+            {
+               text: 'Cancel',
+               onPress: () => console.log('Cancel Pressed'),
+               style: 'cancel',
+            },
+            { text: 'Yes', onPress: () => this.props.navigation.navigate('DeleteUser') },
          ],
-         {cancelable: false},
-       );
+         { cancelable: false },
+      );
 
       //this.props.navigation.navigate('DeleteUser');
    };
@@ -91,6 +98,7 @@ class ViewUser extends Component {
    };
 
    render() {
+
       return (
          <ScrollView style={{ backgroundColor: '#efefef' }} refreshControl={this._refreshControl()}>
             <List.Section style={{ backgroundColor: '#fff' }}>
@@ -98,7 +106,10 @@ class ViewUser extends Component {
                <View style={{ flexDirection: 'row', margin: 20 }}>
                   <Avatar.Icon style={{ backgroundColor: '#673AB7' }} icon="person" />
                   <View style={{ flexDirection: 'column', alignSelf: 'center' }}>
-                     <Text style={styles.usernameLabel}>{this.state.username}</Text>
+                     <View style={{ flexDirection: 'row' }}>
+                        <Text style={styles.usernameLabel}>{this.state.username}</Text>
+                        <Image source={(this.state.verified) ? require('../../images/check.png') : require('../../images/multiply.png')} style={{ width: 15, height: 15, alignSelf: 'center' }} />
+                     </View>
                      <Text style={{ marginHorizontal: 20 }}>{this.state.email}</Text>
                   </View>
                </View>

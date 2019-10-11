@@ -123,7 +123,8 @@ export default {
 
   usernameLabel: {
     fontSize: 20,
-    marginHorizontal: 20, 
+    marginLeft: 20,
+    marginRight: 10, 
     color: '#000',
     fontWeight: 'bold',
   },

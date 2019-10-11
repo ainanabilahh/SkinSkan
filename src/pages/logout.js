@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React from 'react';
-import { Alert } from 'react-native';
 import { NavigationActions, StackActions } from 'react-navigation';
 
 class Logout extends React.Component {
@@ -30,7 +29,7 @@ class Logout extends React.Component {
     });
     this.props.navigation.dispatch(resetAction);
 
-    Alert.alert('You have been logged out.');
+    alert('You have been logged out.');
   }
 }
 
