@@ -16,6 +16,7 @@ class ViewUser extends Component {
          email: '',
          description: '',
          verified: false,
+         message: null,
       }
    }
 
@@ -38,15 +39,8 @@ class ViewUser extends Component {
             this.setState({
                username: username,
                email: responseJson.email,
-               description: responseJson.description,
-               verified: responseJson.verified
+               verified: JSON.parse(responseJson.description)
             })
-
-            if (this.state.verified == 1)
-               this.setState({ verified: true })
-            else if (this.state.verified == 0)
-               this.setState({ verified: false })
-
          }).catch((err) => {
             if (err.name == 'AbortError') return
             throw err
@@ -65,6 +59,9 @@ class ViewUser extends Component {
       )
    }
 
+   VerifyAccount = () => {
+      this.props.navigation.navigate('VerifyAccount')
+   }
 
    ChangeEmail = () => {
       this.props.navigation.navigate('ChangeEmail')
@@ -89,8 +86,6 @@ class ViewUser extends Component {
          ],
          { cancelable: false },
       );
-
-      //this.props.navigation.navigate('DeleteUser');
    };
 
    Logout = () => {
@@ -114,6 +109,19 @@ class ViewUser extends Component {
                   </View>
                </View>
                <Divider />
+               {this.state.verified
+                  ? <List.Item
+                     title="Your account is verified"
+                     style={{ paddingVertical: -10 }}
+                     left={() => <List.Icon color="#a3a3a3" icon="person" />}
+                  />
+                  : <List.Item
+                     title="Verify Account"
+                     style={{ paddingVertical: -10 }}
+                     onPress={this.VerifyAccount}
+                     left={() => <List.Icon color="#a3a3a3" icon="person" />}
+                  />
+               }
                <List.Item
                   title="Change Email"
                   style={{ paddingVertical: -10 }}

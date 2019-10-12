@@ -55,9 +55,9 @@ class CreateUser extends Component {
     }).then((response) => response.json())
       .then((responseJson) => {
 
-        alert(responseJson);
+        alert(responseJson.message);
 
-        if (responseJson === 'User created.') {
+        if (responseJson.message === 'User created.') {
           this.props.navigation.navigate("Login");
         }
 
