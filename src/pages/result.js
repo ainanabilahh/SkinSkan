@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { Overlay } from 'react-native-elements';
-import { ActivityIndicator, Button, List } from 'react-native-paper';
+import { ActivityIndicator, Button, List, DataTable, Chip } from 'react-native-paper';
 import ProgressBar from 'react-native-progress/Bar';
 import styles from '../css/styles';
 
@@ -13,15 +13,20 @@ class Result extends Component {
             isLoading: true,
             username: '',
             ingredients: '',
-            result: null,
+            ing: null,
+            notes: null,
             isVisible: true
         }
     }
 
     componentDidUpdate() {
 
-        if (this.props.navigation.state.params.result !== this.state.result) {
-            this.setState({ result: this.props.navigation.state.params.result })
+        if (this.props.navigation.state.params.ing !== this.state.ing) {
+            this.setState({ ing: this.props.navigation.state.params.ing })
+        }
+
+        if (this.props.navigation.state.params.notes !== this.state.notes) {
+            this.setState({ notes: this.props.navigation.state.params.notes })
         }
     }
 
@@ -31,22 +36,17 @@ class Result extends Component {
 
     render() {
 
-        /*result = parseFloat(this.state.result)
-        result = result / 100
+        /*ing = parseFloat(this.state.ing)
+        ing = ing / 100
 
-        if (result < 0.31)
+        if (ing < 0.31)
             color = "#eb0000"
-        else if (result > 0.3 && result < 0.61)
+        else if (ing > 0.3 && ing < 0.61)
             color = "#ebeb00"
-        else if (result > 0.6)
+        else if (ing > 0.6)
             color = "#76eb00"*/
 
-        const data = [{ 'Note': 'Silicone', 'Qty': '2' }, { 'Note': 'Alcohol', 'Qty': '1' }, { 'Note': 'Allergen', 'Qty': '1' }, { 'Note': 'Anti-Aging', 'Qty': '2' }, { 'Note': 'Acne-Fighting', 'Qty': '1' }, { 'Note': 'Promotes Wound Healing', 'Qty': '3' }, { 'Note': 'Good for Dry Skin', 'Qty': '5' }, { 'Note': 'Comedogenic Rating (1)', 'Qty': '2' }, { 'Note': 'Comedogenic Rating (2)', 'Qty': '2' }, { 'Note': 'Comedogenic Rating (3)', 'Qty': '1' }];
-        const listItems = data.map((item, key) =>
-            <Text key={item.Note}>{item.Note}:{item.Qty}</Text>
-        );
-
-        if (!this.state.result) {
+        if (!this.state.notes) {
             return (
                 <Overlay height={200} isVisible={this.state.isVisible}>
                     <View style={styles.MainContainer}>
@@ -60,13 +60,25 @@ class Result extends Component {
                 </Overlay>
             );
         }
+
+        var ingArr = this.state.ing
+
+        const ingredients = ingArr.map((item) => {
+            ing = item.IngFound.split(", ")
+            return ing
+        })
+
+        const i = ing.map((item, key) =>
+            <Chip key={key} mode="outlined">{item}</Chip>
+        )
+
+
         return (
             <ScrollView style={{ backgroundColor: '#efefef' }}>
                 <List.Section style={{ backgroundColor: '#fff' }}>
-                    <List.Subheader style={{ backgroundColor: '#efefef' }}>YOUR RESULT</List.Subheader>
+                    <List.Subheader style={{ backgroundColor: '#efefef' }}>RESULT</List.Subheader>
                     <View style={[styles.MainContainer, { paddingVertical: 100 }]}>
-                        {/*<Text style={[styles.usernameLabel, { fontSize: 50 }]}>{this.state.result}%</Text>*/}
-                        {listItems}
+                        {/*<Text style={[styles.usernameLabel, { fontSize: 50 }]}>{this.state.ing}%</Text>*/}
                         <ProgressBar
                             style={{ marginVertical: 10 }}
                             progress={0.5}
@@ -76,6 +88,29 @@ class Result extends Component {
                             height={20} />
                         <Text style={styles.usernameLabel}>match with your skin preferences!</Text>
                     </View>
+                </List.Section>
+                <List.Section style={{ backgroundColor: '#fff' }}>
+                    <List.Subheader style={{ backgroundColor: '#efefef' }}>INGREDIENTS</List.Subheader>
+                    <View style={styles.MainContainer}>
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap'}}>
+                            {i}
+                        </View>
+                    </View>
+                </List.Section>
+                <List.Section style={{ backgroundColor: '#fff' }}>
+                    <List.Subheader style={{ backgroundColor: '#efefef' }}>DETAILS</List.Subheader>
+                    <DataTable>
+                        <DataTable.Header>
+                            <DataTable.Title>Notes</DataTable.Title>
+                            <DataTable.Title numeric>Quantity</DataTable.Title>
+                        </DataTable.Header>
+                        {this.state.notes.map((item, key) =>
+                            <DataTable.Row key={item.Note}>
+                                <DataTable.Title>{item.Note}</DataTable.Title>
+                                <DataTable.Cell numeric>{item.Qty}</DataTable.Cell>
+                            </DataTable.Row>
+                        )}
+                    </DataTable>
                 </List.Section>
                 <Button style={styles.button} mode="contained" icon="check" onPress={this.Back}>Back</Button>
             </ScrollView>
