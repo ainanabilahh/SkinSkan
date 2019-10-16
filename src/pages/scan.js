@@ -130,7 +130,6 @@ class Scan extends Component {
     return (
 
       <View style={styles.ContentContainer}>
-
         <StatusBar backgroundColor="#512DA8" barStyle="light-content" />
         <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
           <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 40 }}>This is your first skin care journey!</Text>

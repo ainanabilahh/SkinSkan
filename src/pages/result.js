@@ -69,10 +69,26 @@ class Result extends Component {
         })
 
         const i = ing.map((item, key) =>
-            <Chip key={key} mode="outlined">{item}</Chip>
+            <Chip key={key} textStyle={{ fontSize: 11 }} mode="outlined">{item}</Chip>
         )
 
+        const ingredients2 = ingArr.map((item) => {
+            ingX = item.IngNotFound.split(", ")
+            return ingX
+        })
 
+        var j = null;
+
+        if (ingX.length > 1) {
+            j = ingX.map((item, key) =>
+                <Chip key={key} textStyle={{ fontSize: 11 }} mode="outlined">{item}</Chip>
+            )
+        }
+        else if (ingX.length == 1) {
+            j = <Chip textStyle={{ fontSize: 11 }} mode="outlined">{JSON.stringify(ingX)}</Chip>
+        }
+
+        console.log(j)
         return (
             <ScrollView style={{ backgroundColor: '#efefef' }}>
                 <List.Section style={{ backgroundColor: '#fff' }}>
@@ -90,14 +106,6 @@ class Result extends Component {
                     </View>
                 </List.Section>
                 <List.Section style={{ backgroundColor: '#fff' }}>
-                    <List.Subheader style={{ backgroundColor: '#efefef' }}>INGREDIENTS</List.Subheader>
-                    <View style={styles.MainContainer}>
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap'}}>
-                            {i}
-                        </View>
-                    </View>
-                </List.Section>
-                <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>DETAILS</List.Subheader>
                     <DataTable>
                         <DataTable.Header>
@@ -111,6 +119,22 @@ class Result extends Component {
                             </DataTable.Row>
                         )}
                     </DataTable>
+                </List.Section>
+                <List.Section style={{ backgroundColor: '#fff' }}>
+                    <List.Subheader style={{ backgroundColor: '#efefef' }}>INGREDIENTS FOUND</List.Subheader>
+                    <View style={styles.MainContainer}>
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                            {i}
+                        </View>
+                    </View>
+                </List.Section>
+                <List.Section style={{ backgroundColor: '#fff' }}>
+                    <List.Subheader style={{ backgroundColor: '#efefef' }}>INGREDIENTS NOT FOUND</List.Subheader>
+                    <View style={styles.MainContainer}>
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                            {j != null ? { j } : <Text>None</Text>}
+                        </View>
+                    </View>
                 </List.Section>
                 <Button style={styles.button} mode="contained" icon="check" onPress={this.Back}>Back</Button>
             </ScrollView>
