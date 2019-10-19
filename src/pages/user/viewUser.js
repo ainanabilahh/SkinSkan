@@ -111,12 +111,16 @@ class ViewUser extends Component {
                <Divider />
                {this.state.verified
                   ? <List.Item
-                     title="Your account is verified"
+                     title="Account Verification"
+                     description="Your account is verified."
+                     descriptionStyle={{ color: "#008000" }}
                      style={{ paddingVertical: -10 }}
                      left={() => <List.Icon color="#a3a3a3" icon="person" />}
                   />
                   : <List.Item
-                     title="Verify Account"
+                     title="Account Verification"
+                     description="Your account is not verified."
+                     descriptionStyle={{ color: "#FF0000" }}
                      style={{ paddingVertical: -10 }}
                      onPress={this.VerifyAccount}
                      left={() => <List.Icon color="#a3a3a3" icon="person" />}
@@ -142,16 +146,17 @@ class ViewUser extends Component {
                />
                <List.Subheader style={{ backgroundColor: '#efefef' }}>OTHERS</List.Subheader>
                <List.Item
-                  title="Delete Account"
-                  onPress={this.DeleteUser}
-                  style={{ paddingVertical: -10 }}
-                  left={() => <List.Icon color="#a3a3a3" icon="delete" />}
-               />
-               <List.Item
                   title="Sign Out"
                   onPress={this.Logout}
                   style={{ paddingVertical: -10 }}
                   left={() => <List.Icon color="#a3a3a3" icon="exit-to-app" />}
+               />
+               <List.Item
+                  title="Delete Account"
+                  titleStyle={{ color: "#FF0000" }}
+                  onPress={this.DeleteUser}
+                  style={{ paddingVertical: -10, }}
+                  left={() => <List.Icon color="#FF0000" icon="delete" />}
                />
             </List.Section>
          </ScrollView>

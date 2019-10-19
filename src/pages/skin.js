@@ -171,6 +171,10 @@ class Skin extends Component {
                                 <RadioButton value="4" color="#2289dc" />
                                 <Text style={styles.radioButtonStyle}> Oily Skin</Text>
                             </View>
+                            <View style={styles.radioButtonContainer}>
+                                <RadioButton value="5" color="#2289dc" />
+                                <Text style={styles.radioButtonStyle}> Sensitive Skin</Text>
+                            </View>
                         </View>
                     </RadioButton.Group>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>INGREDIENTS EFFECTS</List.Subheader>

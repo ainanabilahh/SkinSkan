@@ -32,38 +32,45 @@ class CreateUser extends Component {
 
     if (p.test(password) == false)
       alert("Your password must contain at least one lowercase letter, one number digit and more than 6 characters.")
+
+    if (u.test(username) == true && e.test(email) == true && p.test(password) == true)
+      return true;
+    else
+      return false;
   }
 
   CreateUser = () => {
 
-    this.validate(this.state.username, this.state.email, this.state.password)
+    var validate = this.validate(this.state.username, this.state.email, this.state.password)
 
-    fetch('http://192.168.49.185/skinskan/register.php', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    if (validate == true) {
+      fetch('http://192.168.49.185/skinskan/register.php', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
 
-        username: this.state.username,
-        email: this.state.email,
-        password: this.state.password
+          username: this.state.username,
+          email: this.state.email,
+          password: this.state.password
 
-      })
+        })
 
-    }).then((response) => response.json())
-      .then((responseJson) => {
+      }).then((response) => response.json())
+        .then((responseJson) => {
 
-        alert(responseJson.message);
+          alert(responseJson.message);
 
-        if (responseJson.message === 'User created.') {
-          this.props.navigation.navigate("Login");
-        }
+          if (responseJson.message === 'User created.') {
+            this.props.navigation.navigate("Login");
+          }
 
-      }).catch((error) => {
-        console.error(error);
-      });
+        }).catch((error) => {
+          console.error(error);
+        });
+    }
   }
 
   Login = () => {
