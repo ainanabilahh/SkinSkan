@@ -41,7 +41,8 @@ class ChangeEmail extends Component {
         }
 
       }).catch((error) => {
-        console.error(error);
+        alert("There is a network error. Please try again.")
+        console.log(error);
       });
   }
 

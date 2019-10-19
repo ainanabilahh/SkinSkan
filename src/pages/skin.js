@@ -79,6 +79,7 @@ class Skin extends Component {
                         this.setState({ fungal: true })
                 }
             }).catch((err) => {
+                alert("There is a network error. Please try again.")
                 if (err.name == 'AbortError') return
                 throw err
             });

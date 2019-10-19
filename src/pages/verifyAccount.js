@@ -32,7 +32,8 @@ class VerifyAccount extends Component {
                 alert(responseJson.message);
 
             }).catch((error) => {
-                console.error(error);
+                alert("There is a network error. Please try again.")
+                console.log(error);
             });
         this.props.navigation.navigate('ViewUser')
     }

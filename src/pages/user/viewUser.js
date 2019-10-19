@@ -42,6 +42,7 @@ class ViewUser extends Component {
                verified: JSON.parse(responseJson.description)
             })
          }).catch((err) => {
+            alert("There is a network error. Please try again.")
             if (err.name == 'AbortError') return
             throw err
          });
