@@ -46,7 +46,10 @@ class Scan extends Component {
     }).then(response => {
       this.setState({ imageModalVisible: false })
 
-      this.props.navigation.navigate('Result', { result: this.state.result })
+      this.props.navigation.navigate('Result', {
+        ing: this.state.ing,
+        notes: this.state.notes
+      });
 
       fetch("http://192.168.49.185/skinskan/uploadImage.php", {
         method: 'POST',
@@ -59,18 +62,20 @@ class Scan extends Component {
           image_name: response.modificationDate,
           image_data: response.data,
         })
-      }).then((response) => response.json())
+      }).then((response) => response.text())
         .then((responseJson) => {
 
-          this.setState({ result: JSON.parse(responseJson) })
-          for (var i = 0; i < this.state.result.length; i++) {
-            console.log(this.state.result[i].index);
-          }
-          this.props.navigation.navigate('Result', { result: this.state.result })
-
+          var result = JSON.parse(responseJson)
+          this.setState({ ing: result.Ingredients })
+          this.setState({ notes: result.Notes })
+          this.props.navigation.navigate('Result', {
+            ing: this.state.ing,
+            notes: this.state.notes
+          });
 
         }).catch((error) => {
-          console.error(error);
+          alert("There is a network error. Please try again.")
+          console.log(error);
         });
 
     }).catch(e => {
