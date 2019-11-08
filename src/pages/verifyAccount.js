@@ -16,7 +16,7 @@ class VerifyAccount extends Component {
 
     componentDidMount() {
 
-        fetch('http://192.168.49.185/skinskan/verifyAccount.php', {
+        fetch('http://178.128.51.213/skinskan/verifyAccount.php', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

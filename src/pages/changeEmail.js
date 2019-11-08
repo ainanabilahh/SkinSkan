@@ -15,7 +15,7 @@ class ChangeEmail extends Component {
 
   UpdateEmail = () => {
 
-    fetch('http://192.168.49.185/skinskan/updateEmail.php', {
+    fetch('http://178.128.51.213/skinskan/updateEmail.php', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

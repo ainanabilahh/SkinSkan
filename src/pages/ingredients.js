@@ -12,18 +12,25 @@ class Ingredients extends Component {
             isLoading: true,
             username: '',
             ingredients: '',
+            ing: [],
+            notes: [],
+            ingY: [],
+            ingArr: [],
             result: null,
         },
-        ingredientsArr = []
+            ingredientsArr = []
     }
 
-    ListofIngredients = async () => {
+    ListofIngredients = () => {
 
-        this.props.navigation.navigate('Result', { result: this.state.result })
+        //username = await AsyncStorage.getItem('username') || 'undefined';
 
-        username = await AsyncStorage.getItem('username') || 'undefined';
+        this.props.navigation.navigate('Result', {
+            ing: this.state.ing,
+            notes: this.state.notes
+        });
 
-        fetch('http://192.168.49.185/skinskan/scan.php', {
+        fetch('http://178.128.51.213/skinskan/scan.php', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -31,15 +38,21 @@ class Ingredients extends Component {
             },
             body: JSON.stringify({
 
-                username: username,
+                username: "ainoarikaa",
                 ingredients: this.state.ingredients
             })
 
-        }).then((response) => response.json())
+        }).then((response) => response.text())
             .then((responseJson) => {
 
-                this.setState({ result: responseJson })
-                this.props.navigation.navigate('Result', { result: this.state.result })
+                var result = JSON.parse(responseJson)
+                this.setState({ ing: result.Ingredients })
+                this.setState({ notes: result.Notes })
+                console.log(this.state.notes)
+                this.props.navigation.navigate('Result', {
+                    ing: this.state.ing,
+                    notes: this.state.notes
+                });
 
             }).catch((error) => {
                 alert("There is a network error. Please try again.")
@@ -68,11 +81,6 @@ class Ingredients extends Component {
                         onChangeText={ingredients => this.setState({ ingredients })}
                         style={styles.inputBoxMultiLine}
                     />
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                        {ingredientsArr.map((ing,index) =>
-                            <Chip key={index} mode="outlined">{ing}</Chip>
-                        )}
-                    </View>
                 </List.Section>
 
                 <Button style={styles.button} mode="contained" icon="check" onPress={this.Chip}>Test</Button>

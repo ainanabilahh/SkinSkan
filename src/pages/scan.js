@@ -51,7 +51,7 @@ class Scan extends Component {
         notes: this.state.notes
       });
 
-      fetch("http://192.168.49.185/skinskan/uploadImage.php", {
+      fetch("http://178.128.51.213/skinskan/uploadImage.php", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -83,6 +83,10 @@ class Scan extends Component {
     });
   }
 
+  insertIngredients = () => {
+    this.props.navigation.navigate('Ingredients')
+  };
+  
   selectPhoto = () => {
     ImagePicker.openPicker({
       cropping: true,
@@ -99,7 +103,7 @@ class Scan extends Component {
         notes: this.state.notes
       });
 
-      fetch("http://192.168.49.185/skinskan/uploadImage.php", {
+      fetch("http://178.128.51.213/skinskan/uploadImage.php", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -113,6 +117,7 @@ class Scan extends Component {
       }).then((response) => response.text())
         .then((responseJson) => {
 
+          console.log(responseJson)
           var result = JSON.parse(responseJson)
           this.setState({ ing: result.Ingredients })
           this.setState({ notes: result.Notes })

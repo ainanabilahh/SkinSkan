@@ -44,7 +44,7 @@ class CreateUser extends Component {
     var validate = this.validate(this.state.username, this.state.email, this.state.password)
 
     if (validate == true) {
-      fetch('http://192.168.49.185/skinskan/register.php', {
+      fetch('http://178.128.51.213/skinskan/register.php', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
