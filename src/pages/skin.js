@@ -157,24 +157,28 @@ class Skin extends Component {
                     >
                         <View style={{ flexDirection: 'column', marginHorizontal: 10 }}>
                             <View style={styles.radioButtonContainer}>
-                                <RadioButton value="1" color="#2289dc" />
-                                <Text style={styles.radioButtonStyle}> Dry Skin</Text>
+                                <RadioButton value="0" color="#2289dc" />
+                                <Text style={styles.radioButtonStyle}> I don't know</Text>
                             </View>
                             <View style={styles.radioButtonContainer}>
-                                <RadioButton value="2" color="#2289dc" />
+                                <RadioButton value="1" color="#2289dc" />
                                 <Text style={styles.radioButtonStyle}> Normal Skin</Text>
                             </View>
                             <View style={styles.radioButtonContainer}>
+                                <RadioButton value="2" color="#2289dc" />
+                                <Text style={styles.radioButtonStyle}> Dry Skin</Text>
+                            </View>
+                            <View style={styles.radioButtonContainer}>
                                 <RadioButton value="3" color="#2289dc" />
-                                <Text style={styles.radioButtonStyle}> Combination Skin</Text>
+                                <Text style={styles.radioButtonStyle}> Sensitive Skin</Text>
                             </View>
                             <View style={styles.radioButtonContainer}>
                                 <RadioButton value="4" color="#2289dc" />
-                                <Text style={styles.radioButtonStyle}> Oily Skin</Text>
+                                <Text style={styles.radioButtonStyle}> Combination Skin</Text>
                             </View>
                             <View style={styles.radioButtonContainer}>
                                 <RadioButton value="5" color="#2289dc" />
-                                <Text style={styles.radioButtonStyle}> Sensitive Skin</Text>
+                                <Text style={styles.radioButtonStyle}> Oily Skin</Text>
                             </View>
                         </View>
                     </RadioButton.Group>

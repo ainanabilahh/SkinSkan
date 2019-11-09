@@ -1,7 +1,5 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Image, ScrollView, Text, View } from 'react-native';
-import { CheckBox } from 'react-native-elements';
+import { ScrollView, Text, View } from 'react-native';
 import { Button, List, RadioButton } from 'react-native-paper';
 import styles from '../css/styles';
 
@@ -16,7 +14,8 @@ class SkinQuiz extends Component {
             four: null,
             five: null,
             current: 0,
-            skinResult: null
+            skinResult: null,
+            value: ''
         }
     }
 
@@ -223,7 +222,10 @@ class SkinQuiz extends Component {
     }
 
     back = () => {
-        this.props.navigation.navigate('Skin', {
+
+        this.setState({ current: 0 })
+
+        this.props.navigation.navigate('SkinQuiz', {
             current: this.state.current,
         });
     }
@@ -232,8 +234,9 @@ class SkinQuiz extends Component {
 
         if (this.state.current == 0) {
             return (
-                <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-                    <Text style={{ marginVertical: 30, fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 40 }}> Take this quiz to find your skin type!</Text>
+                <View style={{ backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+                    <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 10 }}> Take this quiz to find your skin type!</Text>
+                    <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 12, textAlign: 'center', margin: 30, color:'red' }}> *For more accurate result, {"\n"} please seek dermatologist.</Text>
                     <Button style={styles.button} mode="contained" icon="arrow-forward" onPress={this.startQuiz}>Start</Button>
                 </View>
             );
@@ -446,7 +449,7 @@ class SkinQuiz extends Component {
                         <List.Subheader style={{ backgroundColor: '#efefef' }}>RESULT</List.Subheader>
                         <Text>{this.state.skin}</Text>
                     </List.Section>
-                    <Button style={styles.button} mode="contained" icon="arrow-back" onPress={this.backCurrent}>Back</Button>
+                    <Button style={styles.button} mode="contained" icon="arrow-back" onPress={this.back}>Back</Button>
                 </ScrollView >
             );
         }

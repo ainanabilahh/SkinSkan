@@ -5,6 +5,7 @@ import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import SkinNavigator from './skinNavigator';
 import CameraNavigator from './cameraNavigator';
 import ProfileNavigator from './profileNavigator';
+import SkinQuiz from '../pages/skinQuiz';
 
 const TabNavigator = createBottomTabNavigator(
   {
@@ -12,6 +13,16 @@ const TabNavigator = createBottomTabNavigator(
       screen: SkinNavigator,
       navigationOptions: {
         tabBarLabel: 'Skin',
+        tabBarIcon: ({ tintColor }) => (
+          <View>
+            <Icon style={[{ color: tintColor }]} size={22} name={'md-heart'} />
+          </View>),
+      }
+    },
+    SkinQuiz: {
+      screen: SkinQuiz,
+      navigationOptions: {
+        tabBarLabel: 'Skin Quiz',
         tabBarIcon: ({ tintColor }) => (
           <View>
             <Icon style={[{ color: tintColor }]} size={22} name={'md-heart'} />
