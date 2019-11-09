@@ -1,251 +1,456 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Image, ScrollView, Text, View } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { Button, List, RadioButton } from 'react-native-paper';
 import styles from '../css/styles';
 
-class Skin extends Component {
+class SkinQuiz extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            ing_eff: '',
-            prod_pref: '',
-            paraben: false,
-            sulfate: false,
-            alcohol: false,
-            silicone: false,
-            allergen: false,
-            fungal: false,
-            antiaging: false,
-            woundhealing: false,
-            acnefight: false,
-            brightening: false,
-            uvprotect: false,
-            value: '',
+            one: null,
+            two: null,
+            three: null,
+            four: null,
+            five: null,
+            current: 0,
+            skinResult: null
         }
     }
 
-    async componentDidMount() {
-
-        username = await AsyncStorage.getItem('username') || 'undefined';
-
-        fetch('http://192.168.49.185/skinskan/viewSkin.php', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: username,
-            }),
-        }).then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({
-                    value: responseJson.skin_type,
-                    ing_eff: responseJson.ing_eff,
-                    prod_pref: responseJson.prod_pref
-                })
-
-                ing_eff = this.state.ing_eff
-                prod_pref = this.state.prod_pref
-
-                for (i = 0; i < ing_eff.length; i++) {
-                    if (ing_eff[i].includes("1"))
-                        this.setState({ antiaging: true })
-                    if (ing_eff[i].includes("2"))
-                        this.setState({ woundhealing: true })
-                    if (ing_eff.includes("3"))
-                        this.setState({ acnefight: true })
-                    if (ing_eff.includes("4"))
-                        this.setState({ brightening: true })
-                    if (ing_eff.includes("5"))
-                        this.setState({ uvprotect: true })
-                }
-
-                for (i = 0; i < prod_pref.length; i++) {
-                    if (prod_pref.includes("1"))
-                        this.setState({ paraben: true })
-                    if (prod_pref.includes("2"))
-                        this.setState({ sulfate: true })
-                    if (prod_pref.includes("3"))
-                        this.setState({ alcohol: true })
-                    if (prod_pref.includes("4"))
-                        this.setState({ silicone: true })
-                    if (prod_pref.includes("5"))
-                        this.setState({ allergen: true })
-                    if (prod_pref.includes("6"))
-                        this.setState({ fungal: true })
-                }
-            }).catch((err) => {
-                alert("There is a network error. Please try again.")
-                if (err.name == 'AbortError') return
-                throw err
-            });
+    startQuiz = () => {
+        this.setState({ current: this.state.current + 1 })
     }
 
-    InsertSkinPreferences = () => {
+    nextPage = () => {
+        switch (this.state.current) {
 
-        const ing_eff = [];
-        const prod_pref = [];
+            case 1:
+                if (this.state.one == null) {
+                    alert("Please choose one before proceed");
+                }
+                else {
+                    this.setState({ current: this.state.current + 1 })
+                    this.props.navigation.navigate('SkinQuiz', {
+                        current: this.state.current,
+                    });
+                }
+                break;
 
-        if (this.state.antiaging)
-            ing_eff.push("1")
-        if (this.state.woundhealing)
-            ing_eff.push("2")
-        if (this.state.acnefight)
-            ing_eff.push("3")
-        if (this.state.brightening)
-            ing_eff.push("4")
-        if (this.state.uvprotect)
-            ing_eff.push("5")
+            case 2:
+                if (this.state.two == null)
+                    alert("Please choose one before proceed");
+                else {
+                    this.setState({ current: this.state.current + 1 })
+                    this.props.navigation.navigate('SkinQuiz', {
+                        current: this.state.current,
+                    });
+                }
+                break;
 
-        if (this.state.paraben == true)
-            prod_pref.push("1")
-        if (this.state.sulfate == true)
-            prod_pref.push("2")
-        if (this.state.alcohol == true)
-            prod_pref.push("3")
-        if (this.state.silicone == true)
-            prod_pref.push("4")
-        if (this.state.allergen == true)
-            prod_pref.push("5")
-        if (this.state.fungal == true)
-            prod_pref.push("6")
+            case 3:
+                if (this.state.three == null)
+                    alert("Please choose one before proceed");
+                else {
+                    this.setState({ current: this.state.current + 1 })
+                    this.props.navigation.navigate('SkinQuiz', {
+                        current: this.state.current,
+                    });
+                }
+                break;
 
-        fetch('http://192.168.49.185/skinskan/updateSkin.php', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+            case 4:
+                if (this.state.four == null)
+                    alert("Please choose one before proceed");
+                else {
+                    this.setState({ current: this.state.current + 1 })
+                    this.props.navigation.navigate('SkinQuiz', {
+                        current: this.state.current,
+                    });
+                }
+                break;
+            case 5:
+                if (this.state.five == null)
+                    alert("Please choose one before proceed");
+                else {
+                    this.setState({ current: this.state.current + 1 })
+                    this.props.navigation.navigate('SkinQuiz', {
+                        current: this.state.current,
+                    });
+                }
+                break;
+        }
+    }
 
-                username: username,
-                skin_type: this.state.value,
-                prod_pref: prod_pref,
-                ing_eff: ing_eff
+    determineSkin = () => {
 
-            })
+        let normal = 0;
+        let dry = 0;
+        let sensitive = 0;
+        let combination = 0;
+        let oily = 0;
 
-        }).then((response) => response.json())
-            .then((responseJson) => {
+        switch (this.state.one) {
+            case '1':
+                normal++
+                break;
+            case '2':
+                dry++
+                break;
+            case '3':
+                sensitive++
+                break;
+            case '4':
+                combination++
+                break;
+            case '5':
+                oily++
+                break;
+        }
 
-                alert(responseJson);
+        switch (this.state.two) {
+            case '1':
+                normal++
+                break;
+            case '2':
+                dry++
+                break;
+            case '3':
+                sensitive++
+                break;
+            case '4':
+                combination++
+                break;
+            case '5':
+                oily++
+                break;
+        }
 
-            }).catch((error) => {
-                console.error(error);
-            });
-        this.props.navigation.navigate("Homepage");
+        switch (this.state.three) {
+            case '1':
+                normal++
+                break;
+            case '2':
+                dry++
+                break;
+            case '3':
+                sensitive++
+                break;
+            case '4':
+                combination++
+                break;
+            case '5':
+                oily++
+                break;
+        }
 
+        switch (this.state.four) {
+            case '1':
+                normal++
+                break;
+            case '2':
+                dry++
+                break;
+            case '3':
+                sensitive++
+                break;
+            case '4':
+                combination++
+                break;
+            case '5':
+                oily++
+                break;
+        }
+
+        switch (this.state.five) {
+            case '1':
+                normal++
+                break;
+            case '2':
+                dry++
+                break;
+            case '3':
+                sensitive++
+                break;
+            case '4':
+                combination++
+                break;
+            case '5':
+                oily++
+                break;
+        }
+
+        var objects = [{
+            name: 'Normal',
+            val: normal
+        },
+        {
+            name: 'Dry',
+            val: dry
+        },
+        {
+            name: 'Sensitive',
+            val: sensitive
+        },
+        {
+            name: 'Combination',
+            val: combination
+        },
+        {
+            name: 'Oily',
+            val: oily
+        }];
+
+        var maximum = objects.reduce(function (obj1, obj2) {
+            return (obj1.val > obj2.val) ? obj1 : obj2;
+        });
+
+        this.setState({ skin: maximum.name })
+        this.setState({ current: this.state.current + 1 })
+        this.props.navigation.navigate('SkinQuiz', {
+            current: this.state.current,
+            skin: this.state.skin
+        });
+    }
+
+    backCurrent = () => {
+        this.setState({ current: this.state.current - 1 })
+        this.props.navigation.navigate('SkinQuiz', {
+            current: this.state.current,
+        });
+    }
+
+    back = () => {
+        this.props.navigation.navigate('Skin', {
+            current: this.state.current,
+        });
     }
 
     render() {
 
-        const { paraben, sulfate, alcohol, allergen, fungal, silicone } = this.state;
-        const { antiaging, woundhealing, acnefight, brightening, uvprotect } = this.state;
+        if (this.state.current == 0) {
+            return (
+                <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+                    <Text style={{ marginVertical: 30, fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 40 }}> Take this quiz to find your skin type!</Text>
+                    <Button style={styles.button} mode="contained" icon="arrow-forward" onPress={this.startQuiz}>Start</Button>
+                </View>
+            );
+        }
 
-        return (
+        if (this.state.current == 1) {
+            return (
+                <ScrollView style={{ backgroundColor: '#efefef' }} >
+                    <List.Section style={{ backgroundColor: '#fff' }}>
+                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef' }}> 1/5</Text>
+                        <List.Subheader style={{ backgroundColor: '#efefef' }}>1. How would you describe the shine on you skin?</List.Subheader>
+                        <RadioButton.Group
+                            onValueChange={value => this.setState({ one: value })}
+                            value={this.state.one}
+                        >
+                            <View style={{ flexDirection: 'column', marginHorizontal: 10 }}>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="1" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Not too shine, not too dull {/*Normal*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="2" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Dull everywhere {/*Dry*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="3" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> I get more stinging than shine. {/*Sensitive*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="4" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Shiny in my T-zone, but dull on my cheeks {/*Combination*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="5" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Bright like a diamond {/*Oily*/}</Text>
+                                </View>
+                            </View>
+                        </RadioButton.Group>
+                    </List.Section>
+                    <Button style={styles.button} mode="contained" icon="arrow-forward" onPress={this.nextPage}>Next</Button>
+                    <Button style={styles.button} mode="contained" icon="arrow-back" onPress={this.backCurrent}>Back</Button>
+                </ScrollView >
+            );
+        }
 
-            <ScrollView style={{ backgroundColor: '#efefef' }} >
-                <List.Section style={{ backgroundColor: '#fff' }}>
-                    <List.Subheader style={{ backgroundColor: '#efefef' }}>SKIN TYPE</List.Subheader>
-                    <RadioButton.Group
-                        onValueChange={value => this.setState({ value })}
-                        value={this.state.value}
-                    >
-                        <View style={{ flexDirection: 'column', marginHorizontal: 10 }}>
-                            <View style={styles.radioButtonContainer}>
-                                <RadioButton value="1" color="#2289dc" />
-                                <Text style={styles.radioButtonStyle}> Dry Skin</Text>
+        if (this.state.current == 2) {
+            return (
+                <ScrollView style={{ backgroundColor: '#efefef' }} >
+                    <List.Section style={{ backgroundColor: '#fff' }}>
+                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef' }}> 2/5</Text>
+                        <List.Subheader style={{ backgroundColor: '#efefef' }}>2. Which most closely describes the look of your pores?</List.Subheader>
+                        <RadioButton.Group
+                            onValueChange={value => this.setState({ two: value })}
+                            value={this.state.two}
+                        >
+                            <View style={{ flexDirection: 'column', marginHorizontal: 10 }}>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="1" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Seems unnoticeable {/*Normal*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="2" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Small, not easily noticed all over {/*Dry*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="3" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Medium-sized all over {/*Sensitive*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="4" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Larger or medium and only visible in the T-zone {/*Combination*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="5" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Large and visible all over {/*Oily*/}</Text>
+                                </View>
                             </View>
-                            <View style={styles.radioButtonContainer}>
-                                <RadioButton value="2" color="#2289dc" />
-                                <Text style={styles.radioButtonStyle}> Normal Skin</Text>
-                            </View>
-                            <View style={styles.radioButtonContainer}>
-                                <RadioButton value="3" color="#2289dc" />
-                                <Text style={styles.radioButtonStyle}> Combination Skin</Text>
-                            </View>
-                            <View style={styles.radioButtonContainer}>
-                                <RadioButton value="4" color="#2289dc" />
-                                <Text style={styles.radioButtonStyle}> Oily Skin</Text>
-                            </View>
-                            <View style={styles.radioButtonContainer}>
-                                <RadioButton value="5" color="#2289dc" />
-                                <Text style={styles.radioButtonStyle}> Sensitive Skin</Text>
-                            </View>
-                        </View>
-                    </RadioButton.Group>
-                    <List.Subheader style={{ backgroundColor: '#efefef' }}>INGREDIENTS EFFECTS</List.Subheader>
-                    <View>
-                        <CheckBox
-                            title='Anti-Aging'
-                            checked={this.state.antiaging}
-                            onPress={() => { this.setState({ antiaging: !antiaging }); }}
-                        />
-                        <CheckBox
-                            title='Promotes Wound Healing'
-                            checked={this.state.woundhealing}
-                            onPress={() => { this.setState({ woundhealing: !woundhealing }); }}
-                        />
-                        <CheckBox
-                            title='Acne-Fighting'
-                            checked={this.state.acnefight}
-                            onPress={() => { this.setState({ acnefight: !acnefight }); }}
-                        />
-                        <CheckBox
-                            title='Brightening'
-                            checked={this.state.brightening}
-                            onPress={() => { this.setState({ brightening: !brightening }); }}
-                        />
-                        <CheckBox
-                            title='UV Protection'
-                            checked={this.state.uvprotect}
-                            onPress={() => { this.setState({ uvprotect: !uvprotect }); }}
-                        />
-                    </View>
-                    <List.Subheader style={{ backgroundColor: '#efefef' }}>PRODUCT PREFERENCES</List.Subheader>
-                    <View>
-                        <CheckBox
-                            title='Paraben-Free'
-                            checked={this.state.paraben}
-                            onPress={() => { this.setState({ paraben: !paraben }); }}
-                        />
-                        <CheckBox
-                            title='Sulfate-Free'
-                            checked={this.state.sulfate}
-                            onPress={() => { this.setState({ sulfate: !sulfate }); }}
-                        />
-                        <CheckBox
-                            title='Alcohol-Free'
-                            checked={this.state.alcohol}
-                            onPress={() => { this.setState({ alcohol: !alcohol }); }}
-                        />
-                        <CheckBox
-                            title='Silicone-Free'
-                            checked={this.state.silicone}
-                            onPress={() => { this.setState({ silicone: !silicone }); }}
-                        />
-                        <CheckBox
-                            title='Allergen-Free'
-                            checked={this.state.allergen}
-                            onPress={() => { this.setState({ allergen: !allergen }); }}
-                        />
-                        <CheckBox
-                            title='Fungal Acne Safe'
-                            checked={this.state.fungal}
-                            onPress={() => { this.setState({ fungal: !fungal }); }}
-                        />
+                        </RadioButton.Group>
+                    </List.Section>
+                    <Button style={styles.button} mode="contained" icon="arrow-forward" onPress={this.nextPage}>Next</Button>
+                    <Button style={styles.button} mode="contained" icon="arrow-back" onPress={this.backCurrent}>Back</Button>
+                </ScrollView >
+            );
+        }
 
-                    </View>
-                </List.Section>
-                <Button style={styles.button} mode="contained" icon="check" onPress={this.InsertSkinPreferences}>Submit</Button>
-            </ScrollView >
-        );
+        if (this.state.current == 3) {
+            return (
+                <ScrollView style={{ backgroundColor: '#efefef' }} >
+                    <List.Section style={{ backgroundColor: '#fff' }}>
+                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef' }}> 3/5</Text>
+                        <List.Subheader style={{ backgroundColor: '#efefef' }}>3. How does it feel when you touch your skin?</List.Subheader>
+                        <RadioButton.Group
+                            onValueChange={value => this.setState({ three: value })}
+                            value={this.state.three}
+                        >
+                            <View style={{ flexDirection: 'column', marginHorizontal: 10 }}>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="1" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Feels nothing {/*Normal*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="2" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Rough and scaly {/*Dry*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="3" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Irritated and angry {/*Sensitive*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="4" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Oily in places and dry in others {/*Combination*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="5" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Slick and greasy {/*Oily*/}</Text>
+                                </View>
+                            </View>
+                        </RadioButton.Group>
+                    </List.Section>
+                    <Button style={styles.button} mode="contained" icon="arrow-forward" onPress={this.nextPage}>Next</Button>
+                    <Button style={styles.button} mode="contained" icon="arrow-back" onPress={this.backCurrent}>Back</Button>
+                </ScrollView >
+            );
+        }
+
+        if (this.state.current == 4) {
+            return (
+                <ScrollView style={{ backgroundColor: '#efefef' }} >
+                    <List.Section style={{ backgroundColor: '#fff' }}>
+                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef' }}> 4/5</Text>
+                        <List.Subheader style={{ backgroundColor: '#efefef' }}>4. How does your skin feel after you wash your face?</List.Subheader>
+                        <RadioButton.Group
+                            onValueChange={value => this.setState({ four: value })}
+                            value={this.state.four}
+                        >
+                            <View style={{ flexDirection: 'column', marginHorizontal: 10 }}>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="1" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Feels clean {/*Normal*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="2" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Stripped of moisture {/*Dry*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="3" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Itchy and a little bit dry {/*Sensitive*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="4" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Clean and great in my T-zone,  {"\n"} but my cheeks are a little bit dried out {/*Combination*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="5" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Clean, for now, but the oil is coming soon {/*Oily*/}</Text>
+                                </View>
+                            </View>
+                        </RadioButton.Group>
+                    </List.Section>
+                    <Button style={styles.button} mode="contained" icon="arrow-forward" onPress={this.nextPage}>Next</Button>
+                    <Button style={styles.button} mode="contained" icon="arrow-back" onPress={this.backCurrent}>Back</Button>
+                </ScrollView >
+            );
+        }
+
+        if (this.state.current == 5) {
+            return (
+                <ScrollView style={{ backgroundColor: '#efefef' }} >
+                    <List.Section style={{ backgroundColor: '#fff' }}>
+                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef' }}> 5/5</Text>
+                        <List.Subheader style={{ backgroundColor: '#efefef' }}>5. In the afternoon, what your skin need the most?</List.Subheader>
+                        <RadioButton.Group
+                            onValueChange={value => this.setState({ five: value })}
+                            value={this.state.five}
+                        >
+                            <View style={{ flexDirection: 'column', marginHorizontal: 10 }}>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="1" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> I need nothing {/*Normal*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="2" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Moisturizing, moisturizing, moisturizing {/*Dry*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="3" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> A refreshing spritz of facial spray. {/*Sensitive*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="4" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Blotting or powdering on the forehead,{"\n"} nose, and or chin {/*Combination*/}</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="5" color="#2289dc" />
+                                    <Text style={styles.radioButtonStyle}> Blotting or powder all over {/*Oily*/}</Text>
+                                </View>
+                            </View>
+                        </RadioButton.Group>
+                    </List.Section>
+                    <Button style={styles.button} mode="contained" icon="arrow-forward" onPress={this.determineSkin}>Next</Button>
+                    <Button style={styles.button} mode="contained" icon="arrow-back" onPress={this.backCurrent}>Back</Button>
+                </ScrollView >
+            );
+        }
+
+        if (this.state.current == 6) {
+            return (
+                <ScrollView style={{ backgroundColor: '#efefef' }} >
+                    <List.Section style={{ backgroundColor: '#fff' }}>
+                        <List.Subheader style={{ backgroundColor: '#efefef' }}>RESULT</List.Subheader>
+                        <Text>{this.state.skin}</Text>
+                    </List.Section>
+                    <Button style={styles.button} mode="contained" icon="arrow-back" onPress={this.backCurrent}>Back</Button>
+                </ScrollView >
+            );
+        }
     }
 }
-
-export default Skin;
+export default (SkinQuiz);
 

@@ -1,5 +1,6 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import Skin from '../pages/skin';
+import SkinQuiz from '../pages/skinQuiz';
 
 const SkinNavigator = createStackNavigator(
   {
@@ -20,9 +21,26 @@ const SkinNavigator = createStackNavigator(
         },
       }),   
     },
+    SkinQuiz: { 
+      screen: SkinQuiz,
+      navigationOptions: ({ navigation }) => ({
+        title: 'Skin Type Quiz',
+        headerTintColor: '#ffffff',
+        headerStyle: {
+          backgroundColor: '#673AB7',
+          elevation: 0,
+        },
+        headerTitleStyle: {
+          fontSize: 20,
+          textAlign: 'center',
+          fontFamily: 'Montserrat-Bold',
+          flex: 1, 
+        },
+      }),   
+    },
   },
   {
-    initialRouteName: "Skin", 
+    initialRouteName: "SkinType", 
     navigationOptions: {
       tabBarOnPress: ({ navigation, defaultHandler }) => {
         defaultHandler();
