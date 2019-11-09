@@ -51,7 +51,7 @@ class Scan extends Component {
         notes: this.state.notes
       });
 
-      fetch("http://178.128.51.213/skinskan/uploadImage.php", {
+      fetch("http://178.128.51.213/uploadImage.php", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -103,7 +103,7 @@ class Scan extends Component {
         notes: this.state.notes
       });
 
-      fetch("http://178.128.51.213/skinskan/uploadImage.php", {
+      fetch("http://178.128.51.213/uploadImage.php", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

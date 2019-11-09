@@ -31,7 +31,7 @@ class Skin extends Component {
 
         username = await AsyncStorage.getItem('username') || 'undefined';
 
-        fetch('http://178.128.51.213/skinskan/viewSkin.php', {
+        fetch('http://178.128.51.213/viewSkin.php', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -114,7 +114,7 @@ class Skin extends Component {
         if (this.state.fungal == true)
             prod_pref.push("6")
 
-        fetch('http://178.128.51.213/skinskan/updateSkin.php', {
+        fetch('http://178.128.51.213/updateSkin.php', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
