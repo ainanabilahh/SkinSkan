@@ -25,7 +25,7 @@ const TabNavigator = createBottomTabNavigator(
         tabBarLabel: 'Skin Quiz',
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{ color: tintColor }]} size={22} name={'md-heart'} />
+            <Icon style={[{ color: tintColor }]} size={22} name={'md-medical'} />
           </View>),
       }
     },

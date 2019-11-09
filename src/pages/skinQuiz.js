@@ -14,8 +14,8 @@ class SkinQuiz extends Component {
             four: null,
             five: null,
             current: 0,
-            skinResult: null,
-            value: ''
+            skin: null,
+            skinDesc: null,
         }
     }
 
@@ -182,24 +182,29 @@ class SkinQuiz extends Component {
         }
 
         var objects = [{
-            name: 'Normal',
-            val: normal
+            name: 'Normal Skin',
+            val: normal,
+            desc: "Little, barely visible pores. Rare breakouts and radiant skin complexion."
         },
         {
-            name: 'Dry',
-            val: dry
+            name: 'Dry Skin',
+            val: dry,
+            desc: "Almost no pores and more visible lines. Skin feels rough and tight. Slightly dull complexion."
         },
         {
-            name: 'Sensitive',
-            val: sensitive
+            name: 'Sensitive Skin',
+            val: sensitive,
+            desc: "Red, dry and itchy skin which reacts easily to products and changes in environment."
         },
         {
-            name: 'Combination',
-            val: combination
+            name: 'Combination Skin',
+            val: combination,
+            desc: "Oily T-zone and dry in some areas. Shiny skin with slightly larger pores and have blackheads."
         },
         {
-            name: 'Oily',
-            val: oily
+            name: 'Oily Skin',
+            val: oily,
+            desc: "Large pores, pimples, blackheads and frequent breakouts. Dull or shiny skin."
         }];
 
         var maximum = objects.reduce(function (obj1, obj2) {
@@ -207,10 +212,12 @@ class SkinQuiz extends Component {
         });
 
         this.setState({ skin: maximum.name })
+        this.setState({ skinDesc: maximum.desc })
         this.setState({ current: this.state.current + 1 })
         this.props.navigation.navigate('SkinQuiz', {
             current: this.state.current,
-            skin: this.state.skin
+            skin: this.state.skin,
+            skinDesc: this.state.skinDesc,
         });
     }
 
@@ -225,6 +232,17 @@ class SkinQuiz extends Component {
 
         this.setState({ current: 0 })
 
+        this.setState({
+            one: null,
+            two: null,
+            three: null,
+            four: null,
+            five: null,
+            current: 0,
+            skin: null,
+            skinDesc: null,
+        });
+
         this.props.navigation.navigate('SkinQuiz', {
             current: this.state.current,
         });
@@ -236,8 +254,8 @@ class SkinQuiz extends Component {
             return (
                 <View style={{ backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
                     <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 10 }}> Take this quiz to find your skin type!</Text>
-                    <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 12, textAlign: 'center', margin: 30, color:'red' }}> *For more accurate result, {"\n"} please seek dermatologist.</Text>
-                    <Button style={styles.button} mode="contained" icon="arrow-forward" onPress={this.startQuiz}>Start</Button>
+                    <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 12, textAlign: 'center', margin: 30, color: 'red' }}> *For more accurate result, {"\n"} please seek dermatologist.</Text>
+                    <Button style={[styles.button, { width: 200 }]} mode="contained" icon="arrow-forward" onPress={this.startQuiz}>Start</Button>
                 </View>
             );
         }
@@ -246,7 +264,7 @@ class SkinQuiz extends Component {
             return (
                 <ScrollView style={{ backgroundColor: '#efefef' }} >
                     <List.Section style={{ backgroundColor: '#fff' }}>
-                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef' }}> 1/5</Text>
+                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef', paddingBottom: 20 }}> 1/5</Text>
                         <List.Subheader style={{ backgroundColor: '#efefef' }}>1. How would you describe the shine on you skin?</List.Subheader>
                         <RadioButton.Group
                             onValueChange={value => this.setState({ one: value })}
@@ -286,7 +304,7 @@ class SkinQuiz extends Component {
             return (
                 <ScrollView style={{ backgroundColor: '#efefef' }} >
                     <List.Section style={{ backgroundColor: '#fff' }}>
-                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef' }}> 2/5</Text>
+                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef', paddingBottom: 20 }}> 2/5</Text>
                         <List.Subheader style={{ backgroundColor: '#efefef' }}>2. Which most closely describes the look of your pores?</List.Subheader>
                         <RadioButton.Group
                             onValueChange={value => this.setState({ two: value })}
@@ -326,7 +344,7 @@ class SkinQuiz extends Component {
             return (
                 <ScrollView style={{ backgroundColor: '#efefef' }} >
                     <List.Section style={{ backgroundColor: '#fff' }}>
-                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef' }}> 3/5</Text>
+                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef', paddingBottom: 20 }}> 3/5</Text>
                         <List.Subheader style={{ backgroundColor: '#efefef' }}>3. How does it feel when you touch your skin?</List.Subheader>
                         <RadioButton.Group
                             onValueChange={value => this.setState({ three: value })}
@@ -366,7 +384,7 @@ class SkinQuiz extends Component {
             return (
                 <ScrollView style={{ backgroundColor: '#efefef' }} >
                     <List.Section style={{ backgroundColor: '#fff' }}>
-                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef' }}> 4/5</Text>
+                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef', paddingBottom: 20 }}> 4/5</Text>
                         <List.Subheader style={{ backgroundColor: '#efefef' }}>4. How does your skin feel after you wash your face?</List.Subheader>
                         <RadioButton.Group
                             onValueChange={value => this.setState({ four: value })}
@@ -406,7 +424,7 @@ class SkinQuiz extends Component {
             return (
                 <ScrollView style={{ backgroundColor: '#efefef' }} >
                     <List.Section style={{ backgroundColor: '#fff' }}>
-                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef' }}> 5/5</Text>
+                        <Text style={{ textAlign: 'center', backgroundColor: '#efefef', paddingBottom: 20 }}> 5/5</Text>
                         <List.Subheader style={{ backgroundColor: '#efefef' }}>5. In the afternoon, what your skin need the most?</List.Subheader>
                         <RadioButton.Group
                             onValueChange={value => this.setState({ five: value })}
@@ -444,13 +462,12 @@ class SkinQuiz extends Component {
 
         if (this.state.current == 6) {
             return (
-                <ScrollView style={{ backgroundColor: '#efefef' }} >
-                    <List.Section style={{ backgroundColor: '#fff' }}>
-                        <List.Subheader style={{ backgroundColor: '#efefef' }}>RESULT</List.Subheader>
-                        <Text>{this.state.skin}</Text>
-                    </List.Section>
-                    <Button style={styles.button} mode="contained" icon="arrow-back" onPress={this.back}>Back</Button>
-                </ScrollView >
+                <View style={{ backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+                    <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 20, textAlign: 'center', margin: 10 }}> You got</Text>
+                    <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 40, textAlign: 'center', margin: 10 }}>{this.state.skin}</Text>
+                    <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 12, textAlign: 'center', margin: 30 }}>{this.state.skinDesc}</Text>
+                    <Button style={[styles.button, { width: 200 }]} mode="contained" icon="arrow-back" onPress={this.back}>Back</Button>
+                </View >
             );
         }
     }
