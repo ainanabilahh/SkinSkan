@@ -15,7 +15,7 @@ class ChangePassword extends Component {
 
   UpdatePassword = () => {
 
-    fetch('http://178.128.51.213/updatePassword.php', {
+    fetch('http://178.128.121.52/updatePassword.php', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

@@ -30,7 +30,7 @@ class Ingredients extends Component {
             notes: this.state.notes
         });
 
-        fetch('http://178.128.51.213/scan.php', {
+        fetch('http://178.128.121.52/scan.php', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
