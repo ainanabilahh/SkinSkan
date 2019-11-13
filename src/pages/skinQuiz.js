@@ -294,8 +294,10 @@ class SkinQuiz extends Component {
                             </View>
                         </RadioButton.Group>
                     </List.Section>
-                    <Button style={styles.button} mode="contained" icon="arrow-forward" onPress={this.nextPage}>Next</Button>
-                    <Button style={styles.button} mode="contained" icon="arrow-back" onPress={this.backCurrent}>Back</Button>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Button style={[styles.button, {width:'46%'}]} mode="contained" icon="arrow-back" onPress={this.backCurrent}>Back</Button>
+                        <Button style={[styles.button, {width:'46%'}]} mode="contained" icon="arrow-forward" onPress={this.nextPage}>Next</Button>
+                    </View>
                 </ScrollView >
             );
         }
