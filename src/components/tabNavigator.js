@@ -32,7 +32,7 @@ const TabNavigator = createBottomTabNavigator(
     Scan: {
       screen: CameraNavigator,
       navigationOptions: {
-        tabBarLabel: 'Scan',
+        tabBarLabel: 'Home',
         tabBarIcon: ({ tintColor }) => (
           <View>
             <Icon style={[{ color: tintColor }]} size={22} name={'md-qr-scanner'} />

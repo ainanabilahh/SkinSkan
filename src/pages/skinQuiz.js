@@ -253,7 +253,7 @@ class SkinQuiz extends Component {
         if (this.state.current == 0) {
             return (
                 <View style={{ backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-                    <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 10 }}> Take this quiz to find your skin type!</Text>
+                    <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 10 }}> Take this quiz to find your skin type suggestion!</Text>
                     <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 12, textAlign: 'center', margin: 30, color: 'red' }}> *For more accurate result, {"\n"} please seek dermatologist.</Text>
                     <Button style={[styles.button, { width: 200 }]} mode="contained" icon="arrow-forward" onPress={this.startQuiz}>Start</Button>
                 </View>

@@ -50,7 +50,7 @@ class Result extends Component {
             return (
                 <Overlay height={200} isVisible={this.state.isVisible}>
                     <View style={styles.MainContainer}>
-                        <Text style={{ paddingBottom: 50 }}>This will take just a short while.</Text>
+                        <Text style={{ paddingBottom: 50 }}>This will take just a while depends on your internet connection.</Text>
                         <ActivityIndicator
                             animating={true}
                             style={styles.indicator}
@@ -83,7 +83,7 @@ class Result extends Component {
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>RESULT</List.Subheader>
                     <View style={[styles.MainContainer, { paddingVertical: 100 }]}>
-                        {/*<Text style={[styles.usernameLabel, { fontSize: 50 }]}>{this.state.ing}%</Text>*/}
+                        {/*<Text style={[styles.usernameLabel, { fontSize: 50 }]}>{this.state.ing}%</Text>
                         <ProgressBar
                             style={{ marginVertical: 10 }}
                             progress={0.5}
@@ -91,7 +91,7 @@ class Result extends Component {
                             color={'#66ccff'}
                             width={200}
                             height={20} />
-                        <Text style={styles.usernameLabel}>match with your skin preferences!</Text>
+                        <Text style={styles.usernameLabel}>match with your skin preferences!</Text>*/}
                     </View>
                 </List.Section>
                 <List.Section style={{ backgroundColor: '#fff' }}>
@@ -122,7 +122,7 @@ class Result extends Component {
                         {j}
                     </View>
                 </List.Section>
-                <Button style={styles.button} mode="contained" icon="check" onPress={this.Back}>Back</Button>
+                <Button style={styles.button} mode="contained" icon="check" onPress={this.Back}>Scan Again</Button>
             </ScrollView>
 
         );

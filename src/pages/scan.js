@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Text, BackHandler, StatusBar, View } from 'react-native';
+import { Text, BackHandler, StatusBar, View, Alert } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import { Button, Chip } from 'react-native-paper';
 import styles from '../css/styles';
@@ -9,14 +9,27 @@ class Scan extends Component {
 
   async componentDidMount() {
     username = await AsyncStorage.getItem('username') || 'undefined';
-    BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressed);
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressed);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
   }
 
-  onBackButtonPressed() {
+  handleBackButton = () => {
+    Alert.alert(
+      'Exit App',
+      'Exiting the application?', [{
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel'
+      }, {
+        text: 'OK',
+        onPress: () => BackHandler.exitApp()
+      },], {
+      cancelable: false
+    }
+    )
     return true;
   }
 
@@ -86,7 +99,7 @@ class Scan extends Component {
   insertIngredients = () => {
     this.props.navigation.navigate('Ingredients')
   };
-  
+
   selectPhoto = () => {
     ImagePicker.openPicker({
       cropping: true,
@@ -117,7 +130,6 @@ class Scan extends Component {
       }).then((response) => response.text())
         .then((responseJson) => {
 
-          console.log(responseJson)
           var result = JSON.parse(responseJson)
           this.setState({ ing: result.Ingredients })
           this.setState({ notes: result.Notes })
