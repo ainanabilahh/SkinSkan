@@ -10,8 +10,8 @@ class Skin extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            ing_eff: '',
-            prod_pref: '',
+            ing_eff: null,
+            prod_pref: null,
             paraben: false,
             sulfate: false,
             alcohol: false,
@@ -48,8 +48,16 @@ class Skin extends Component {
                     prod_pref: responseJson.prod_pref
                 })
 
-                ing_eff = this.state.ing_eff
-                prod_pref = this.state.prod_pref
+
+                if (this.state.ing_eff == null)
+                    ing_eff = []
+                else
+                    ing_eff = this.state.ing_eff
+
+                if (this.state.prod_pref == null)
+                    prod_pref = []
+                else
+                    prod_pref = this.state.prod_pref
 
                 for (i = 0; i < ing_eff.length; i++) {
                     if (ing_eff[i].includes("1"))
@@ -132,6 +140,7 @@ class Skin extends Component {
         }).then((response) => response.json())
             .then((responseJson) => {
 
+                console.log(responseJson)
                 alert(responseJson);
 
             }).catch((error) => {
@@ -157,7 +166,7 @@ class Skin extends Component {
                     >
                         <View style={{ flexDirection: 'column', marginHorizontal: 10 }}>
                             <View style={styles.radioButtonContainer}>
-                                <RadioButton value="0" color="#2289dc" />
+                                <RadioButton value="6" color="#2289dc" />
                                 <Text style={styles.radioButtonStyle}> I don't know</Text>
                             </View>
                             <View style={styles.radioButtonContainer}>
