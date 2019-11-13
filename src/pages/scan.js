@@ -78,6 +78,7 @@ class Scan extends Component {
       }).then((response) => response.text())
         .then((responseJson) => {
 
+          console.log(responseJson)
           var result = JSON.parse(responseJson)
           this.setState({ ing: result.Ingredients })
           this.setState({ notes: result.Notes })
@@ -130,6 +131,7 @@ class Scan extends Component {
       }).then((response) => response.text())
         .then((responseJson) => {
 
+          console.log(responseJson)
           var result = JSON.parse(responseJson)
           this.setState({ ing: result.Ingredients })
           this.setState({ notes: result.Notes })

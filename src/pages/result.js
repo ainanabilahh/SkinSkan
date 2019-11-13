@@ -50,7 +50,7 @@ class Result extends Component {
             return (
                 <Overlay height={200} isVisible={this.state.isVisible}>
                     <View style={styles.MainContainer}>
-                        <Text style={{ paddingBottom: 50 }}>This will take just a while depends on your internet connection.</Text>
+                        <Text style={{ paddingBottom: 50, textAlign:"center" }}>This will take a while depends on your internet connection. Please do not close this window.</Text>
                         <ActivityIndicator
                             animating={true}
                             style={styles.indicator}
@@ -122,7 +122,7 @@ class Result extends Component {
                         {j}
                     </View>
                 </List.Section>
-                <Button style={styles.button} mode="contained" icon="check" onPress={this.Back}>Scan Again</Button>
+                <Button style={styles.button} mode="contained" icon="arrow-back" onPress={this.Back}>Scan Again</Button>
             </ScrollView>
 
         );
