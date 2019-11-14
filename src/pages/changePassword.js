@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, ScrollView, Text, TextInput } from 'react-native';
+import { View, TouchableOpacity, Image, Alert, ScrollView, Text, TextInput } from 'react-native';
 import { Button, List, Snackbar } from 'react-native-paper';
 import styles from '../css/styles';
 
@@ -10,7 +10,12 @@ class ChangePassword extends Component {
     this.state = {
       email: '',
       password: '',
+      hidePassword: true
     }
+  }
+
+  managePasswordVisibility = () => {
+    this.setState({ hidePassword: !this.state.hidePassword });
   }
 
   UpdatePassword = () => {
@@ -34,7 +39,7 @@ class ChangePassword extends Component {
       .then((responseJson) => {
 
         if (responseJson === 'Your account has been updated. Please pull to refresh.') {
-          Alert.alert(responseJson);
+          alert(responseJson);
           this.props.navigation.navigate('ViewUser');
         }
         else {
@@ -69,7 +74,7 @@ class ChangePassword extends Component {
           <TextInput
             placeholder="New Password"
             autoCapitalize="none"
-            secureTextEntry={true}
+            secureTextEntry={this.state.hidePassword}
             placeholderTextColor="#9a9a9a"
             onChangeText={TextInputValue => this.setState({ newPass: TextInputValue })}
             style={styles.inputBox2}
@@ -77,7 +82,7 @@ class ChangePassword extends Component {
           <TextInput
             placeholder="Retype Password"
             autoCapitalize="none"
-            secureTextEntry={true}
+            secureTextEntry={this.state.hidePassword}
             placeholderTextColor="#9a9a9a"
             onChangeText={TextInputValue => this.setState({ rePass: TextInputValue })}
             style={styles.inputBox2}

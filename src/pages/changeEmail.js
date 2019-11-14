@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, ScrollView, Text, TextInput } from 'react-native';
+import { View, TouchableOpacity, Image, Alert, ScrollView, Text, TextInput } from 'react-native';
 import { Button, List } from 'react-native-paper';
 import styles from '../css/styles';
 
@@ -10,7 +10,12 @@ class ChangeEmail extends Component {
     this.state = {
       email: '',
       password: '',
+      hidePassword: true
     }
+  }
+
+  managePasswordVisibility = () => {
+    this.setState({ hidePassword: !this.state.hidePassword });
   }
 
   UpdateEmail = () => {
@@ -33,7 +38,7 @@ class ChangeEmail extends Component {
       .then((responseJson) => {
 
         if (responseJson === 'Your account has been updated. Please pull to refresh.') {
-          Alert.alert(responseJson);
+          alert(responseJson);
           this.props.navigation.navigate('ViewUser');
         }
         else {
@@ -60,15 +65,17 @@ class ChangeEmail extends Component {
             style={styles.inputBox2}
           />
           <List.Subheader style={{ backgroundColor: '#efefef' }}>PASSWORD</List.Subheader>
-          <Text style={{margin: 15}}>To protect your account safety, please insert your password to continue.</Text>
-          <TextInput
-            placeholder="Your Current Password"
-            autoCapitalize="none"
-            secureTextEntry={true}
-            placeholderTextColor="#9a9a9a"
-            onChangeText={TextInputValue => this.setState({ password: TextInputValue })}
-            style={styles.inputBox2}
-          />
+          <Text style={{ margin: 15 }}>To protect your account safety, please insert your password to continue.</Text>
+          <View style={styles.textBoxBtnHolder}>
+            <TextInput
+              placeholder="Your Current Password"
+              autoCapitalize="none"
+              secureTextEntry={this.state.hidePassword}
+              placeholderTextColor="#9a9a9a"
+              onChangeText={TextInputValue => this.setState({ password: TextInputValue })}
+              style={styles.inputBox2}
+            />
+          </View>
         </List.Section>
         <Button style={styles.button} mode="contained" icon="check" onPress={this.UpdateEmail}>Confirm</Button>
       </ScrollView>
