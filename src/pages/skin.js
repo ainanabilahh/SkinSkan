@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, RefreshControl, Text, View } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { Button, List, RadioButton } from 'react-native-paper';
 import styles from '../css/styles';
@@ -10,6 +10,7 @@ class Skin extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            refreshing: false,
             ing_eff: null,
             prod_pref: null,
             paraben: false,
@@ -93,6 +94,14 @@ class Skin extends Component {
             });
     }
 
+    _refreshControl() {
+        return (
+            <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={() => this.componentDidMount()} />
+        )
+    }
+
     InsertSkinPreferences = () => {
 
         const ing_eff = [];
@@ -157,7 +166,7 @@ class Skin extends Component {
 
         return (
 
-            <ScrollView style={{ backgroundColor: '#efefef' }} >
+            <ScrollView style={{ backgroundColor: '#efefef' }} refreshControl={this._refreshControl()}>
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>SKIN TYPE</List.Subheader>
                     <RadioButton.Group
