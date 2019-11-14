@@ -122,6 +122,7 @@ class Result extends Component {
                         {j}
                     </View>
                 </List.Section>
+                <Text style={{textAlign:'center'}}>Not satisfied?</Text>
                 <Button style={styles.button} mode="contained" icon="arrow-back" onPress={this.Back}>Scan Again</Button>
             </ScrollView>
 
