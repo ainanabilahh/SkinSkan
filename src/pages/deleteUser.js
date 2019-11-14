@@ -24,7 +24,6 @@ class DeleteUser extends Component {
         username: username,
 
       })
-
     }).then((response) => response.json())
       .then((responseJson) => {
 
