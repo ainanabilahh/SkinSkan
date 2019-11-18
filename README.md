@@ -3,8 +3,6 @@ SkinSkan is a mobile application which implemented OCR (Optical Character Recogn
 
 # Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
-
 ```bash
 TBA
 ```
