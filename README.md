@@ -1,5 +1,5 @@
 # SkinSkan
-SkinSkan is a mobile application which implemented OCR (Optical Character Recognition) using Tesseract OCR and web scraping using Beautiful Soup to scan skincare product ingredients and narrow the result based on user skin preferences.
+SkinSkan is a mobile application developed using React Native framework which implemented OCR (Optical Character Recognition) using Tesseract OCR and web scraping using Beautiful Soup to scan skincare product ingredients and narrow the result based on user skin preferences.
 
 # Installation
 
