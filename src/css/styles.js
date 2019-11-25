@@ -149,22 +149,25 @@ export default {
 
   //Footer
   footerContainer: {
+    paddingTop: 16,
     paddingVertical: 16,
     flexDirection: 'row',
+    paddingVertical: 8,
     marginVertical: 8,
     margin: 60,
   },
 
   footerText: {
     fontFamily: 'Montserrat-Regular',
-    color: 'white',
+    color: '#673AB7',
     fontSize: 16
   },
 
   footerButton: {
     fontFamily: 'Montserrat-Bold',
-    color: 'white',
+    color: '#673AB7',
     fontSize: 16,
+    fontWeight: 'bold',
   },
   //End of Footer
 
