@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, Dimensions, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
+import Svg, { Rect, Circle, Path } from 'react-native-svg';
 import styles from '../css/styles';
 
 class Login extends Component {
@@ -11,9 +12,26 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      hidePassword: true
+      hidePassword: true,
+      slideUp: new Animated.Value(0),
+      slideDown: new Animated.Value(0),
     }
   }
+
+  componentDidMount() {
+    return Animated.parallel([
+      Animated.timing(this.state.slideUp, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.slideDown, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true
+      }),
+    ]).start();
+  };
 
   managePasswordVisibility = () => {
     this.setState({ hidePassword: !this.state.hidePassword });
@@ -60,46 +78,70 @@ class Login extends Component {
   };
 
   render() {
+
+    let { slideUp, slideDown } = this.state;
+
     return (
 
       <View style={styles.MainContainer}>
         <StatusBar backgroundColor="#512DA8" barStyle="light-content" />
-        <View style={styles.LogoContainer}>
-          <Image style={{ width: 300, height: 244 }} source={require('../images/1.png')} resizeMode="contain" />
-        </View>
-        <Text style={{ color: '#673AB7', fontSize: 25, fontWeight: 'bold' }}>SIGN IN</Text>
-        <TextInput
-          mode="outlined"
-          label="Username"
-          autoCapitalize="none"
-          value={this.state.username}
-          onChangeText={username => this.setState({ username })}
-          style={styles.inputBox}
-        />
-        <View style={styles.textBoxBtnHolder}>
-          <TextInput
-            mode="outlined"
-            label="Password"
-            value={this.state.password}
-            onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
-            style={styles.inputBox}
-            secureTextEntry={this.state.hidePassword}
+        <Svg height={300} width={Dimensions.get('window').width}>
+          <Path
+            d="M-17.5 378.5C31.5 32.5 302.5 463 375 89C447.5 -285 375 644 375 644H0C0 644 -66.5 724.5 -17.5 378.5Z" // put your path here
+            fill='#673AB7'
           />
+          <View>
+            <Image style={{ width: 300, height: 244 }} source={require('../images/1.png')} resizeMode="contain" />
+          </View>
+        </Svg>
+        <View style={{ backgroundColor: '#673AB7' }}>
+          <Text style={{ color: 'white', textAlign: 'center', fontSize: 25, fontFamily: 'Montserrat-ExtraBold' }}>Sign In</Text>
+          <Animated.View
+            style={{
+              transform: [
+                {
+                  translateY: slideUp.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [1000, 0]
+                  })
+                }
+              ],
+            }}
+          >
+            <TextInput
+              mode="flat"
+              label="Username"
+              autoCapitalize="none"
+              value={this.state.username}
+              onChangeText={username => this.setState({ username })}
+              style={styles.inputBox}
+            />
+            <View style={styles.textBoxBtnHolder}>
+              <TextInput
+                mode="flat"
+                label="Password"
+                value={this.state.password}
+                onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
+                style={styles.inputBox}
+                secureTextEntry={this.state.hidePassword}
+              />
 
-          <TouchableOpacity activeOpacity={0.8} style={styles.visibilityBtn} onPress={this.managePasswordVisibility}>
-            <Image source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')} style={styles.btnImage} />
-          </TouchableOpacity>
-        </View>
+              <TouchableOpacity activeOpacity={0.8} style={styles.visibilityBtn} onPress={this.managePasswordVisibility}>
+                <Image source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')} style={styles.btnImage} />
+              </TouchableOpacity>
+            </View>
 
-        <Button style={[styles.button, { width: 300 }]} mode="contained" icon="check" onPress={this._login} >Sign In</Button>
+            <Button style={[styles.button, { backgroundColor: '#fff' }]} mode="flat" icon="check" onPress={this._login} >Sign In</Button>
 
-        <View style={styles.footerContainer}>
-          <Text style={styles.footerText}>Do not have an account yet?</Text>
-          <TouchableOpacity onPress={this.CreateUser}><Text style={styles.footerButton}> Sign up</Text></TouchableOpacity>
+            <View style={styles.footerContainer}>
+              <Text style={styles.footerText}>Do not have an account yet?</Text>
+              <TouchableOpacity onPress={this.CreateUser}><Text style={styles.footerButton}> Sign up</Text></TouchableOpacity>
+            </View>
+          </Animated.View>
         </View>
       </View>
     );
   }
 }
 
-export default Login;
+export default (Login);

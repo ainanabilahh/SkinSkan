@@ -116,9 +116,10 @@ export default {
 
   button: {
     backgroundColor: '#673AB7',
-    marginHorizontal: 8,
     paddingVertical: 8,
-    marginVertical: 8
+    marginVertical: 8,
+    width: 300,
+    margin: 60,
   },
 
   usernameLabel: {
@@ -148,20 +149,22 @@ export default {
 
   //Footer
   footerContainer: {
-    paddingTop: 16,
     paddingVertical: 16,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginVertical: 8,
+    margin: 60,
   },
 
   footerText: {
-    color: '#673AB7',
+    fontFamily: 'Montserrat-Regular',
+    color: 'white',
     fontSize: 16
   },
 
   footerButton: {
-    color: '#673AB7',
+    fontFamily: 'Montserrat-Bold',
+    color: 'white',
     fontSize: 16,
-    fontWeight: 'bold'
   },
   //End of Footer
 
