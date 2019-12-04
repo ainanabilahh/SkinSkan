@@ -1,9 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Image, StatusBar, Text, TouchableOpacity, View, Animated, Dimensions } from 'react-native';
+import { Animated, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import styles from '../css/styles';
-import Svg from 'react-native-svg';
 
 class Login extends Component {
 
@@ -144,20 +143,6 @@ class Login extends Component {
             <TouchableOpacity onPress={this.CreateUser}><Text style={styles.footerButton}> Sign up</Text></TouchableOpacity>
           </View>
         </Animated.View>
-        <Svg height={300} width={WIDTH}>
-          <Svg.Path
-            d="M-17.5 378.5C31.5 32.5 302.5 463 375 89C447.5 -285 375 644 375 644H0C0 644 -66.5 724.5 -17.5 378.5Z" // put your path here
-            fill="blue"
-            stroke="blue"
-          />
-        </Svg>
-        <View style={{ backgroundColor: 'blue', flex: 1 }}>
-          <View style={{ width: WIDTH - 60, height: 60, backgroundColor: 'white', borderRadius: 30, margin: 30, justifyContent: 'center', paddingLeft: 10 }}>
-            <TextInput
-              placeholder='email'
-            />
-          </View>
-        </View>
       </View>
     );
   }
