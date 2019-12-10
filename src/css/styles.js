@@ -7,6 +7,7 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+    backgroundColor: '#673AB7',
   },
 
   textBoxBtnHolder:
@@ -159,13 +160,13 @@ export default {
 
   footerText: {
     fontFamily: 'Montserrat-Regular',
-    color: '#673AB7',
+    color: '#fff',
     fontSize: 16
   },
 
   footerButton: {
     fontFamily: 'Montserrat-Bold',
-    color: '#673AB7',
+    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },

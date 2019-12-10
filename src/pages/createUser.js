@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import { Button, TextInput, Avatar } from 'react-native-paper';
 import styles from '../css/styles';
 
 class CreateUser extends Component {
@@ -87,19 +87,18 @@ class CreateUser extends Component {
 
       <View style={styles.MainContainer}>
         <View style={styles.LogoContainer}>
-          <Image style={{ width: 300, height: 244 }} source={require('../images/2.png')} resizeMode="contain" />
-        </View>
-        <Text style={{ color: '#673AB7', fontSize: 25, fontWeight: 'bold' }}>SIGN UP</Text>
+          <Avatar.Image size={200} source={require('../images/2.png')} /></View>
+        <Text style={{ paddingVertical: 10, color: '#fff', fontSize: 25, fontFamily: 'Montserrat-ExtraBold' }}>Sign Up</Text>
         {/*<Text style={{ fontSize: 12, color: '#ccc' }}>*Username cannot be changed later. Choose carefully.</Text>*/}
         <TextInput
-          mode="outlined"
+          mode="flat"
           label="Username"
           value={this.state.username}
           onChangeText={username => this.setState({ username })} underlineColorAndroid='transparent'
           style={styles.inputBox}
         />
         <TextInput
-          mode="outlined"
+          mode="flat"
           type="email"
           label="Email"
           value={this.state.email}
@@ -109,7 +108,7 @@ class CreateUser extends Component {
         />
         <View style={styles.textBoxBtnHolder}>
           <TextInput
-            mode="outlined"
+            mode="flat"
             label="Password"
             value={this.state.password}
             onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
@@ -122,7 +121,7 @@ class CreateUser extends Component {
           </TouchableOpacity>
         </View>
 
-        <Button style={[styles.button, { width: 300 }]} icon="add" mode="contained" onPress={this.CreateUser} >Sign Up</Button>
+        <Button style={[styles.button, { backgroundColor: "#fff" }]} icon="add" mode="outlined" onPress={this.CreateUser} >Sign Up</Button>
 
         {/*<TouchableOpacity activeOpacity = { .4 } style={styles.buttonL} onPress={this.GoTo_Show_StudentList_Activity_Function} >
           <Text style={styles.buttonText}> SHOW ALL INSERTED STUDENT RECORDS IN LISTVIEW </Text>

@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
 import { Animated, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import { Button, TextInput, Avatar } from 'react-native-paper';
 import styles from '../css/styles';
 
 class Login extends Component {
@@ -97,10 +97,10 @@ class Login extends Component {
           }}
         >
           <View>
-            <Image style={{ width: 300, height: 244 }} source={require('../images/1.png')} resizeMode="contain" />
+            <Avatar.Image size={200} source={require('../images/1.png')} />
           </View>
         </Animated.View>
-        <Text style={{ color: '#673AB7', fontSize: 25, fontFamily: 'Montserrat-ExtraBold' }}>Sign In</Text>
+        <Text style={{ paddingVertical: 10, color: '#fff', fontSize: 25, fontFamily: 'Montserrat-ExtraBold' }}>Sign In</Text>
         <Animated.View
           style={{
             transform: [
@@ -114,7 +114,7 @@ class Login extends Component {
           }}
         >
           <TextInput
-            mode="outlined"
+            mode="flat"
             label="Username"
             autoCapitalize="none"
             value={this.state.username}
@@ -123,7 +123,7 @@ class Login extends Component {
           />
           <View style={styles.textBoxBtnHolder}>
             <TextInput
-              mode="outlined"
+              mode="flat"
               label="Password"
               value={this.state.password}
               onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
@@ -136,7 +136,7 @@ class Login extends Component {
             </TouchableOpacity>
           </View>
 
-          <Button style={styles.button} mode="contained" icon="check" onPress={this._login} >Sign In</Button>
+          <Button style={[styles.button, { backgroundColor: "#fff" }]} mode="outlined" icon="check" onPress={this._login} >Sign In</Button>
 
           <View style={styles.footerContainer}>
             <Text style={styles.footerText}>Do not have an account yet?</Text>
