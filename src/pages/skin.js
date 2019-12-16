@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { ScrollView, RefreshControl, Text, View } from 'react-native';
+import { ScrollView, RefreshControl, Text, View, Dimensions } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { Button, List, RadioButton } from 'react-native-paper';
 import styles from '../css/styles';
@@ -168,7 +168,7 @@ class Skin extends Component {
 
             <ScrollView style={{ backgroundColor: '#efefef' }} refreshControl={this._refreshControl()}>
                 <List.Section style={{ backgroundColor: '#fff' }}>
-                    <List.Subheader style={{ backgroundColor: '#efefef' }}>SKIN TYPE</List.Subheader>
+                    <List.Subheader style={{ backgroundColor: '#efefef', fontWeight:'bold' }}>1. WHAT IS YOUR SKIN TYPE?</List.Subheader>
                     <RadioButton.Group
                         onValueChange={value => this.setState({ value })}
                         value={this.state.value}
@@ -200,7 +200,7 @@ class Skin extends Component {
                             </View>
                         </View>
                     </RadioButton.Group>
-                    <List.Subheader style={{ backgroundColor: '#efefef' }}>INGREDIENTS EFFECTS</List.Subheader>
+                    <List.Subheader style={{ backgroundColor: '#efefef', fontWeight:'bold' }}>2. WHAT KIND OF PRODUCT DO YOU SEEK?</List.Subheader>
                     <View>
                         <CheckBox
                             title='Anti-Aging'
@@ -228,7 +228,7 @@ class Skin extends Component {
                             onPress={() => { this.setState({ uvprotect: !uvprotect }); }}
                         />
                     </View>
-                    <List.Subheader style={{ backgroundColor: '#efefef' }}>PRODUCT PREFERENCES</List.Subheader>
+                    <List.Subheader style={{ backgroundColor: '#efefef', fontWeight:'bold' }}>3. WHAT INGREDIENTS YOU WANT TO AVOID?</List.Subheader>
                     <View>
                         <CheckBox
                             title='Paraben-Free'
@@ -263,7 +263,7 @@ class Skin extends Component {
 
                     </View>
                 </List.Section>
-                <Button style={styles.button} mode="contained" icon="check" onPress={this.InsertSkinPreferences}>Submit</Button>
+                <Button style={[styles.button, {width:0.95*Dimensions.get('window').width}]} mode="contained" icon="check" onPress={this.InsertSkinPreferences}>Submit</Button>
             </ScrollView >
         );
     }

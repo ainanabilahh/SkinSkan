@@ -157,7 +157,7 @@ class Scan extends Component {
       <View style={styles.ContentContainer}>
         <StatusBar backgroundColor="#512DA8" barStyle="light-content" />
         <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-          <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 40 }}>This is your first skin care journey!</Text>
+          <Text style={{ borderColor: "#673AB7", padding: 15, borderWidth: 8, fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 10 }}>This is {"\n"}your first {"\n"}skin care {"\n"}journey!</Text>
           <Button style={[styles.button, { width: 200 }]} mode="contained" icon="image" onPress={this.selectPhoto}>Select Image</Button>
           <Button style={[styles.button, { width: 200 }]} mode="contained" icon="camera" onPress={this.openCamera}>Take Photo</Button>
         </View>

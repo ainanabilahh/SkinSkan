@@ -120,7 +120,7 @@ export default {
     paddingVertical: 8,
     marginVertical: 8,
     width: 300,
-    margin: 60,
+    margin: 10,
   },
 
   usernameLabel: {

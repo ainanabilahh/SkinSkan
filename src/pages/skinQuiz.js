@@ -248,6 +248,7 @@ class SkinQuiz extends Component {
         });
     }
 
+    
     render() {
 
         if (this.state.current == 0) {
