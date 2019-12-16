@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Image, Alert, ScrollView, Text, TextInput } from 'react-native';
-import { Button, List } from 'react-native-paper';
-import styles from '../css/styles';
+import { ScrollView, Text } from 'react-native';
+import { List } from 'react-native-paper';
 
 class AboutApp extends Component {
 
@@ -56,28 +55,31 @@ class AboutApp extends Component {
     return (
       <ScrollView style={{ backgroundColor: '#efefef' }}>
         <List.Section style={{ backgroundColor: '#fff' }}>
-          <List.Subheader style={{ backgroundColor: '#efefef' }}>EMAIL</List.Subheader>
-          <TextInput
-            placeholder="Your New Email"
-            autoCapitalize="none"
-            placeholderTextColor="#9a9a9a"
-            onChangeText={TextInputValue => this.setState({ email: TextInputValue })}
-            style={styles.inputBox2}
-          />
-          <List.Subheader style={{ backgroundColor: '#efefef' }}>PASSWORD</List.Subheader>
-          <Text style={{ margin: 15 }}>To protect your account safety, please insert your password to continue.</Text>
-          <View style={styles.textBoxBtnHolder}>
-            <TextInput
-              placeholder="Your Current Password"
-              autoCapitalize="none"
-              secureTextEntry={this.state.hidePassword}
-              placeholderTextColor="#9a9a9a"
-              onChangeText={TextInputValue => this.setState({ password: TextInputValue })}
-              style={styles.inputBox2}
-            />
-          </View>
+          <List.Subheader style={{ backgroundColor: '#efefef' }}>ABOUT</List.Subheader>
+          <Text style={{ textAlign: 'center', margin: 15 }}>SkinSkan is a mobile application developed using React Native framework which implemented OCR (Optical Character Recognition) using Tesseract OCR and web scraping using Beautiful Soup to scan skincare product ingredients and narrow the result based on user skin and product preferences.</Text>
+          <List.Subheader style={{ backgroundColor: '#efefef' }}>QnA</List.Subheader>
+          <List.Accordion
+            title="1. How does the app work?"
+            titleStyle={{ fontSize: 14, fontWeight: 'bold' }}
+            expanded={this.state.expanded}
+          >
+            <Text style={{ margin: 15 }}>Just grab a skin care product, search for its ingredients behind the packaging, and use this apps to scan the ingredients.</Text>
+          </List.Accordion>
+          <List.Accordion
+            title="2. Can this app be trusted?"
+            titleStyle={{ fontSize: 14, fontWeight: 'bold' }}
+            expanded={this.state.expanded}
+          >
+            <Text style={{ margin: 15 }}>All the information gained and displayed in this app are scraped from SkinCarisma.</Text>
+          </List.Accordion>
+          <List.Accordion
+            title="3. How do I report a bug?"
+            titleStyle={{ fontSize: 14, fontWeight: 'bold' }}
+            expanded={this.state.expanded}
+          >
+            <Text style={{ margin: 15 }}>If you could email us at <Text style={{ color: "blue" }}>skinskan.official@gmail.com</Text> with full details of the bug, including how you ended up encountering the bug and information about the device you were using, it would help us fix it as quickly as possible.</Text>
+          </List.Accordion>
         </List.Section>
-        <Button style={styles.button} mode="contained" icon="check" onPress={this.UpdateEmail}>Confirm</Button>
       </ScrollView>
     );
   }

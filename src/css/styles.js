@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Platform, Dimensions } from 'react-native';
 
 export default {
 
@@ -93,17 +93,6 @@ export default {
   buttonContainer: {
     marginTop: 15,
   },
-  separator: {
-    marginVertical: 30,
-    borderWidth: 0.5,
-    borderColor: '#DCDCDC',
-  },
-  label: {
-    color: '#999',
-    fontSize: 14,
-    fontWeight: '500',
-    marginBottom: 10,
-  },
 
   inputBoxMultiLine: {
     height: 200,
@@ -121,6 +110,16 @@ export default {
     marginVertical: 8,
     width: 300,
     margin: 10,
+  },
+
+  greenButton: {
+    backgroundColor: '#6adb28', 
+    width: 0.45 * Dimensions.get('window').width
+  },
+
+  redButton: {
+    backgroundColor: '#db286a', 
+    width: 0.45 * Dimensions.get('window').width
   },
 
   usernameLabel: {
@@ -183,13 +182,6 @@ export default {
   },
 
   //End of ViewProfile
-
-  MainContainer_For_Show_StudentList_Activity: {
-    flex: 1,
-    paddingTop: (Platform.OS == 'ios') ? 20 : 0,
-    marginLeft: 5,
-    marginRight: 5
-  },
 
   //ViewUser
   FlatListItemStyle: {

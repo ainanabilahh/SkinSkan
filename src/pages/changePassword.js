@@ -88,8 +88,10 @@ class ChangePassword extends Component {
             style={styles.inputBox2}
           />
         </List.Section>
-        <Button style={styles.button} mode="contained" icon="check" onPress={this.UpdatePassword}>Confirm</Button>
-      </ScrollView>
+        <View style={{ flexDirection: 'row' }}>
+          <Button style={[styles.button, styles.greenButton]} mode="contained" icon="check" onPress={this.UpdateEmail}>Confirm</Button>
+          <Button style={[styles.button, styles.redButton]} mode="contained" icon="remove" onPress={this.UpdateEmail}>Cancel</Button>
+        </View></ScrollView>
     );
   }
 }

@@ -145,7 +145,7 @@ class ViewUser extends Component {
                />
                <List.Subheader style={{ backgroundColor: '#efefef' }}>MORE</List.Subheader>
                <List.Item
-                  title="About SkinSkan and QnA"
+                  title="About and QnA"
                   onPress={this.AboutApp}
                   style={{ paddingVertical: -10 }}
                   left={() => <List.Icon color="#a3a3a3" icon="info" />}
