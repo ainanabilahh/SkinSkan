@@ -36,12 +36,14 @@ class Login extends Component {
     this.setState({ hidePassword: !this.state.hidePassword });
   }
 
-  _login = async () => {
+  authenticate = async (username) => {
+    await AsyncStorage.setItem('username', username);
+    await AsyncStorage.setItem('isLoggedIn', '1');
+  }
+
+  _login = () => {
 
     if (!this.state.username || !this.state.password) return;
-
-    await AsyncStorage.setItem('isLoggedIn', '1');
-    await AsyncStorage.setItem('username', this.state.username);
 
     fetch('http://178.128.121.52/login.php', {
       method: 'POST',
@@ -55,6 +57,9 @@ class Login extends Component {
       .then((responseJson) => {
 
         if (responseJson.message === 'Data Matched') {
+
+          this.authenthicate(this.state.username);
+
           if (responseJson.status == 0) {
             this.props.navigation.navigate('Skin');
           }
