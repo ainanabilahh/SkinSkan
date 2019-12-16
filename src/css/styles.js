@@ -122,6 +122,11 @@ export default {
     width: 0.45 * Dimensions.get('window').width
   },
 
+  whiteButton: {
+    backgroundColor: "#fff",
+    margin: 60
+  },
+
   usernameLabel: {
     fontSize: 20,
     marginLeft: 20,

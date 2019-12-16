@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, Image, Text, TouchableOpacity, View } from 'react-native';
 import { Button, TextInput, Avatar } from 'react-native-paper';
 import styles from '../css/styles';
 
@@ -11,9 +11,26 @@ class CreateUser extends Component {
       username: '',
       email: '',
       password: '',
-      hidePassword: true
+      hidePassword: true,
+      slideUp: new Animated.Value(0),
+      slideDown: new Animated.Value(0),
     }
   }
+
+  componentDidMount() {
+    return Animated.parallel([
+      Animated.timing(this.state.slideUp, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.slideDown, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true
+      }),
+    ]).start();
+  };
 
   managePasswordVisibility = () => {
     this.setState({ hidePassword: !this.state.hidePassword });
@@ -78,59 +95,81 @@ class CreateUser extends Component {
     this.props.navigation.navigate("Login");
   };
 
-  GoTo_Show_StudentList_Activity_Function = () => {
-    this.props.navigation.navigate('Third');
-  }
-
   render() {
+
+    let { slideUp, slideDown } = this.state;
+
     return (
 
       <View style={styles.MainContainer}>
-        <View style={styles.LogoContainer}>
-          <Avatar.Image size={200} source={require('../images/2.png')} /></View>
+        <Animated.View
+          style={{
+            transform: [
+              {
+                translateY: slideDown.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [-1000, 0]
+                })
+              }
+            ],
+          }}
+        >
+          <View>
+            <Avatar.Image size={200} source={require('../images/2.png')} />
+          </View>
+        </Animated.View>
         <Text style={{ paddingVertical: 10, color: '#fff', fontSize: 25, fontFamily: 'Montserrat-ExtraBold' }}>Sign Up</Text>
-        {/*<Text style={{ fontSize: 12, color: '#ccc' }}>*Username cannot be changed later. Choose carefully.</Text>*/}
-        <TextInput
-          mode="flat"
-          label="Username"
-          value={this.state.username}
-          onChangeText={username => this.setState({ username })} underlineColorAndroid='transparent'
-          style={styles.inputBox}
-        />
-        <TextInput
-          mode="flat"
-          type="email"
-          label="Email"
-          value={this.state.email}
-          onChangeText={email => this.setState({ email })}
-          underlineColorAndroid='transparent'
-          style={styles.inputBox}
-        />
-        <View style={styles.textBoxBtnHolder}>
+        <Animated.View
+          style={{
+            transform: [
+              {
+                translateY: slideUp.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [1000, 0]
+                })
+              }
+            ],
+          }}
+        >
+          <Text style={{ fontSize: 12, color: '#fff', textAlign: 'center', fontFamily: 'Montserrat-ExtraBold' }}><Text style={{color:'red'}}>* </Text>Username cannot be changed later. {"\n"} Choose carefully.</Text>
           <TextInput
             mode="flat"
-            label="Password"
-            value={this.state.password}
-            onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
+            label="Username"
+            value={this.state.username}
+            onChangeText={username => this.setState({ username })} underlineColorAndroid='transparent'
             style={styles.inputBox}
-            secureTextEntry={this.state.hidePassword}
           />
+          <TextInput
+            mode="flat"
+            type="email"
+            label="Email"
+            value={this.state.email}
+            onChangeText={email => this.setState({ email })}
+            underlineColorAndroid='transparent'
+            style={styles.inputBox}
+          />
+          <View style={styles.textBoxBtnHolder}>
+            <TextInput
+              mode="flat"
+              label="Password"
+              value={this.state.password}
+              onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
+              style={styles.inputBox}
+              secureTextEntry={this.state.hidePassword}
+            />
 
-          <TouchableOpacity activeOpacity={0.8} style={styles.visibilityBtn} onPress={this.managePasswordVisibility}>
-            <Image source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')} style={styles.btnImage} />
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity activeOpacity={0.8} style={styles.visibilityBtn} onPress={this.managePasswordVisibility}>
+              <Image source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')} style={styles.btnImage} />
+            </TouchableOpacity>
+          </View>
 
-        <Button style={[styles.button, { backgroundColor: "#fff" }]} icon="add" mode="outlined" onPress={this.CreateUser} >Sign Up</Button>
+          <Button style={[styles.button, styles.whiteButton]} icon="add" mode="outlined" onPress={this.CreateUser} >Sign Up</Button>
 
-        {/*<TouchableOpacity activeOpacity = { .4 } style={styles.buttonL} onPress={this.GoTo_Show_StudentList_Activity_Function} >
-          <Text style={styles.buttonText}> SHOW ALL INSERTED STUDENT RECORDS IN LISTVIEW </Text>
-          </TouchableOpacity>*/}
-
-        <View style={styles.footerContainer}>
-          <Text style={styles.footerText}>Already have an account?</Text>
-          <TouchableOpacity onPress={this.Login}><Text style={styles.footerButton}> Sign in</Text></TouchableOpacity>
-        </View>
+          <View style={styles.footerContainer}>
+            <Text style={styles.footerText}>Already have an account?</Text>
+            <TouchableOpacity onPress={this.Login}><Text style={styles.footerButton}> Sign in</Text></TouchableOpacity>
+          </View>
+        </Animated.View>
       </View>
     );
   }

@@ -136,7 +136,7 @@ class Login extends Component {
             </TouchableOpacity>
           </View>
 
-          <Button style={[styles.button, { backgroundColor: "#fff" }]} mode="outlined" icon="check" onPress={this._login} >Sign In</Button>
+          <Button style={[styles.button, styles.whiteButton]} mode="outlined" icon="check" onPress={this._login} >Sign In</Button>
 
           <View style={styles.footerContainer}>
             <Text style={styles.footerText}>Do not have an account yet?</Text>
