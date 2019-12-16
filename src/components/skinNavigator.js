@@ -6,7 +6,7 @@ const SkinNavigator = createStackNavigator(
     Skin: { 
       screen: Skin,
       navigationOptions: ({ navigation }) => ({
-        title: 'Skin Preferences',
+        title: 'Product Preferences',
         headerTintColor: '#ffffff',
         headerStyle: {
           backgroundColor: '#673AB7',
