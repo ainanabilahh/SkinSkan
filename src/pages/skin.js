@@ -131,32 +131,35 @@ class Skin extends Component {
         if (this.state.fungal == true)
             prod_pref.push("6")
 
-        fetch('http://178.128.121.52/updateSkin.php', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+        if (this.state.value == null || ing_eff.length == 0 || prod_pref.length == 0)
+            alert("Please answer all questions before proceed.");
+        else {
+            fetch('http://178.128.121.52/updateSkin.php', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
 
-                username: username,
-                skin_type: this.state.value,
-                prod_pref: prod_pref,
-                ing_eff: ing_eff
+                    username: username,
+                    skin_type: this.state.value,
+                    prod_pref: prod_pref,
+                    ing_eff: ing_eff
 
-            })
+                })
 
-        }).then((response) => response.json())
-            .then((responseJson) => {
+            }).then((response) => response.json())
+                .then((responseJson) => {
 
-                console.log(responseJson)
-                alert(responseJson);
+                    console.log(responseJson)
+                    alert(responseJson);
 
-            }).catch((error) => {
-                console.error(error);
-            });
-        this.props.navigation.navigate("Homepage");
-
+                }).catch((error) => {
+                    console.error(error);
+                });
+            this.props.navigation.navigate("Homepage");
+        }
     }
 
     render() {
@@ -168,7 +171,7 @@ class Skin extends Component {
 
             <ScrollView style={{ backgroundColor: '#efefef' }} refreshControl={this._refreshControl()}>
                 <List.Section style={{ backgroundColor: '#fff' }}>
-                    <List.Subheader style={{ backgroundColor: '#efefef', fontWeight:'bold' }}>1. WHAT IS YOUR SKIN TYPE?</List.Subheader>
+                    <List.Subheader style={{ backgroundColor: '#efefef', fontWeight: 'bold' }}>1. WHAT IS YOUR SKIN TYPE?</List.Subheader>
                     <RadioButton.Group
                         onValueChange={value => this.setState({ value })}
                         value={this.state.value}
@@ -200,7 +203,7 @@ class Skin extends Component {
                             </View>
                         </View>
                     </RadioButton.Group>
-                    <List.Subheader style={{ backgroundColor: '#efefef', fontWeight:'bold' }}>2. WHAT KIND OF PRODUCT DO YOU SEEK?</List.Subheader>
+                    <List.Subheader style={{ backgroundColor: '#efefef', fontWeight: 'bold' }}>2. WHAT KIND OF PRODUCT DO YOU SEEK?</List.Subheader>
                     <View>
                         <CheckBox
                             title='Anti-Aging'
@@ -228,7 +231,7 @@ class Skin extends Component {
                             onPress={() => { this.setState({ uvprotect: !uvprotect }); }}
                         />
                     </View>
-                    <List.Subheader style={{ backgroundColor: '#efefef', fontWeight:'bold' }}>3. WHAT INGREDIENTS YOU WANT TO AVOID?</List.Subheader>
+                    <List.Subheader style={{ backgroundColor: '#efefef', fontWeight: 'bold' }}>3. WHAT INGREDIENTS YOU WANT TO AVOID?</List.Subheader>
                     <View>
                         <CheckBox
                             title='Paraben-Free'
@@ -263,7 +266,7 @@ class Skin extends Component {
 
                     </View>
                 </List.Section>
-                <Button style={[styles.button, {width:0.95*Dimensions.get('window').width}]} mode="contained" icon="check" onPress={this.InsertSkinPreferences}>Submit</Button>
+                <Button style={[styles.button, { width: 0.95 * Dimensions.get('window').width }]} mode="contained" icon="check" onPress={this.InsertSkinPreferences}>Submit</Button>
             </ScrollView >
         );
     }
