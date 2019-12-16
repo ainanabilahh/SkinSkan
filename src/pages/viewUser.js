@@ -108,7 +108,7 @@ class ViewUser extends Component {
                   <View style={{ flexDirection: 'column', alignSelf: 'center' }}>
                      <View style={{ flexDirection: 'row' }}>
                         <Text style={styles.usernameLabel}>{this.state.username}</Text>
-                        <Image source={(this.state.verified) ? require('../../images/check.png') : require('../../images/multiply.png')} style={{ width: 15, height: 15, alignSelf: 'center' }} />
+                        <Image source={(this.state.verified) ? require('../images/check.png') : require('../images/multiply.png')} style={{ width: 15, height: 15, alignSelf: 'center' }} />
                      </View>
                      <Text style={{ marginHorizontal: 20 }}>{this.state.email}</Text>
                   </View>
@@ -145,7 +145,7 @@ class ViewUser extends Component {
                />
                <List.Subheader style={{ backgroundColor: '#efefef' }}>MORE</List.Subheader>
                <List.Item
-                  title="About SkinSkan"
+                  title="About SkinSkan and QnA"
                   onPress={this.AboutApp}
                   style={{ paddingVertical: -10 }}
                   left={() => <List.Icon color="#a3a3a3" icon="info" />}

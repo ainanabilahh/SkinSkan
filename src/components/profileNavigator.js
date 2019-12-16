@@ -5,6 +5,7 @@ import DeleteUser from '../pages/deleteUser';
 import Logout from '../pages/logout';
 import ViewUser from '../pages/viewUser';
 import VerifyAccount from '../pages/verifyAccount';
+import AboutApp from '../pages/aboutApp';
 
 const ProfileNavigator = createStackNavigator(
   {
@@ -83,6 +84,24 @@ const ProfileNavigator = createStackNavigator(
       screen: DeleteUser,
       navigationOptions: ({ navigation }) => ({
         title: 'Delete Account',
+        headerTintColor: '#ffffff',
+        headerStyle: {
+          backgroundColor: '#673AB7',
+          elevation: 0,
+        },
+        headerTitleStyle: {
+          marginLeft: -40,
+          fontSize: 20,
+          textAlign: 'center',
+          fontFamily: 'Montserrat-Bold',
+          flex: 1,
+        },
+      }),
+    },
+    AboutApp: {
+      screen: AboutApp,
+      navigationOptions: ({ navigation }) => ({
+        title: 'About SkinSkan',
         headerTintColor: '#ffffff',
         headerStyle: {
           backgroundColor: '#673AB7',

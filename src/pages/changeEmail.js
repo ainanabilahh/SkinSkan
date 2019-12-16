@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, TextInput, View } from 'react-native';
+import { Dimensions, ScrollView, Text, TextInput, View } from 'react-native';
 import { Button, List } from 'react-native-paper';
 import styles from '../css/styles';
 
@@ -77,7 +77,10 @@ class ChangeEmail extends Component {
             />
           </View>
         </List.Section>
-        <Button style={styles.button} mode="contained" icon="check" onPress={this.UpdateEmail}>Confirm</Button>
+        <View style={{ flexDirection: 'row' }}>
+          <Button style={[styles.button, { backgroundColor: '#00ff80', width: 0.45 * Dimensions.get('window').width }]} mode="contained" icon="check" onPress={this.UpdateEmail}>Confirm</Button>
+          <Button style={[styles.button, { backgroundColor: '#ff0080', width: 0.45 * Dimensions.get('window').width }]} mode="contained" icon="remove" onPress={this.UpdateEmail}>Cancel</Button>
+        </View>
       </ScrollView>
     );
   }
