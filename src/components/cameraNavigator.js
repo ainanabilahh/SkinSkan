@@ -60,7 +60,7 @@ const CameraNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: "Scan", 
+    initialRouteName: "Result", 
     navigationOptions: {
       tabBarOnPress: ({ navigation, defaultHandler }) => {
         defaultHandler();
