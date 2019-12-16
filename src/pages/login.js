@@ -36,12 +36,7 @@ class Login extends Component {
     this.setState({ hidePassword: !this.state.hidePassword });
   }
 
-  authenticate = async (username) => {
-    await AsyncStorage.setItem('username', username);
-    await AsyncStorage.setItem('isLoggedIn', '1');
-  }
-
-  _login = () => {
+  _login = async () => {
 
     if (!this.state.username || !this.state.password) return;
 
@@ -58,7 +53,8 @@ class Login extends Component {
 
         if (responseJson.message === 'Data Matched') {
 
-          this.authenthicate(this.state.username);
+          AsyncStorage.setItem('isLoggedIn', '1');
+          AsyncStorage.setItem('username', this.state.username);
 
           if (responseJson.status == 0) {
             this.props.navigation.navigate('Skin');
