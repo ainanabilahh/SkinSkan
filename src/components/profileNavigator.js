@@ -3,7 +3,7 @@ import ChangeEmail from '../pages/changeEmail';
 import ChangePassword from '../pages/changePassword';
 import DeleteUser from '../pages/deleteUser';
 import Logout from '../pages/logout';
-import ViewUser from '../pages/user/viewUser';
+import ViewUser from '../pages/viewUser';
 import VerifyAccount from '../pages/verifyAccount';
 
 const ProfileNavigator = createStackNavigator(

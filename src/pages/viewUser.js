@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
 import { Image, Alert, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { Avatar, Divider, List } from 'react-native-paper';
-import styles from '../../css/styles';
+import styles from '../css/styles';
 
 class ViewUser extends Component {
 
@@ -58,6 +58,10 @@ class ViewUser extends Component {
             refreshing={this.state.refreshing}
             onRefresh={() => this.componentDidMount()} />
       )
+   }
+
+   AboutApp = () => {
+      this.props.navigation.navigate('AboutApp')
    }
 
    VerifyAccount = () => {
@@ -141,9 +145,10 @@ class ViewUser extends Component {
                />
                <List.Subheader style={{ backgroundColor: '#efefef' }}>MORE</List.Subheader>
                <List.Item
-                  title="Credit"
+                  title="About SkinSkan"
+                  onPress={this.AboutApp}
                   style={{ paddingVertical: -10 }}
-                  left={() => <List.Icon color="#a3a3a3" icon="note" />}
+                  left={() => <List.Icon color="#a3a3a3" icon="info" />}
                />
                <List.Subheader style={{ backgroundColor: '#efefef' }}>OTHERS</List.Subheader>
                <List.Item

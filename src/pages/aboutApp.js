@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, TextInput, View } from 'react-native';
+import { View, TouchableOpacity, Image, Alert, ScrollView, Text, TextInput } from 'react-native';
 import { Button, List } from 'react-native-paper';
 import styles from '../css/styles';
 
-class ChangeEmail extends Component {
+class AboutApp extends Component {
 
   constructor(props) {
     super(props)
@@ -83,4 +83,4 @@ class ChangeEmail extends Component {
   }
 }
 
-export default ChangeEmail;
+export default AboutApp;
