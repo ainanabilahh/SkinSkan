@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, TextInput, View } from 'react-native';
+import { ScrollView, Text, TextInput, View, TouchableOpacity, Image } from 'react-native';
 import { Button, List } from 'react-native-paper';
 import styles from '../css/styles';
 
@@ -75,6 +75,9 @@ class ChangeEmail extends Component {
               onChangeText={TextInputValue => this.setState({ password: TextInputValue })}
               style={styles.inputBox2}
             />
+            <TouchableOpacity activeOpacity={0.8} style={[styles.visibilityBtn, { right: 15, bottom: 18 }]} onPress={this.managePasswordVisibility}>
+              <Image source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')} style={styles.btnImage} />
+            </TouchableOpacity>
           </View>
         </List.Section>
         <View style={{ flexDirection: 'row' }}>

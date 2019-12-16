@@ -70,7 +70,7 @@ class ChangePassword extends Component {
           />
           <List.Subheader style={{ backgroundColor: '#efefef' }}>NEW PASSWORD</List.Subheader>
           <Text style={{ margin: 15 }}>Please enter your new password below.</Text>
-          <Text style={{ marginHorizontal: 15, marginBottom: 15, fontSize: 12, color: '#a3a3a3' }}>Minimum 6 characters with a number and a letter.</Text>
+          <Text style={{ marginHorizontal: 15, marginBottom: 15, fontSize: 12, color: '#a3a3a3' }}>Minimum 6 characters with a number and a letter. {"\n"}The show password button can be used for both.</Text>
           <TextInput
             placeholder="New Password"
             autoCapitalize="none"
@@ -87,6 +87,9 @@ class ChangePassword extends Component {
             onChangeText={TextInputValue => this.setState({ rePass: TextInputValue })}
             style={styles.inputBox2}
           />
+          <TouchableOpacity activeOpacity={0.8} style={[styles.visibilityBtn, { position: 'absolute', right: 15, bottom: 18 }]} onPress={this.managePasswordVisibility}>
+            <Image source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')} style={styles.btnImage} />
+          </TouchableOpacity>
         </List.Section>
         <View style={{ flexDirection: 'row' }}>
           <Button style={[styles.button, styles.greenButton]} mode="contained" icon="check" onPress={this.UpdateEmail}>Confirm</Button>
