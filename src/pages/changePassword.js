@@ -70,7 +70,7 @@ class ChangePassword extends Component {
           />
           <List.Subheader style={{ backgroundColor: '#efefef' }}>NEW PASSWORD</List.Subheader>
           <Text style={{ margin: 15 }}>Please enter your new password below.</Text>
-          <Text style={{ marginHorizontal: 15, marginBottom: 15, fontSize: 12, color: '#a3a3a3' }}>Minimum 6 characters with a number and a letter. {"\n"}The show password button can be used for both.</Text>
+          <Text style={{ marginHorizontal: 15, marginBottom: 15, fontSize: 12, color: '#a3a3a3' }}>Minimum 6 characters with a number and a letter. {"\n"}<Text style={{ color: 'red' }}>* </Text>The show password button can be used for both.</Text>
           <TextInput
             placeholder="New Password"
             autoCapitalize="none"
