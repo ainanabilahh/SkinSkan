@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Dimensions, ScrollView, Text, View } from 'react-native';
 import { Overlay } from 'react-native-elements';
 import { Divider, ActivityIndicator, Button, List, DataTable, Chip } from 'react-native-paper';
 import ProgressBar from 'react-native-progress/Bar';
@@ -89,7 +89,9 @@ class Result extends Component {
             <ScrollView style={{ backgroundColor: '#efefef' }}>
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>RESULT</List.Subheader>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row', padding: 20 }}>
+                        
+                        <Divider/>
                         <ProgressCircle
                             percent={prod}
                             radius={50}
@@ -99,7 +101,7 @@ class Result extends Component {
                             bgColor="#fff" >
                             <Text style={{ fontSize: 18 }}>{prod}%</Text>
                         </ProgressCircle>
-                        <Text style={styles.usernameLabel}>matches with your product preferences!</Text>
+                        <Text style={styles.usernameLabel}>matches with your {"\n"}product preferences!</Text>
                         <Divider />
                     </View>
                 </List.Section>
@@ -132,7 +134,7 @@ class Result extends Component {
                     </View>
                 </List.Section> */}
                 <Text style={{ textAlign: 'center' }}>Not satisfied?</Text>
-                <Button style={styles.button} mode="contained" icon="arrow-back" onPress={this.Back}>Scan Again</Button>
+                <Button style={[styles.button, { width: 0.95 * Dimensions.get('window').width }]} mode="contained" icon="arrow-back" onPress={this.Back}>Scan Again</Button>
             </ScrollView>
 
         );
