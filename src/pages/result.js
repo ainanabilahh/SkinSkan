@@ -14,19 +14,17 @@ class Result extends Component {
         this.state = {
             isLoading: true,
             username: '',
-            // ingredients: '',
-            // ing: null,
             // notes: null,
             isVisible: true,
-            ingredients: '',
-            ing: null,
+            // ingredients: '',
+            // ing: null,
             notes: [{ "Note": "Brightening", "Qty": "1" }, { "Note": "Acne-Fighting", "Qty": "1" }, { "Note": "Good for Dry Skin", "Qty": "4" }, { "Note": "Comedogenic Rating (1)", "Qty": "1" }, { "Note": "Comedogenic Rating (2)", "Qty": "2" }, { "Note": "Comedogenic Rating (3)", "Qty": "1" }],
             percent: '80.0',
             good: '4',
             bad: '0',
-            ing_eff: null,
-            prod_pref: null,
-            skin_type: null,
+            ing_eff_string: null,
+            prod_pref_string: null,
+            skin_type_string: null,
         }
     }
 
@@ -50,6 +48,7 @@ class Result extends Component {
                     ing_eff_string: responseJson.ing_eff,
                     prod_pref_string: responseJson.prod_pref
                 })
+
             }).catch((err) => {
                 alert("There is a network error. Please try again.")
                 if (err.name == 'AbortError') return
@@ -114,8 +113,8 @@ class Result extends Component {
         //     <Text key={key} textStyle={{ fontSize: 11 }}>{item.IngNotFound}</Text>
         // )
 
-        var ing_eff_string = this.state.ing_eff_string;
-        var prod_pref_string = this.state.prod_pref_string;
+        var ing_eff_string = ['Anti-Aging', 'Promotes Wound Healing'];
+        var prod_pref_string = ['Paraben'];
 
         const skin =
             <List.Accordion
@@ -125,10 +124,33 @@ class Result extends Component {
                 <List.Item title="Second item" />
             </List.Accordion>;
 
-        console.log(ing_eff_string)
-        const a = ing_eff_string.map((item) => {
-            console.log(item)
+        let a = ing_eff_string.map((item) => {
+            a = item.split(", ");
+            return a;
         })
+
+        let b = a.map((item, key) =>
+            <List.Accordion
+                key={key}
+                title={item}
+            >
+                <List.Item title="First item" />
+            </List.Accordion>
+        );
+
+        let x = prod_pref_string.map((item) => {
+            x = item.split(", ");
+            return x;
+        })
+
+        let y = x.map((item, key) =>
+            <List.Accordion
+                key={key}
+                title={item}
+            >
+                <List.Item title="First item" />
+            </List.Accordion>
+        );
 
         // const ing_eff = ing_eff_string.map((item, key) =>
         //     <List.Accordion
@@ -169,9 +191,9 @@ class Result extends Component {
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>DETAILS</List.Subheader>
                     {skin}
-                    {ing_eff}
-                    {prod_pref}
-                    <DataTable>
+                    {b}
+                    {y}
+                    {/* <DataTable>
                         <DataTable.Header>
                             <DataTable.Title>Notes</DataTable.Title>
                             <DataTable.Title numeric>Quantity</DataTable.Title>
@@ -182,7 +204,7 @@ class Result extends Component {
                                 <DataTable.Cell numeric>{item.Qty}</DataTable.Cell>
                             </DataTable.Row>
                         )}
-                    </DataTable>
+                    </DataTable> */}
                 </List.Section>
                 {/* <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>INGREDIENTS</List.Subheader>
