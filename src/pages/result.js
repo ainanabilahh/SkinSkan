@@ -50,8 +50,6 @@ class Result extends Component {
                     ing_eff_string: responseJson.ing_eff,
                     prod_pref_string: responseJson.prod_pref
                 })
-
-                alert(this.state.ing_eff);
             }).catch((err) => {
                 alert("There is a network error. Please try again.")
                 if (err.name == 'AbortError') return
@@ -116,15 +114,37 @@ class Result extends Component {
         //     <Text key={key} textStyle={{ fontSize: 11 }}>{item.IngNotFound}</Text>
         // )
 
-        // console.log(j)
+        var ing_eff_string = this.state.ing_eff_string;
+        var prod_pref_string = this.state.prod_pref_string;
 
-        const x =
+        const skin =
             <List.Accordion
-                title="dfgdf"
+                title={this.state.skin_type_string}
             >
                 <List.Item title="First item" />
                 <List.Item title="Second item" />
             </List.Accordion>;
+
+        console.log(ing_eff_string)
+        const a = ing_eff_string.map((item) => {
+            console.log(item)
+        })
+
+        // const ing_eff = ing_eff_string.map((item, key) =>
+        //     <List.Accordion
+        //         key={key}
+        //         title={item}
+        //     >
+        //     </List.Accordion>
+        // );
+
+        // const prod_pref =
+        //     <List.Accordion
+        //         title={this.state.skin_type_string}
+        //     >
+        //         <List.Item title="First item" />
+        //         <List.Item title="Second item" />
+        //     </List.Accordion>;
 
         return (
             <ScrollView style={{ backgroundColor: '#efefef' }}>
@@ -148,7 +168,9 @@ class Result extends Component {
                 </List.Section>
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>DETAILS</List.Subheader>
-                    {x}
+                    {skin}
+                    {ing_eff}
+                    {prod_pref}
                     <DataTable>
                         <DataTable.Header>
                             <DataTable.Title>Notes</DataTable.Title>
