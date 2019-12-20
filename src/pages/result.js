@@ -33,8 +33,6 @@ class Result extends Component {
     async componentDidMount() {
 
         username = await AsyncStorage.getItem('username') || 'undefined';
-        const ing_eff_string = [];
-        const prod_pref_string = [];
 
         fetch('http://178.128.121.52/viewSkinResult.php', {
             method: 'POST',
@@ -48,23 +46,10 @@ class Result extends Component {
         }).then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
-                    skin_type: responseJson.skin_type,
-                    ing_eff: responseJson.ing_eff,
-                    prod_pref: responseJson.prod_pref
+                    skin_type_string: responseJson.skin_type,
+                    ing_eff_string: responseJson.ing_eff,
+                    prod_pref_string: responseJson.prod_pref
                 })
-
-                for (i = 0; i < ing_eff.length; i++) {
-                    if (ing_eff[i].includes("1"))
-                        ing_eff_string.push("1")
-                    if (ing_eff[i].includes("2"))
-                        this.setState({ woundhealing: true })
-                    if (ing_eff.includes("3"))
-                        this.setState({ acnefight: true })
-                    if (ing_eff.includes("4"))
-                        this.setState({ brightening: true })
-                    if (ing_eff.includes("5"))
-                        this.setState({ uvprotect: true })
-                }
 
                 alert(this.state.ing_eff);
             }).catch((err) => {
