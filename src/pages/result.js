@@ -5,6 +5,7 @@ import { Divider, ActivityIndicator, Button, List, DataTable, Chip } from 'react
 import ProgressBar from 'react-native-progress/Bar';
 import ProgressCircle from 'react-native-progress-circle'
 import styles from '../css/styles';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Result extends Component {
 
@@ -22,8 +23,55 @@ class Result extends Component {
             notes: [{ "Note": "Brightening", "Qty": "1" }, { "Note": "Acne-Fighting", "Qty": "1" }, { "Note": "Good for Dry Skin", "Qty": "4" }, { "Note": "Comedogenic Rating (1)", "Qty": "1" }, { "Note": "Comedogenic Rating (2)", "Qty": "2" }, { "Note": "Comedogenic Rating (3)", "Qty": "1" }],
             percent: '80.0',
             good: '4',
-            bad: '0'
+            bad: '0',
+            ing_eff: null,
+            prod_pref: null,
+            skin_type: null,
         }
+    }
+
+    async componentDidMount() {
+
+        username = await AsyncStorage.getItem('username') || 'undefined';
+        const ing_eff_string = [];
+        const prod_pref_string = [];
+
+        fetch('http://178.128.121.52/viewSkinResult.php', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+            }),
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    skin_type: responseJson.skin_type,
+                    ing_eff: responseJson.ing_eff,
+                    prod_pref: responseJson.prod_pref
+                })
+
+                for (i = 0; i < ing_eff.length; i++) {
+                    if (ing_eff[i].includes("1"))
+                        ing_eff_string.push("1")
+                    if (ing_eff[i].includes("2"))
+                        this.setState({ woundhealing: true })
+                    if (ing_eff.includes("3"))
+                        this.setState({ acnefight: true })
+                    if (ing_eff.includes("4"))
+                        this.setState({ brightening: true })
+                    if (ing_eff.includes("5"))
+                        this.setState({ uvprotect: true })
+                }
+
+                alert(this.state.ing_eff);
+            }).catch((err) => {
+                alert("There is a network error. Please try again.")
+                if (err.name == 'AbortError') return
+                throw err
+            });
     }
 
     // componentDidUpdate() {
@@ -85,13 +133,21 @@ class Result extends Component {
 
         // console.log(j)
 
+        const x =
+            <List.Accordion
+                title="dfgdf"
+            >
+                <List.Item title="First item" />
+                <List.Item title="Second item" />
+            </List.Accordion>;
+
         return (
             <ScrollView style={{ backgroundColor: '#efefef' }}>
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>RESULT</List.Subheader>
                     <View style={{ flexDirection: 'row', padding: 20 }}>
-                        
-                        <Divider/>
+
+                        <Divider />
                         <ProgressCircle
                             percent={prod}
                             radius={50}
@@ -107,6 +163,7 @@ class Result extends Component {
                 </List.Section>
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>DETAILS</List.Subheader>
+                    {x}
                     <DataTable>
                         <DataTable.Header>
                             <DataTable.Title>Notes</DataTable.Title>
