@@ -204,10 +204,10 @@ class Result extends Component {
                 </List.Section>
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>DETAILS</List.Subheader>
-                    <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 15 }}>Effects wanted to have:</Text>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 15 }}>Desired effects:</Text>
                     <Divider />
                     {b}
-                    <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 15 }}>Ingredients wanted to avoid:</Text>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 15 }}>Ingredients to avoid:</Text>
                     <Divider />
                     {y}
                     {/* <DataTable>
