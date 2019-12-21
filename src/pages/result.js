@@ -56,16 +56,16 @@ class Result extends Component {
             });
     }
 
-    // componentDidUpdate() {
+    componentDidUpdate() {
 
-    //     if (this.props.navigation.state.params.ing !== this.state.ing) {
-    //         this.setState({ ing: this.props.navigation.state.params.ing })
-    //     }
+        // if (this.props.navigation.state.params.ing !== this.state.ing) {
+        //     this.setState({ ing: this.props.navigation.state.params.ing })
+        // }
 
-    //     if (this.props.navigation.state.params.notes !== this.state.notes) {
-    //         this.setState({ notes: this.props.navigation.state.params.notes })
-    //     }
-    // }
+        if (this.props.navigation.state.params.notes !== this.state.notes) {
+            this.setState({ notes: this.props.navigation.state.params.notes })
+        }
+    }
 
     Back = () => {
         this.props.navigation.navigate('Scan');

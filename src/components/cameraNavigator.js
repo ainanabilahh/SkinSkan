@@ -40,27 +40,27 @@ const CameraNavigator = createStackNavigator(
         },
       }),   
     },
-    Result: { 
-      screen: Result,
-      navigationOptions: ({ navigation }) => ({
-        title: 'Result',
-        headerTintColor: '#ffffff',
-        headerStyle: {
-          backgroundColor: '#673AB7',
-          elevation: 0,
-        },
-        headerTitleStyle: {
-          marginLeft:-40,
-          fontSize: 20,
-          textAlign: 'center',
-          fontFamily: 'Montserrat-Bold',
-          flex: 1, 
-        },
-      }),   
-    },
+    // Result: { 
+    //   screen: Result,
+    //   navigationOptions: ({ navigation }) => ({
+    //     title: 'Result',
+    //     headerTintColor: '#ffffff',
+    //     headerStyle: {
+    //       backgroundColor: '#673AB7',
+    //       elevation: 0,
+    //     },
+    //     headerTitleStyle: {
+    //       marginLeft:-40,
+    //       fontSize: 20,
+    //       textAlign: 'center',
+    //       fontFamily: 'Montserrat-Bold',
+    //       flex: 1, 
+    //     },
+    //   }),   
+    // },
   },
   {
-    initialRouteName: "Result", 
+    initialRouteName: "Scan", 
     navigationOptions: {
       tabBarOnPress: ({ navigation, defaultHandler }) => {
         defaultHandler();
