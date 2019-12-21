@@ -131,6 +131,7 @@ class Result extends Component {
         var skin = this.state.skin
         var ing_eff_string = this.state.ing_eff_string
         var prod_pref_string = this.state.prod_pref_string
+        var cond = true
 
         let n = skin.map((item, key) =>
             <Text key={key} style={[styles.usernameLabel, { color: '#6adb28' }]}>{item.GoodSkin}</Text>
@@ -152,8 +153,8 @@ class Result extends Component {
                 title={item}
             >
                 {this.state.notes.map((itemN, keyN) =>
-                    (itemN.Note == (item)) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : ((keyN == 0) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item} effects</Text>) : (null))
-                    )}
+                    (itemN.Note == (item)) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : ((cond == true) ? (cond = false, <Text key={keyN} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item} effects</Text>) : (null))
+                )}
             </List.Accordion>
         );
 
