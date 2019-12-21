@@ -132,16 +132,11 @@ class Result extends Component {
         var ing_eff_string = this.state.ing_eff_string
         var prod_pref_string = this.state.prod_pref_string
 
-        let m = skin.map((item) => {
-            m = item.split(", ")
-            return m
-        })
-
-        let n = m.map((item, key) =>
+        let n = skin.map((item, key) =>
             <Text key={key} style={[styles.usernameLabel, { color: '#6adb28' }]}>{item.GoodSkin}</Text>
         );
 
-        let o = m.map((item, key) =>
+        let o = skin.map((item, key) =>
             <Text key={key} style={[styles.usernameLabel, { color: '#db286a' }]}>{item.BadSkin}</Text>
         );
 
@@ -184,11 +179,11 @@ class Result extends Component {
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>RESULT</List.Subheader>
                     <View style={{ flexDirection: 'row', padding: 20 }}>
-                        {/* {n} */}
+                        {n}
                         <Text style={[styles.usernameLabel, { fontSize: 16, marginTop: 5 }]}>ingredient(s) <Text style={{ color: '#6adb28' }}>good</Text> for your skin type!</Text>
                     </View>
                     <View style={{ flexDirection: 'row', padding: 20 }}>
-                        {/* {o} */}
+                        {o}
                         <Text style={[styles.usernameLabel, { fontSize: 16, marginTop: 5 }]}>ingredient(s) <Text style={{ color: '#db286a' }}>bad</Text> for your skin type!</Text>
                     </View>
                     <Divider />
