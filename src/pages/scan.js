@@ -100,15 +100,10 @@ class Scan extends Component {
           alert("There is a network error. Please try again.")
           console.log(error);
         });
-
     }).catch(e => {
       console.log(e), this.setState({ imageModalVisible: false })
     });
   }
-
-  insertIngredients = () => {
-    this.props.navigation.navigate('Ingredients')
-  };
 
   selectPhoto = () => {
     ImagePicker.openPicker({
@@ -160,7 +155,6 @@ class Scan extends Component {
           alert("There is a network error. Please try again.")
           console.log(error);
         });
-
     }).catch(e => {
       console.log(e), this.setState({ imageModalVisible: false })
     });
