@@ -108,65 +108,59 @@ class Scan extends Component {
   }
 
   selectPhoto = () => {
-    this.props.navigation.navigate('Result', {
+    ImagePicker.openPicker({
+      cropping: true,
+      width: 300,
+      height: 400,
+      freeStyleCropEnabled: true,
+      avoidEmptySpaceAroundImage: true,
+      includeBase64: true
+    }).then(response => {
+      this.setState({ imageModalVisible: false })
+
+      this.props.navigation.navigate('Result', {
+        username: username,
+        skin: this.state.skin,
+        notes: this.state.notes,
+        percent: this.state.percent,
+      });
+
+      fetch("http://178.128.121.52/uploadImage.php", {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           username: username,
-          skin: this.state.skin,
-          notes: this.state.notes,
-          percent: this.state.percent,
+          image_name: response.modificationDate,
+          image_data: response.data,
+        })
+      }).then((response) => response.text())
+        .then((responseJson) => {
+
+          console.log(responseJson)
+          var result = JSON.parse(responseJson)
+          this.setState({
+            // ing: result.Ingredients,
+            skin: result.Skin,
+            notes: result.Notes,
+            percent: result.Percent
+          })
+          this.props.navigation.navigate('Result', {
+            username: username,
+            skin: this.state.skin,
+            notes: this.state.notes,
+            percent: this.state.percent,
+          });
+
+        }).catch((error) => {
+          alert("There is a network error. Please try again.")
+          console.log(error);
         });
-    // ImagePicker.openPicker({
-    //   cropping: true,
-    //   width: 300,
-    //   height: 400,
-    //   freeStyleCropEnabled: true,
-    //   avoidEmptySpaceAroundImage: true,
-    //   includeBase64: true
-    // }).then(response => {
-    //   this.setState({ imageModalVisible: false })
-
-    //   this.props.navigation.navigate('Result', {
-    //     username: username,
-    //     skin: this.state.skin,
-    //     notes: this.state.notes,
-    //     percent: this.state.percent,
-    //   });
-
-    //   fetch("http://178.128.121.52/uploadImage.php", {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       username: username,
-    //       image_name: response.modificationDate,
-    //       image_data: response.data,
-    //     })
-    //   }).then((response) => response.text())
-    //     .then((responseJson) => {
-
-    //       console.log(responseJson)
-    //       var result = JSON.parse(responseJson)
-    //       this.setState({
-    //         // ing: result.Ingredients,
-    //         skin: result.Skin,
-    //         notes: result.Notes,
-    //         percent: result.Percent
-    //       })
-    //       this.props.navigation.navigate('Result', {
-    //         username: username,
-    //         skin: this.state.skin,
-    //         notes: this.state.notes,
-    //         percent: this.state.percent,
-    //       });
-
-    //     }).catch((error) => {
-    //       alert("There is a network error. Please try again.")
-    //       console.log(error);
-    //     });
-    // }).catch(e => {
-    //   console.log(e), this.setState({ imageModalVisible: false })
-    // });
+    }).catch(e => {
+      console.log(e), this.setState({ imageModalVisible: false })
+    });
   }
 
   render() {
