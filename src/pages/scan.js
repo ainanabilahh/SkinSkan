@@ -80,11 +80,17 @@ class Scan extends Component {
 
           console.log(responseJson)
           var result = JSON.parse(responseJson)
-          this.setState({ ing: result.Ingredients })
-          this.setState({ notes: result.Notes })
+
+          this.setState({
+            // ing: result.Ingredients,
+            skin : result.Skin,
+            notes: result.Notes,
+            percent : result.Percent
+          })
           this.props.navigation.navigate('Result', {
-            ing: this.state.ing,
-            notes: this.state.notes
+            skin: this.state.skin,
+            notes: this.state.notes,
+            percent : this.state.percent,
           });
 
         }).catch((error) => {

@@ -6,6 +6,7 @@ import ProgressBar from 'react-native-progress/Bar';
 import ProgressCircle from 'react-native-progress-circle'
 import styles from '../css/styles';
 import AsyncStorage from '@react-native-community/async-storage';
+import { Item } from 'react-native-paper/typings/components/List';
 
 class Result extends Component {
 
@@ -14,16 +15,14 @@ class Result extends Component {
         this.state = {
             isLoading: true,
             username: '',
-            // notes: null,
+            notes: null,
             isVisible: true,
             // ingredients: '',
             // ing: null,
-            notes: [{ "Note": "Brightening", "Qty": "1" }, { "Note": "Acne-Fighting", "Qty": "1" }, { "Note": "Good for Dry Skin", "Qty": "4" }, { "Note": "Comedogenic Rating (1)", "Qty": "1" }, { "Note": "Comedogenic Rating (2)", "Qty": "2" }, { "Note": "Comedogenic Rating (3)", "Qty": "1" }],
-            percent: '80.0',
-            good: '4',
-            bad: '0',
-            ing_eff_string: ['Brightening', 'Acne-Fighting'],
-            prod_pref_string: ['Paraben'],
+            percent: null,
+            skin: null,
+            ing_eff_string: null,
+            prod_pref_string: null,
             skin_type_string: null,
         }
     }
@@ -65,6 +64,14 @@ class Result extends Component {
         if (this.props.navigation.state.params.notes !== this.state.notes) {
             this.setState({ notes: this.props.navigation.state.params.notes })
         }
+
+        if (this.props.navigation.state.params.percent !== this.state.percent) {
+            this.setState({ percent: this.props.navigation.state.params.percent })
+        }
+
+        if (this.props.navigation.state.params.skin !== this.state.skin) {
+            this.setState({ skin: this.props.navigation.state.params.skin })
+        }
     }
 
     Back = () => {
@@ -83,20 +90,20 @@ class Result extends Component {
         else if (prod > 60)
             color = "#76eb00"
 
-        // if (!this.state.notes) {
-        //     return (
-        //         <Overlay height={200} isVisible={this.state.isVisible}>
-        //             <View style={styles.MainContainer}>
-        //                 <Text style={{ paddingBottom: 50, textAlign:"center" }}>This will take a while depends on your internet connection. Please do not close this window.</Text>
-        //                 <ActivityIndicator
-        //                     animating={true}
-        //                     style={styles.indicator}
-        //                     size="large"
-        //                 />
-        //             </View>
-        //         </Overlay>
-        //     );
-        // }
+        if (!this.state.notes) {
+            return (
+                <Overlay height={200} isVisible={this.state.isVisible}>
+                    <View style={styles.MainContainer}>
+                        <Text style={{ paddingBottom: 50, textAlign: "center" }}>This will take a while depends on your internet connection. Please do not close this window.</Text>
+                        <ActivityIndicator
+                            animating={true}
+                            style={styles.indicator}
+                            size="large"
+                        />
+                    </View>
+                </Overlay>
+            );
+        }
 
         // var ingArr = this.state.ing
 
@@ -113,8 +120,6 @@ class Result extends Component {
         //     <Text key={key} textStyle={{ fontSize: 11 }}>{item.IngNotFound}</Text>
         // )
 
-        var ing_eff_string = ['Brightening', 'Acne-Fighting']
-        var prod_pref_string = ['Paraben']
         // var skin_type_string = this.state.skin_type_string + " Skin";
 
         // const skin =
@@ -124,6 +129,19 @@ class Result extends Component {
         //         <List.Item title="First item" />
         //         <List.Item title="Second item" />
         //     </List.Accordion>;
+
+        let m = skin.map((item) => {
+            m = item.split(", ")
+            return m
+        })
+
+        let n = m.map((item, key) =>
+            <Text key={key} style={[styles.usernameLabel, { color: '#6adb28' }]}>{item.Good}</Text>
+        );
+
+        let o = m.map((item, key) =>
+            <Text key={key} style={[styles.usernameLabel, { color: '#db286a' }]}>{item.Bad}</Text>
+        );
 
         let a = ing_eff_string.map((item) => {
             a = item.split(", ")
@@ -154,7 +172,7 @@ class Result extends Component {
                 title={item}
             >
                 {this.state.notes.map((itemN, key) =>
-                    (itemN.Note == (item)) ? (<Text key={key} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) for {itemN.Note}</Text>) : ( (key == 0) ? (<Text key={key} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item}</Text>) : (null))
+                    (itemN.Note == (item)) ? (<Text key={key} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) for {itemN.Note}</Text>) : ((key == 0) ? (<Text key={key} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item}</Text>) : (null))
                 )}
             </List.Accordion>
         );
@@ -180,11 +198,11 @@ class Result extends Component {
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>RESULT</List.Subheader>
                     <View style={{ flexDirection: 'row', padding: 20 }}>
-                        <Text style={[styles.usernameLabel, { color: '#6adb28' }]}>{this.state.good}</Text>
+                        {n}
                         <Text style={[styles.usernameLabel, { fontSize: 16, marginTop: 5 }]}>ingredient(s) <Text style={{ color: '#6adb28' }}>good</Text> for your skin type!</Text>
                     </View>
                     <View style={{ flexDirection: 'row', padding: 20 }}>
-                        <Text style={[styles.usernameLabel, { color: '#db286a' }]}>{this.state.bad}</Text>
+                        {o}
                         <Text style={[styles.usernameLabel, { fontSize: 16, marginTop: 5 }]}>ingredient(s) <Text style={{ color: '#db286a' }}>bad</Text> for your skin type!</Text>
                     </View>
                     <Divider />
