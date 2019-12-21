@@ -22,7 +22,7 @@ class Result extends Component {
             percent: '80.0',
             good: '4',
             bad: '0',
-            ing_eff_string: null,
+            ing_eff_string: ['Brightening', 'Acne-Fighting'],
             prod_pref_string: null,
             skin_type_string: null,
         }
@@ -113,20 +113,21 @@ class Result extends Component {
         //     <Text key={key} textStyle={{ fontSize: 11 }}>{item.IngNotFound}</Text>
         // )
 
-        var ing_eff_string = ['Anti-Aging', 'Promotes Wound Healing'];
-        var prod_pref_string = ['Paraben'];
+        var ing_eff_string = ['Brightening', 'Acne-Fighting']
+        var prod_pref_string = ['Paraben']
+        // var skin_type_string = this.state.skin_type_string + " Skin";
 
-        const skin =
-            <List.Accordion
-                title={this.state.skin_type_string}
-            >
-                <List.Item title="First item" />
-                <List.Item title="Second item" />
-            </List.Accordion>;
+        // const skin =
+        //     <List.Accordion
+        //         title={skin_type_string}
+        //     >
+        //         <List.Item title="First item" />
+        //         <List.Item title="Second item" />
+        //     </List.Accordion>;
 
         let a = ing_eff_string.map((item) => {
-            a = item.split(", ");
-            return a;
+            a = item.split(", ")
+            return a
         })
 
         let b = a.map((item, key) =>
@@ -134,7 +135,9 @@ class Result extends Component {
                 key={key}
                 title={item}
             >
-                <List.Item title="First item" />
+                {this.state.notes.map((itemN, key) =>
+                    (itemN.Note == (item)) ? (<Text key={key} style={{ margin: 10 }}>This product contains {itemN.Qty} ingredient(s) for {itemN.Note}</Text>) : (null)
+                )}
             </List.Accordion>
         );
 
@@ -148,7 +151,18 @@ class Result extends Component {
                 key={key}
                 title={item}
             >
-                <List.Item title="First item" />
+                <DataTable>
+                    <DataTable.Header>
+                        <DataTable.Title>Ingredients</DataTable.Title>
+                        <DataTable.Title numeric>Quantity</DataTable.Title>
+                    </DataTable.Header>
+                    {/* {this.state.notes.map((item, key) =>
+                        <DataTable.Row key={item.Note}>
+                            <DataTable.Title>{item.Note}</DataTable.Title>
+                            <DataTable.Cell numeric>{item.Qty}</DataTable.Cell>
+                        </DataTable.Row>
+                    )} */}
+                </DataTable>
             </List.Accordion>
         );
 
@@ -173,8 +187,15 @@ class Result extends Component {
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>RESULT</List.Subheader>
                     <View style={{ flexDirection: 'row', padding: 20 }}>
-
-                        <Divider />
+                        <Text style={[styles.usernameLabel, { color: '#6adb28' }]}>{this.state.good}</Text>
+                        <Text style={[styles.usernameLabel, { fontSize: 16, marginTop: 5 }]}>ingredient(s) <Text style={{ color: '#6adb28' }}>good</Text> for your skin type!</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', padding: 20 }}>
+                        <Text style={[styles.usernameLabel, { color: '#db286a' }]}>{this.state.bad}</Text>
+                        <Text style={[styles.usernameLabel, { fontSize: 16, marginTop: 5 }]}>ingredient(s) <Text style={{ color: '#db286a' }}>bad</Text> for your skin type!</Text>
+                    </View>
+                    <Divider />
+                    <View style={{ flexDirection: 'row', padding: 20 }}>
                         <ProgressCircle
                             percent={prod}
                             radius={50}
@@ -184,13 +205,12 @@ class Result extends Component {
                             bgColor="#fff" >
                             <Text style={{ fontSize: 18 }}>{prod}%</Text>
                         </ProgressCircle>
-                        <Text style={styles.usernameLabel}>matches with your {"\n"}product preferences!</Text>
+                        <Text style={[styles.usernameLabel, { marginTop: 20 }]}>matches with your {"\n"}product preferences!</Text>
                         <Divider />
                     </View>
                 </List.Section>
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>DETAILS</List.Subheader>
-                    {skin}
                     {b}
                     {y}
                     {/* <DataTable>
@@ -221,7 +241,7 @@ class Result extends Component {
                 </List.Section> */}
                 <Text style={{ textAlign: 'center' }}>Not satisfied?</Text>
                 <Button style={[styles.button, { width: 0.95 * Dimensions.get('window').width }]} mode="contained" icon="arrow-back" onPress={this.Back}>Scan Again</Button>
-            </ScrollView>
+            </ScrollView >
 
         );
     }
