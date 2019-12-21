@@ -134,11 +134,11 @@ class Result extends Component {
         })
 
         let n = m.map((item, key) =>
-            <Text key={key} style={[styles.usernameLabel, { color: '#6adb28' }]}>{item.Good}</Text>
+            <Text key={key} style={[styles.usernameLabel, { color: '#6adb28' }]}>{item.GoodSkin}</Text>
         );
 
         let o = m.map((item, key) =>
-            <Text key={key} style={[styles.usernameLabel, { color: '#db286a' }]}>{item.Bad}</Text>
+            <Text key={key} style={[styles.usernameLabel, { color: '#db286a' }]}>{item.BadSkin}</Text>
         );
 
         let a = ing_eff_string.map((item) => {
