@@ -23,7 +23,7 @@ class Result extends Component {
             good: '4',
             bad: '0',
             ing_eff_string: ['Brightening', 'Acne-Fighting'],
-            prod_pref_string: null,
+            prod_pref_string: ['Paraben'],
             skin_type_string: null,
         }
     }
@@ -133,10 +133,11 @@ class Result extends Component {
         let b = a.map((item, key) =>
             <List.Accordion
                 key={key}
+                titleStyle={{ fontSize: 14 }}
                 title={item}
             >
                 {this.state.notes.map((itemN, key) =>
-                    (itemN.Note == (item)) ? (<Text key={key} style={{ margin: 10 }}>This product contains {itemN.Qty} ingredient(s) for {itemN.Note}</Text>) : (null)
+                    (itemN.Note == (item)) ? (<Text key={key} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : (null)
                 )}
             </List.Accordion>
         );
@@ -149,20 +150,12 @@ class Result extends Component {
         let y = x.map((item, key) =>
             <List.Accordion
                 key={key}
+                titleStyle={{ fontSize: 14 }}
                 title={item}
             >
-                <DataTable>
-                    <DataTable.Header>
-                        <DataTable.Title>Ingredients</DataTable.Title>
-                        <DataTable.Title numeric>Quantity</DataTable.Title>
-                    </DataTable.Header>
-                    {/* {this.state.notes.map((item, key) =>
-                        <DataTable.Row key={item.Note}>
-                            <DataTable.Title>{item.Note}</DataTable.Title>
-                            <DataTable.Cell numeric>{item.Qty}</DataTable.Cell>
-                        </DataTable.Row>
-                    )} */}
-                </DataTable>
+                {this.state.notes.map((itemN, key) =>
+                    (itemN.Note == (item)) ? (<Text key={key} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) for {itemN.Note}</Text>) : ( (key == 0) ? (<Text key={key} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item}</Text>) : (null))
+                )}
             </List.Accordion>
         );
 
