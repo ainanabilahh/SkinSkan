@@ -65,8 +65,6 @@ class Result extends Component {
                     prod_pref_string: responseJson.prod_pref
                 })
 
-                console.log(this.state.ing_eff_string)
-
             }).catch((err) => {
                 alert("There is a network error. Please try again.")
                 if (err.name == 'AbortError') return
@@ -94,7 +92,7 @@ class Result extends Component {
             return (
                 <Overlay height={200} isVisible={this.state.isVisible}>
                     <View>
-                        <Text style={{ paddingBottom: 50, textAlign: "center" }}>This will take a while depends on your internet connection. Please do not close this window.</Text>
+                        <Text style={{ paddingBottom: 50, textAlign: "center" }}>This will take a while depends {"\n"} on your internet connection. {"\n"}Please do not close this window.</Text>
                         <ActivityIndicator
                             animating={true}
                             style={styles.indicator}
@@ -130,22 +128,22 @@ class Result extends Component {
         //         <List.Item title="Second item" />
         //     </List.Accordion>;
 
-        // var skin = this.state.skin
+        var skin = this.state.skin
         var ing_eff_string = this.state.ing_eff_string
         var prod_pref_string = this.state.prod_pref_string
 
-        // let m = skin.map((item) => {
-        //     m = item.split(", ")
-        //     return m
-        // })
+        let m = skin.map((item) => {
+            m = item.split(", ")
+            return m
+        })
 
-        // let n = m.map((item, key) =>
-        //     <Text key={key} style={[styles.usernameLabel, { color: '#6adb28' }]}>{item.GoodSkin}</Text>
-        // );
+        let n = m.map((item, key) =>
+            <Text key={key} style={[styles.usernameLabel, { color: '#6adb28' }]}>{item.GoodSkin}</Text>
+        );
 
-        // let o = m.map((item, key) =>
-        //     <Text key={key} style={[styles.usernameLabel, { color: '#db286a' }]}>{item.BadSkin}</Text>
-        // );
+        let o = m.map((item, key) =>
+            <Text key={key} style={[styles.usernameLabel, { color: '#db286a' }]}>{item.BadSkin}</Text>
+        );
 
         let a = ing_eff_string.map((item) => {
             a = item.split(", ")
@@ -159,8 +157,8 @@ class Result extends Component {
                 title={item}
             >
                 {this.state.notes.map((itemN, key) =>
-                    (itemN.Note == (item)) ? (<Text key={key} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : (null)
-                )}
+                    (itemN.Note == (item)) ? (<Text key={key} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : ((key == 0) ? (<Text key={key} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item} effects</Text>) : (null))
+                    )}
             </List.Accordion>
         );
 

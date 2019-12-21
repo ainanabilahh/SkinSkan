@@ -40,9 +40,9 @@ class Scan extends Component {
       username: '',
       result: '',
       // ing: [],
-      skin: [],
-      percent: '',
-      notes: [],
+      notes: null,
+      percent: null,
+      skin: null,
       // ingY: [],
       // ingArr: [],
       imageModalVisible: true
