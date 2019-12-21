@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { Dimensions, ScrollView, Text, View } from 'react-native';
 import { Overlay } from 'react-native-elements';
 import { Divider, ActivityIndicator, Button, List, DataTable, Chip } from 'react-native-paper';
-import ProgressBar from 'react-native-progress/Bar';
 import ProgressCircle from 'react-native-progress-circle'
 import styles from '../css/styles';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Item } from 'react-native-paper/typings/components/List';
 
 class Result extends Component {
 

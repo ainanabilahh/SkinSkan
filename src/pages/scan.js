@@ -39,10 +39,12 @@ class Scan extends Component {
       isLoading: true,
       username: '',
       result: '',
-      ing: [],
-      notes: [],
-      ingY: [],
-      ingArr: [],
+      // ing: [],
+      skin: null,
+      percent: null,
+      // notes: [],
+      // ingY: [],
+      // ingArr: [],
       imageModalVisible: true
     }
   }
@@ -60,8 +62,9 @@ class Scan extends Component {
       this.setState({ imageModalVisible: false })
 
       this.props.navigation.navigate('Result', {
-        ing: this.state.ing,
-        notes: this.state.notes
+        skin: this.state.skin,
+        notes: this.state.notes,
+        percent: this.state.percent,
       });
 
       fetch("http://178.128.121.52/uploadImage.php", {
@@ -83,14 +86,14 @@ class Scan extends Component {
 
           this.setState({
             // ing: result.Ingredients,
-            skin : result.Skin,
+            skin: result.Skin,
             notes: result.Notes,
-            percent : result.Percent
+            percent: result.Percent
           })
           this.props.navigation.navigate('Result', {
             skin: this.state.skin,
             notes: this.state.notes,
-            percent : this.state.percent,
+            percent: this.state.percent,
           });
 
         }).catch((error) => {
@@ -119,8 +122,9 @@ class Scan extends Component {
       this.setState({ imageModalVisible: false })
 
       this.props.navigation.navigate('Result', {
-        ing: this.state.ing,
-        notes: this.state.notes
+        skin: this.state.skin,
+        notes: this.state.notes,
+        percent: this.state.percent,
       });
 
       fetch("http://178.128.121.52/uploadImage.php", {
@@ -139,11 +143,17 @@ class Scan extends Component {
 
           console.log(responseJson)
           var result = JSON.parse(responseJson)
-          this.setState({ ing: result.Ingredients })
-          this.setState({ notes: result.Notes })
+
+          this.setState({
+            // ing: result.Ingredients,
+            skin: result.Skin,
+            notes: result.Notes,
+            percent: result.Percent
+          })
           this.props.navigation.navigate('Result', {
-            ing: this.state.ing,
-            notes: this.state.notes
+            skin: this.state.skin,
+            notes: this.state.notes,
+            percent: this.state.percent,
           });
 
         }).catch((error) => {
