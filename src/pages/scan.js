@@ -41,7 +41,7 @@ class Scan extends Component {
       result: '',
       // ing: [],
       skin: [],
-      percent: null,
+      percent: '',
       notes: [],
       // ingY: [],
       // ingArr: [],
@@ -62,6 +62,7 @@ class Scan extends Component {
       this.setState({ imageModalVisible: false })
 
       this.props.navigation.navigate('Result', {
+        username: username,
         skin: this.state.skin,
         notes: this.state.notes,
         percent: this.state.percent,
@@ -91,6 +92,7 @@ class Scan extends Component {
             percent: result.Percent
           })
           this.props.navigation.navigate('Result', {
+            username: username,
             skin: this.state.skin,
             notes: this.state.notes,
             percent: this.state.percent,
@@ -106,58 +108,65 @@ class Scan extends Component {
   }
 
   selectPhoto = () => {
-    ImagePicker.openPicker({
-      cropping: true,
-      width: 300,
-      height: 400,
-      freeStyleCropEnabled: true,
-      avoidEmptySpaceAroundImage: true,
-      includeBase64: true
-    }).then(response => {
-      this.setState({ imageModalVisible: false })
-
-      this.props.navigation.navigate('Result', {
-        skin: this.state.skin,
-        notes: this.state.notes,
-        percent: this.state.percent,
-      });
-
-      fetch("http://178.128.121.52/uploadImage.php", {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+    this.props.navigation.navigate('Result', {
           username: username,
-          image_name: response.modificationDate,
-          image_data: response.data,
-        })
-      }).then((response) => response.text())
-        .then((responseJson) => {
-
-          console.log(responseJson)
-          var result = JSON.parse(responseJson)
-
-          this.setState({
-            // ing: result.Ingredients,
-            skin: result.Skin,
-            notes: result.Notes,
-            percent: result.Percent
-          })
-          this.props.navigation.navigate('Result', {
-            skin: this.state.skin,
-            notes: this.state.notes,
-            percent: this.state.percent,
-          });
-
-        }).catch((error) => {
-          alert("There is a network error. Please try again.")
-          console.log(error);
+          skin: this.state.skin,
+          notes: this.state.notes,
+          percent: this.state.percent,
         });
-    }).catch(e => {
-      console.log(e), this.setState({ imageModalVisible: false })
-    });
+    // ImagePicker.openPicker({
+    //   cropping: true,
+    //   width: 300,
+    //   height: 400,
+    //   freeStyleCropEnabled: true,
+    //   avoidEmptySpaceAroundImage: true,
+    //   includeBase64: true
+    // }).then(response => {
+    //   this.setState({ imageModalVisible: false })
+
+    //   this.props.navigation.navigate('Result', {
+    //     username: username,
+    //     skin: this.state.skin,
+    //     notes: this.state.notes,
+    //     percent: this.state.percent,
+    //   });
+
+    //   fetch("http://178.128.121.52/uploadImage.php", {
+    //     method: 'POST',
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       username: username,
+    //       image_name: response.modificationDate,
+    //       image_data: response.data,
+    //     })
+    //   }).then((response) => response.text())
+    //     .then((responseJson) => {
+
+    //       console.log(responseJson)
+    //       var result = JSON.parse(responseJson)
+    //       this.setState({
+    //         // ing: result.Ingredients,
+    //         skin: result.Skin,
+    //         notes: result.Notes,
+    //         percent: result.Percent
+    //       })
+    //       this.props.navigation.navigate('Result', {
+    //         username: username,
+    //         skin: this.state.skin,
+    //         notes: this.state.notes,
+    //         percent: this.state.percent,
+    //       });
+
+    //     }).catch((error) => {
+    //       alert("There is a network error. Please try again.")
+    //       console.log(error);
+    //     });
+    // }).catch(e => {
+    //   console.log(e), this.setState({ imageModalVisible: false })
+    // });
   }
 
   render() {

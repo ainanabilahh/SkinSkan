@@ -12,45 +12,16 @@ class Result extends Component {
         super(props);
         this.state = {
             isLoading: true,
-            username: '',
-            notes: [],
             isVisible: true,
             // ingredients: '',
             // ing: null,
+            notes: null,
             percent: null,
-            skin: [],
+            skin: null,
             ing_eff_string: null,
             prod_pref_string: null,
             skin_type_string: null,
         }
-    }
-
-    async componentDidMount() {
-
-        username = await AsyncStorage.getItem('username') || 'undefined';
-
-        fetch('http://178.128.121.52/viewSkinResult.php', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: username,
-            }),
-        }).then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({
-                    skin_type_string: responseJson.skin_type,
-                    ing_eff_string: responseJson.ing_eff,
-                    prod_pref_string: responseJson.prod_pref
-                })
-
-            }).catch((err) => {
-                alert("There is a network error. Please try again.")
-                if (err.name == 'AbortError') return
-                throw err
-            });
     }
 
     componentDidUpdate() {
@@ -70,6 +41,37 @@ class Result extends Component {
         if (this.props.navigation.state.params.skin !== this.state.skin) {
             this.setState({ skin: this.props.navigation.state.params.skin })
         }
+    }
+
+    componentDidMount() {
+
+        username = this.props.navigation.state.params.username
+
+        fetch('http://178.128.121.52/viewSkinResult.php', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+            }),
+        }).then((response) => response.json())
+            .then((responseJson) => {
+
+                this.setState({
+                    skin_type_string: responseJson.skin_type,
+                    ing_eff_string: responseJson.ing_eff,
+                    prod_pref_string: responseJson.prod_pref
+                })
+
+                console.log(this.state.ing_eff_string)
+
+            }).catch((err) => {
+                alert("There is a network error. Please try again.")
+                if (err.name == 'AbortError') return
+                throw err
+            });
     }
 
     Back = () => {
@@ -128,23 +130,22 @@ class Result extends Component {
         //         <List.Item title="Second item" />
         //     </List.Accordion>;
 
-        console.log(this.state.notes)
-        var skin = this.state.skin
+        // var skin = this.state.skin
         var ing_eff_string = this.state.ing_eff_string
         var prod_pref_string = this.state.prod_pref_string
 
-        let m = skin.map((item) => {
-            m = item.split(", ")
-            return m
-        })
+        // let m = skin.map((item) => {
+        //     m = item.split(", ")
+        //     return m
+        // })
 
-        let n = m.map((item, key) =>
-            <Text key={key} style={[styles.usernameLabel, { color: '#6adb28' }]}>{item.GoodSkin}</Text>
-        );
+        // let n = m.map((item, key) =>
+        //     <Text key={key} style={[styles.usernameLabel, { color: '#6adb28' }]}>{item.GoodSkin}</Text>
+        // );
 
-        let o = m.map((item, key) =>
-            <Text key={key} style={[styles.usernameLabel, { color: '#db286a' }]}>{item.BadSkin}</Text>
-        );
+        // let o = m.map((item, key) =>
+        //     <Text key={key} style={[styles.usernameLabel, { color: '#db286a' }]}>{item.BadSkin}</Text>
+        // );
 
         let a = ing_eff_string.map((item) => {
             a = item.split(", ")
@@ -185,11 +186,11 @@ class Result extends Component {
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>RESULT</List.Subheader>
                     <View style={{ flexDirection: 'row', padding: 20 }}>
-                        {n}
+                        {/* {n} */}
                         <Text style={[styles.usernameLabel, { fontSize: 16, marginTop: 5 }]}>ingredient(s) <Text style={{ color: '#6adb28' }}>good</Text> for your skin type!</Text>
                     </View>
                     <View style={{ flexDirection: 'row', padding: 20 }}>
-                        {o}
+                        {/* {o} */}
                         <Text style={[styles.usernameLabel, { fontSize: 16, marginTop: 5 }]}>ingredient(s) <Text style={{ color: '#db286a' }}>bad</Text> for your skin type!</Text>
                     </View>
                     <Divider />
@@ -209,7 +210,11 @@ class Result extends Component {
                 </List.Section>
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>DETAILS</List.Subheader>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 15 }}>Effects wanted to have:</Text>
+                    <Divider />
                     {b}
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 15 }}>Ingredients wanted to avoid:</Text>
+                    <Divider />
                     {y}
                     {/* <DataTable>
                         <DataTable.Header>
