@@ -91,7 +91,7 @@ class Result extends Component {
         if (!this.state.notes) {
             return (
                 <Overlay height={200} isVisible={this.state.isVisible}>
-                    <View style={styles.MainContainer}>
+                    <View>
                         <Text style={{ paddingBottom: 50, textAlign: "center" }}>This will take a while depends on your internet connection. Please do not close this window.</Text>
                         <ActivityIndicator
                             animating={true}
@@ -127,6 +127,10 @@ class Result extends Component {
         //         <List.Item title="First item" />
         //         <List.Item title="Second item" />
         //     </List.Accordion>;
+
+        var skin = this.state.skin
+        var ing_eff_string = this.state.ing_eff_string
+        var prod_pref_string = this.state.prod_pref_string
 
         let m = skin.map((item) => {
             m = item.split(", ")
@@ -174,22 +178,6 @@ class Result extends Component {
                 )}
             </List.Accordion>
         );
-
-        // const ing_eff = ing_eff_string.map((item, key) =>
-        //     <List.Accordion
-        //         key={key}
-        //         title={item}
-        //     >
-        //     </List.Accordion>
-        // );
-
-        // const prod_pref =
-        //     <List.Accordion
-        //         title={this.state.skin_type_string}
-        //     >
-        //         <List.Item title="First item" />
-        //         <List.Item title="Second item" />
-        //     </List.Accordion>;
 
         return (
             <ScrollView style={{ backgroundColor: '#efefef' }}>
