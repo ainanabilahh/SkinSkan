@@ -13,12 +13,12 @@ class Result extends Component {
         this.state = {
             isLoading: true,
             username: '',
-            notes: null,
+            notes: [],
             isVisible: true,
             // ingredients: '',
             // ing: null,
             percent: null,
-            skin: null,
+            skin: [],
             ing_eff_string: null,
             prod_pref_string: null,
             skin_type_string: null,
@@ -88,7 +88,7 @@ class Result extends Component {
         else if (prod > 60)
             color = "#76eb00"
 
-        if (!this.state.notes) {
+        if (!this.state.notes && !this.state.skin && !this.state.percent) {
             return (
                 <Overlay height={200} isVisible={this.state.isVisible}>
                     <View>
@@ -128,6 +128,7 @@ class Result extends Component {
         //         <List.Item title="Second item" />
         //     </List.Accordion>;
 
+        console.log(this.state.notes)
         var skin = this.state.skin
         var ing_eff_string = this.state.ing_eff_string
         var prod_pref_string = this.state.prod_pref_string

@@ -40,7 +40,7 @@ class Scan extends Component {
       username: '',
       result: '',
       // ing: [],
-      skin: null,
+      skin: [],
       percent: null,
       notes: [],
       // ingY: [],
