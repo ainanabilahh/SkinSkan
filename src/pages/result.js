@@ -151,8 +151,8 @@ class Result extends Component {
                 titleStyle={{ fontSize: 14 }}
                 title={item}
             >
-                {this.state.notes.map((itemN, key) =>
-                    (itemN.Note == (item)) ? (<Text key={key} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : ((key == 0) ? (<Text key={key} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item} effects</Text>) : (null))
+                {this.state.notes.map((itemN, keyN) =>
+                    (itemN.Note == (item)) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : ((keyN == 0) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item} effects</Text>) : (null))
                     )}
             </List.Accordion>
         );
