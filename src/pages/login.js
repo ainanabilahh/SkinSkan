@@ -40,7 +40,7 @@ class Login extends Component {
 
     if (!this.state.username || !this.state.password) return;
 
-    fetch('http://178.128.121.52/login.php', {
+    fetch('https://www.skinskan.me/login.php', {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({

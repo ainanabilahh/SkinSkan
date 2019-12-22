@@ -19,7 +19,7 @@ class AboutApp extends Component {
 
   UpdateEmail = () => {
 
-    fetch('http://178.128.121.52/updateEmail.php', {
+    fetch('https://www.skinskan.me/updateEmail.php', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

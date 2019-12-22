@@ -68,7 +68,7 @@ class Scan extends Component {
         percent: this.state.percent,
       });
 
-      fetch("http://178.128.121.52/uploadImage.php", {
+      fetch("https://www.skinskan.me/uploadImage.php", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -125,7 +125,7 @@ class Scan extends Component {
         percent: this.state.percent,
       });
 
-      fetch("http://178.128.121.52/uploadImage.php", {
+      fetch("https://www.skinskan.me/uploadImage.php", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

@@ -47,7 +47,7 @@ class Result extends Component {
 
         username = this.props.navigation.state.params.username
 
-        fetch('http://178.128.121.52/viewSkinResult.php', {
+        fetch('https://www.skinskan.me/viewSkinResult.php', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

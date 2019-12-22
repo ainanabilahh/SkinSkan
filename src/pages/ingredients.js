@@ -30,7 +30,7 @@ class Ingredients extends Component {
             notes: this.state.notes
         });
 
-        fetch('http://178.128.121.52/scan.php', {
+        fetch('https://www.skinskan.me/scan.php', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
