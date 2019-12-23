@@ -167,13 +167,14 @@ class Result extends Component {
             >
                 <View>
                     {this.state.notes.map((itemN, keyN) =>
-                        (itemN.Note == (item)) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : ((cond == true) ? (cond = false, <Text key={keyN} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item} effects</Text>) : (null))
+                        (itemN.Note == (item)) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : ((cond == true) ? (cond = false, <Text key={keyN} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item} effects</Text>) : (null)),
+                        <View style={{ alignSelf: 'baseline', margin: 15 }}>
+                            {this.state.effects.map((itemE, keyE) =>
+                                (itemE.Effect == (item)) ? (<Chip key={keyE} textStyle={{ fontSize: 9 }} mode="flat">{itemE.Ing}</Chip>) : (null)
+                            )}
+                        </View>
                     )}</View>
-                <View style={{ alignSelf: 'baseline', margin: 15 }}>
-                    {this.state.effects.map((itemE, keyE) =>
-                        (itemE.Effect == (item)) ? (<Chip key={keyE} textStyle={{ fontSize: 9 }} mode="flat">{itemE.Ing}</Chip>) : (null)
-                    )}</View>
-            </List.Accordion>
+            </List.Accordion >
         );
         // END OF INGREDIENT EFFECTS SECTION
 
