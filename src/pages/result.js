@@ -18,6 +18,7 @@ class Result extends Component {
             notes: null,
             percent: null,
             skin: null,
+            effects: null,
             ing_eff_string: null,
             prod_pref_string: null,
             skin_type_string: null,
@@ -32,6 +33,10 @@ class Result extends Component {
 
         if (this.props.navigation.state.params.notes !== this.state.notes) {
             this.setState({ notes: this.props.navigation.state.params.notes })
+        }
+
+        if (this.props.navigation.state.params.effects !== this.state.effects) {
+            this.setState({ effects: this.props.navigation.state.params.effects })
         }
 
         if (this.props.navigation.state.params.percent !== this.state.percent) {
@@ -128,25 +133,33 @@ class Result extends Component {
         //         <List.Item title="Second item" />
         //     </List.Accordion>;
 
-        var skin = this.state.skin
-        var ing_eff_string = this.state.ing_eff_string
-        var prod_pref_string = this.state.prod_pref_string
         var cond = true
 
-        let n = skin.map((item, key) =>
+        // SKIN TYPE SECTION
+        let n = this.state.skin.map((item, key) =>
             <Text key={key} style={[styles.usernameLabel, { color: '#6adb28' }]}>{item.GoodSkin}</Text>
         );
 
-        let o = skin.map((item, key) =>
+        let o = this.state.skin.map((item, key) =>
             <Text key={key} style={[styles.usernameLabel, { color: '#db286a' }]}>{item.BadSkin}</Text>
         );
+        // END OF SKIN TYPE SECTION
 
-        let a = ing_eff_string.map((item) => {
+        // EFFECTS W/ INGREDIENTS SECTION
+        let e = this.state.effects.map((item) => {
+            f = item.split(", ");
+            console.log(f)
+            return f;
+        })
+        // END OF EFFECTS W/ INGREDIENTS SECTION
+
+        // INGREDIENT EFFECTS SECTION
+        let a = this.state.ing_eff_string.map((item) => {
             a = item.split(", ")
             return a
         })
 
-        let b = a.map((item, key) =>
+        let b = a.map((item, key) => {
             <List.Accordion
                 key={key}
                 titleStyle={{ fontSize: 14 }}
@@ -155,10 +168,15 @@ class Result extends Component {
                 {this.state.notes.map((itemN, keyN) =>
                     (itemN.Note == (item)) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : ((cond == true) ? (cond = false, <Text key={keyN} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item} effects</Text>) : (null))
                 )}
+                {this.state.effects.map((itemE, keyE) =>
+                    (itemE.Effect == (item)) ? (<Chip key={keyE} textStyle={{ fontSize: 9 }} mode="outlined">{itemE.Ing}</Chip>) : (null)
+                )}
             </List.Accordion>
-        );
+        })
+        // END OF INGREDIENT EFFECTS SECTION
 
-        let x = prod_pref_string.map((item) => {
+        // PRODUCT PREFERENCES SECTION
+        let x = this.state.prod_pref_string.map((item) => {
             x = item.split(", ");
             return x;
         })
@@ -174,6 +192,7 @@ class Result extends Component {
                 )}
             </List.Accordion>
         );
+        // END OF PRODUCT PREFERENCES SECTION
 
         return (
             <ScrollView style={{ backgroundColor: '#efefef' }}>

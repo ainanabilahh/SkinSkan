@@ -43,6 +43,7 @@ class Scan extends Component {
       notes: null,
       percent: null,
       skin: null,
+      effects: null,
       // ingY: [],
       // ingArr: [],
       imageModalVisible: true
