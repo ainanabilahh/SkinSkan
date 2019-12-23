@@ -159,21 +159,20 @@ class Result extends Component {
             return a;
         })
 
-        let b = a.map((item, key) => {
-            <Text key={key}>{item}</Text>
-            // <List.Accordion
-            //     key={key}
-            //     titleStyle={{ fontSize: 14 }}
-            //     title={item}
-            // >
-            //     {/* {this.state.notes.map((itemN, keyN) =>
-            //         (itemN.Note == (item)) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : ((cond == true) ? (cond = false, <Text key={keyN} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item} effects</Text>) : (null))
-            //     )} */}
-            //     {/* {this.state.effects.map((itemE, keyE) =>
-            //         (itemE.Effect == (item)) ? (<Chip key={keyE} textStyle={{ fontSize: 9 }} mode="outlined">{itemE.Ing}</Chip>) : (null)
-            //     )} */}
-            // </List.Accordion>
-        })
+        let c = a.map((item, key) =>
+            <List.Accordion
+                key={key}
+                titleStyle={{ fontSize: 14 }}
+                title={item}
+            >
+                {this.state.notes.map((itemN, keyN) =>
+                    (itemN.Note == (item)) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : ((cond == true) ? (cond = false, <Text key={keyN} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item} effects</Text>) : (null))
+                )}
+                {this.state.effects.map((itemE, keyE) =>
+                    (itemE.Effect == (item)) ? (<Chip key={keyE} textStyle={{ fontSize: 9 }} mode="outlined">{itemE.Ing}</Chip>) : (null)
+                )}
+            </List.Accordion>
+        );
         // END OF INGREDIENT EFFECTS SECTION
 
         // PRODUCT PREFERENCES SECTION
@@ -226,7 +225,7 @@ class Result extends Component {
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>DETAILS</List.Subheader>
                     <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 15 }}>Desired effects:</Text>
                     <Divider />
-                    {b}
+                    {c}
                     <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 15 }}>Ingredients to avoid:</Text>
                     <Divider />
                     {y}
