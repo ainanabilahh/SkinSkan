@@ -63,6 +63,7 @@ class Scan extends Component {
 
       this.props.navigation.navigate('Result', {
         username: username,
+        effects: this.state.effects,
         skin: this.state.skin,
         notes: this.state.notes,
         percent: this.state.percent,
@@ -87,12 +88,14 @@ class Scan extends Component {
 
           this.setState({
             // ing: result.Ingredients,
+            effects: result.Effects,
             skin: result.Skin,
             notes: result.Notes,
             percent: result.Percent
           })
           this.props.navigation.navigate('Result', {
             username: username,
+            effects: this.state.effects,
             skin: this.state.skin,
             notes: this.state.notes,
             percent: this.state.percent,
@@ -120,6 +123,7 @@ class Scan extends Component {
 
       this.props.navigation.navigate('Result', {
         username: username,
+        effects: this.state.effects,
         skin: this.state.skin,
         notes: this.state.notes,
         percent: this.state.percent,
@@ -143,12 +147,14 @@ class Scan extends Component {
           var result = JSON.parse(responseJson)
           this.setState({
             // ing: result.Ingredients,
+            effects: result.Effects,
             skin: result.Skin,
             notes: result.Notes,
             percent: result.Percent
           })
           this.props.navigation.navigate('Result', {
             username: username,
+            effects: this.state.effects,
             skin: this.state.skin,
             notes: this.state.notes,
             percent: this.state.percent,
