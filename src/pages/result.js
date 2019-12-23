@@ -146,32 +146,33 @@ class Result extends Component {
         // END OF SKIN TYPE SECTION
 
         // EFFECTS W/ INGREDIENTS SECTION
-        let e = this.state.effects.map((item) => {
-            f = item.split(", ");
-            console.log(f)
-            return f;
-        })
+        // let e = this.state.effects.map((item) => {
+        //     f = item.split(", ");
+        //     console.log(f)
+        //     return f;
+        // })
         // END OF EFFECTS W/ INGREDIENTS SECTION
 
         // INGREDIENT EFFECTS SECTION
         let a = this.state.ing_eff_string.map((item) => {
-            a = item.split(", ")
-            return a
+            a = item.split(", ");
+            return a;
         })
 
         let b = a.map((item, key) => {
-            <List.Accordion
-                key={key}
-                titleStyle={{ fontSize: 14 }}
-                title={item}
-            >
-                {this.state.notes.map((itemN, keyN) =>
-                    (itemN.Note == (item)) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : ((cond == true) ? (cond = false, <Text key={keyN} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item} effects</Text>) : (null))
-                )}
-                {this.state.effects.map((itemE, keyE) =>
-                    (itemE.Effect == (item)) ? (<Chip key={keyE} textStyle={{ fontSize: 9 }} mode="outlined">{itemE.Ing}</Chip>) : (null)
-                )}
-            </List.Accordion>
+            <Text key={key}>{item}</Text>
+            // <List.Accordion
+            //     key={key}
+            //     titleStyle={{ fontSize: 14 }}
+            //     title={item}
+            // >
+            //     {/* {this.state.notes.map((itemN, keyN) =>
+            //         (itemN.Note == (item)) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : ((cond == true) ? (cond = false, <Text key={keyN} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item} effects</Text>) : (null))
+            //     )} */}
+            //     {/* {this.state.effects.map((itemE, keyE) =>
+            //         (itemE.Effect == (item)) ? (<Chip key={keyE} textStyle={{ fontSize: 9 }} mode="outlined">{itemE.Ing}</Chip>) : (null)
+            //     )} */}
+            // </List.Accordion>
         })
         // END OF INGREDIENT EFFECTS SECTION
 
