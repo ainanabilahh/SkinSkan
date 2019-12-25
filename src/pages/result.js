@@ -95,9 +95,9 @@ class Result extends Component {
 
         if (!this.state.notes && !this.state.skin && !this.state.percent) {
             return (
-                <Overlay height={200} isVisible={this.state.isVisible}>
+                <Overlay height={220} isVisible={this.state.isVisible}>
                     <View>
-                        <Text style={{ paddingBottom: 50, textAlign: "center" }}>This will take a while depends {"\n"} on your internet connection. {"\n"}Please do not close this window.</Text>
+                        <Text style={{ paddingTop: 20, textAlign: "center" }}>This will take a while depends {"\n"} on your internet connection. {"\n"}Please do not close this window.</Text>
                         <ActivityIndicator
                             animating={true}
                             style={styles.indicator}
@@ -164,7 +164,7 @@ class Result extends Component {
                 key={key}
                 titleStyle={{ fontSize: 14 }}
                 title={item}
-                style={{ borderColor: '#ccc', borderRadius: 1}}
+                style={{ borderColor: '#ccc', borderRadius: 1 }}
             >
                 <View>
                     {this.state.notes.map((itemN, keyN) =>
@@ -175,7 +175,7 @@ class Result extends Component {
                         (itemE.Effect == (item)) ? (<Chip key={keyE} textStyle={{ fontSize: 9 }} mode="flat">{itemE.Ing}</Chip>) : (null)
                     )}
                 </View>
-                <Divider/>
+                <Divider />
             </List.Accordion >
         );
         // END OF INGREDIENT EFFECTS SECTION

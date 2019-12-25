@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Text, BackHandler, StatusBar, View, Alert } from 'react-native';
+import { Alert, BackHandler, StatusBar, Text, View } from 'react-native';
+import { Overlay } from 'react-native-elements';
 import ImagePicker from 'react-native-image-crop-picker';
-import { Button, Chip } from 'react-native-paper';
+import { ActivityIndicator, Button } from 'react-native-paper';
 import styles from '../css/styles';
 
 class Scan extends Component {

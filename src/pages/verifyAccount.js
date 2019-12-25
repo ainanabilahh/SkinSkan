@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { Overlay } from 'react-native-elements';
 import { ActivityIndicator } from 'react-native-paper';
 import styles from '../css/styles';
@@ -41,8 +41,8 @@ class VerifyAccount extends Component {
     render() {
         return (
             <Overlay height={200} isVisible={this.state.isVisible}>
-                <View style={styles.MainContainer}>
-                    <Text style={{ paddingBottom: 50 }}>Please wait a moment.</Text>
+                <View>
+                    <Text style={{ paddingTop: 20, textAlign: "center" }}>This will take a moment.</Text>
                     <ActivityIndicator
                         animating={true}
                         style={styles.indicator}

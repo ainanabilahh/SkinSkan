@@ -15,7 +15,7 @@ export default {
     position: 'relative',
     justifyContent: 'center'
   },
-  
+
   visibilityBtn:
   {
     position: 'absolute',
@@ -25,7 +25,7 @@ export default {
     width: 35,
     padding: 5
   },
- 
+
   btnImage:
   {
     resizeMode: 'contain',
@@ -34,19 +34,19 @@ export default {
   },
 
   radioButtonContainer: {
-    flexDirection: 'row', 
-    backgroundColor: '#fafafa', 
-    borderColor: 'transparent', 
-    borderRadius: 5, 
+    flexDirection: 'row',
+    backgroundColor: '#fafafa',
+    borderColor: 'transparent',
+    borderRadius: 5,
     borderWidth: 1,
     marginVertical: 5,
-    padding: 5, 
+    padding: 5,
     borderColor: '#efefef'
   },
 
   radioButtonStyle: {
     marginTop: 7,
-    fontWeight: 'bold', 
+    fontWeight: 'bold',
     color: '#484d51'
   },
 
@@ -92,13 +92,19 @@ export default {
     margin: 10,
   },
 
+  indicator: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 140,
+  },
+
   greenButton: {
-    backgroundColor: '#6adb28', 
+    backgroundColor: '#6adb28',
     width: 0.45 * Dimensions.get('window').width
   },
 
   redButton: {
-    backgroundColor: '#db286a', 
+    backgroundColor: '#db286a',
     width: 0.45 * Dimensions.get('window').width
   },
 
@@ -110,7 +116,7 @@ export default {
   usernameLabel: {
     fontSize: 20,
     marginLeft: 20,
-    marginRight: 10, 
+    marginRight: 10,
     color: '#000',
     fontWeight: 'bold',
   },
