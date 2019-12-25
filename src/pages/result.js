@@ -164,16 +164,18 @@ class Result extends Component {
                 key={key}
                 titleStyle={{ fontSize: 14 }}
                 title={item}
+                style={{ borderColor: '#ccc', borderRadius: 1}}
             >
                 <View>
                     {this.state.notes.map((itemN, keyN) =>
                         (itemN.Note == (item)) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : ((cond == true) ? (cond = false, <Text key={keyN} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item} effects</Text>) : (null)),
-                        <View style={{ alignSelf: 'baseline', margin: 15 }}>
-                            {this.state.effects.map((itemE, keyE) =>
-                                (itemE.Effect == (item)) ? (<Chip key={keyE} textStyle={{ fontSize: 9 }} mode="flat">{itemE.Ing}</Chip>) : (null)
-                            )}
-                        </View>
                     )}</View>
+                <View style={{ alignSelf: 'baseline', marginBottom: 10, marginLeft: 15 }}>
+                    {this.state.effects.map((itemE, keyE) =>
+                        (itemE.Effect == (item)) ? (<Chip key={keyE} textStyle={{ fontSize: 9 }} mode="flat">{itemE.Ing}</Chip>) : (null)
+                    )}
+                </View>
+                <Divider/>
             </List.Accordion >
         );
         // END OF INGREDIENT EFFECTS SECTION

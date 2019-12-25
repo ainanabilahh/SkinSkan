@@ -19,8 +19,8 @@ export default {
   visibilityBtn:
   {
     position: 'absolute',
-    bottom: 10,
-    right: 65,
+    bottom: 20,
+    right: 70,
     height: 40,
     width: 35,
     padding: 5
