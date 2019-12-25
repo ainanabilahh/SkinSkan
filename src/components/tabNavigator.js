@@ -19,16 +19,16 @@ const TabNavigator = createBottomTabNavigator(
           </View>),
       }
     },
-    SkinQuiz: {
-      screen: SkinQuiz,
-      navigationOptions: {
-        tabBarLabel: 'Skin Quiz',
-        tabBarIcon: ({ tintColor }) => (
-          <View>
-            <Icon style={[{ color: tintColor }]} size={22} name={'md-medical'} />
-          </View>),
-      }
-    },
+    // SkinQuiz: {
+    //   screen: SkinQuiz,
+    //   navigationOptions: {
+    //     tabBarLabel: 'Skin Quiz',
+    //     tabBarIcon: ({ tintColor }) => (
+    //       <View>
+    //         <Icon style={[{ color: tintColor }]} size={22} name={'md-medical'} />
+    //       </View>),
+    //   }
+    // },
     Scan: {
       screen: CameraNavigator,
       navigationOptions: {

@@ -177,10 +177,10 @@ class Skin extends Component {
                         value={this.state.value}
                     >
                         <View style={{ flexDirection: 'column', marginHorizontal: 10 }}>
-                            <View style={styles.radioButtonContainer}>
+                            {/* <View style={styles.radioButtonContainer}>
                                 <RadioButton value="6" color="#2289dc" />
                                 <Text style={styles.radioButtonStyle}> I don't know</Text>
-                            </View>
+                            </View> */}
                             <View style={styles.radioButtonContainer}>
                                 <RadioButton value="1" color="#2289dc" />
                                 <Text style={styles.radioButtonStyle}> Normal Skin</Text>
