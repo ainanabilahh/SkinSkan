@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions, ScrollView, Text, View } from 'react-native';
-import { Overlay } from 'react-native-elements';
+import { Overlay, ThemeConsumer } from 'react-native-elements';
 import { Divider, ActivityIndicator, Button, List, DataTable, Chip } from 'react-native-paper';
 import ProgressCircle from 'react-native-progress-circle'
 import styles from '../css/styles';
@@ -21,7 +21,7 @@ class Result extends Component {
             effects: null,
             ing_eff_string: null,
             prod_pref_string: null,
-            skin_type_string: null,
+            skin_type_string: null
         }
     }
 
@@ -145,19 +145,21 @@ class Result extends Component {
         );
         // END OF SKIN TYPE SECTION
 
-        // EFFECTS W/ INGREDIENTS SECTION
-        // let e = this.state.effects.map((item) => {
-        //     f = item.split(", ");
-        //     console.log(f)
-        //     return f;
-        // })
-        // END OF EFFECTS W/ INGREDIENTS SECTION
-
         // INGREDIENT EFFECTS SECTION
         let a = this.state.ing_eff_string.map((item) => {
             a = item.split(", ");
             return a;
         })
+
+        let m = this.state.effects.map((item) => {
+            m = item.Ing
+            return m;
+        })
+
+        // let n = m.map((item) => {
+        //     n = item.split(", ")
+        //     return n;
+        // })
 
         let c = a.map((item, key) =>
             <List.Accordion
@@ -168,14 +170,15 @@ class Result extends Component {
             >
                 <View>
                     {this.state.notes.map((itemN, keyN) =>
-                        (itemN.Note == (item)) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : ((cond == true) ? (cond = false, <Text key={keyN} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item} effects</Text>) : (null)),
+                        (itemN.Note == (item)) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : (null),
                     )}
                 </View>
-                <View style={{ alignSelf: 'baseline', marginBottom: 10, marginLeft: 15 }}>
-                    {this.state.effects.map((itemE, keyE) =>
-                        (itemE.Effect == (item)) ? (<Chip key={keyE} textStyle={{ fontSize: 9 }} mode="flat">{itemE.Ing}</Chip>) : (null)
-                    )}
-                </View>
+
+                {this.state.effects.map((itemE, keyE) =>
+                    (itemE.Ing.map((itemI) =>
+                        (itemE.Effect == (item)) ? (<View style={{ alignSelf: 'baseline', marginBottom: 10, marginLeft: 15 }}><Chip key={keyE} textStyle={{ fontSize: 9 }} mode="flat">{itemI}</Chip></View>) : (null)
+                    ))
+                )}
                 <Divider />
             </List.Accordion >
         );
@@ -206,11 +209,11 @@ class Result extends Component {
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>RESULT</List.Subheader>
                     <View style={{ flexDirection: 'row', padding: 20 }}>
                         {n}
-                        <Text style={[styles.usernameLabel, { fontSize: 16, marginTop: 5 }]}>ingredient(s) <Text style={{ color: '#6adb28' }}>good</Text> for your skin type!</Text>
+                        <Text style={[styles.usernameLabel, { fontSize: 16, marginTop: 5 }]}>ingredient(s) <Text style={{ color: '#6adb28' }}>good</Text> for {this.state.skin_type_string} skin</Text>
                     </View>
                     <View style={{ flexDirection: 'row', padding: 20 }}>
                         {o}
-                        <Text style={[styles.usernameLabel, { fontSize: 16, marginTop: 5 }]}>ingredient(s) <Text style={{ color: '#db286a' }}>bad</Text> for your skin type!</Text>
+                        <Text style={[styles.usernameLabel, { fontSize: 16, marginTop: 5 }]}>ingredient(s) <Text style={{ color: '#db286a' }}>bad</Text> for {this.state.skin_type_string} skin</Text>
                     </View>
                     <Divider />
                     <View style={{ flexDirection: 'row', padding: 20 }}>
