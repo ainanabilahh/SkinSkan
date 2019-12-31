@@ -37,12 +37,16 @@ class CreateUser extends Component {
   }
 
   validate = (username, email, password) => {
-    var u = /^(([a-zA-Z0-9]{5,15}$))/
+    var u = /^(([a-zA-Z0-9]$))/
+    var u2 = /^.{5,15}$/
     var e = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var p = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
 
     if (u.test(username) == false)
-      alert("Username must be more than 5 characters.")
+      alert("Only letters and numbers are allowed. No spaces.")
+
+    if (u2.test(username) == false)
+      alert("Username must be between 5 to 15 characters.")
 
     if (e.test(email) == false)
       alert("Email is not valid.")
@@ -131,7 +135,7 @@ class CreateUser extends Component {
             ],
           }}
         >
-          <Text style={{ fontSize: 12, color: '#fff', textAlign: 'center', fontFamily: 'Montserrat-ExtraBold' }}><Text style={{color:'red'}}>* </Text>Username cannot be changed later. {"\n"} Choose carefully.</Text>
+          <Text style={{ fontSize: 12, color: '#fff', textAlign: 'center', fontFamily: 'Montserrat-ExtraBold' }}><Text style={{ color: 'red' }}>* </Text>Username cannot be changed later. {"\n"} Choose carefully.</Text>
           <TextInput
             mode="flat"
             label="Username"
