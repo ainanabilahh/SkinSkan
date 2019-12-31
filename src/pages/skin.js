@@ -131,8 +131,12 @@ class Skin extends Component {
         if (this.state.fungal == true)
             prod_pref.push("6")
 
-        if (this.state.value == null || ing_eff.length == 0 || prod_pref.length == 0)
-            alert("Please answer all questions before proceed.");
+        if (this.state.value == null)
+            alert("Please answer question one.");
+        else if (ing_eff.length == 0)
+            alert("Please answer question two.");
+        else if (prod_pref.length == 0)
+            alert("Please answer question three.");
         else {
             fetch('https://www.skinskan.me/updateSkin.php', {
                 method: 'POST',
