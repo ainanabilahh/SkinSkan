@@ -10,12 +10,20 @@ class ChangePassword extends Component {
     this.state = {
       email: '',
       password: '',
-      hidePassword: true
+      hidePassword: true,
+      hidePassword2: true,
+      hidePassword3: true
     }
   }
 
-  managePasswordVisibility = () => {
-    this.setState({ hidePassword: !this.state.hidePassword });
+  managePasswordVisibility = (num) => {
+
+    if (num == 1)
+      this.setState({ hidePassword: !this.state.hidePassword });
+    else if (num == 2)
+      this.setState({ hidePassword2: !this.state.hidePassword2 });
+    else if (num == 3)
+      this.setState({ hidePassword3: !this.state.hidePassword3 });
   }
 
   UpdatePassword = () => {
@@ -60,35 +68,44 @@ class ChangePassword extends Component {
       <ScrollView style={{ backgroundColor: '#efefef' }}>
         <List.Section style={{ backgroundColor: '#fff' }}>
           <List.Subheader style={{ backgroundColor: '#efefef' }}>PASSWORD</List.Subheader>
-          <TextInput
-            placeholder="Current Password"
-            autoCapitalize="none"
-            placeholderTextColor="#9a9a9a"
-            secureTextEntry={true}
-            onChangeText={TextInputValue => this.setState({ currPass: TextInputValue })}
-            style={styles.inputBox2}
-          />
+          <View>
+            <TextInput
+              placeholder="Current Password"
+              autoCapitalize="none"
+              placeholderTextColor="#9a9a9a"
+              secureTextEntry={this.state.hidePassword}
+              onChangeText={TextInputValue => this.setState({ currPass: TextInputValue })}
+              style={styles.inputBox2}
+            />
+            <TouchableOpacity activeOpacity={0.8} style={[styles.visibilityBtn, { position: 'absolute', right: 15, bottom: 18 }]} onPress={() => this.managePasswordVisibility(1)}>
+              <Image source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')} style={styles.btnImage} />
+            </TouchableOpacity>
+          </View>
           <List.Subheader style={{ backgroundColor: '#efefef' }}>NEW PASSWORD</List.Subheader>
           <Text style={{ margin: 15 }}>Please enter your new password below.</Text>
           <Text style={{ marginHorizontal: 15, marginBottom: 15, fontSize: 12, color: '#a3a3a3' }}>Minimum 6 characters with a number and a letter. {"\n"}<Text style={{ color: 'red' }}>* </Text>The show password button can be used for both.</Text>
-          <TextInput
+          <View><TextInput
             placeholder="New Password"
             autoCapitalize="none"
-            secureTextEntry={this.state.hidePassword}
+            secureTextEntry={this.state.hidePassword2}
             placeholderTextColor="#9a9a9a"
             onChangeText={TextInputValue => this.setState({ newPass: TextInputValue })}
             style={styles.inputBox2}
           />
+            <TouchableOpacity activeOpacity={0.8} style={[styles.visibilityBtn, { position: 'absolute', right: 15, bottom: 18 }]} onPress={() => this.managePasswordVisibility(2)}>
+              <Image source={(this.state.hidePassword2) ? require('../images/hide.png') : require('../images/view.png')} style={styles.btnImage} />
+            </TouchableOpacity>
+          </View>
           <TextInput
             placeholder="Retype Password"
             autoCapitalize="none"
-            secureTextEntry={this.state.hidePassword}
+            secureTextEntry={this.state.hidePassword3}
             placeholderTextColor="#9a9a9a"
             onChangeText={TextInputValue => this.setState({ rePass: TextInputValue })}
             style={styles.inputBox2}
           />
-          <TouchableOpacity activeOpacity={0.8} style={[styles.visibilityBtn, { position: 'absolute', right: 15, bottom: 18 }]} onPress={this.managePasswordVisibility}>
-            <Image source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')} style={styles.btnImage} />
+          <TouchableOpacity activeOpacity={0.8} style={[styles.visibilityBtn, { position: 'absolute', right: 15, bottom: 18 }]} onPress={() => this.managePasswordVisibility(3)}>
+            <Image source={(this.state.hidePassword3) ? require('../images/hide.png') : require('../images/view.png')} style={styles.btnImage} />
           </TouchableOpacity>
         </List.Section>
         <View style={{ flexDirection: 'row' }}>
