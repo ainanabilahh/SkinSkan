@@ -92,7 +92,7 @@ class ChangePassword extends Component {
           </TouchableOpacity>
         </List.Section>
         <View style={{ flexDirection: 'row' }}>
-          <Button style={[styles.button, styles.greenButton]} mode="contained" icon="check" onPress={this.UpdateEmail}>Confirm</Button>
+          <Button style={[styles.button, styles.greenButton]} mode="contained" icon="check" onPress={this.UpdatePassword}>Confirm</Button>
           <Button style={[styles.button, styles.redButton]} mode="contained" icon="remove" onPress={() => this.props.navigation.goBack()}>Cancel</Button>
         </View></ScrollView>
     );
