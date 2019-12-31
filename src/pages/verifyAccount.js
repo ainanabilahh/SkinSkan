@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Overlay } from 'react-native-elements';
 import { ActivityIndicator } from 'react-native-paper';
 import styles from '../css/styles';
