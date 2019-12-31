@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Animated, Image, Text, TouchableOpacity, View } from 'react-native';
-import { Button, TextInput, Avatar } from 'react-native-paper';
+import { Overlay, Animated, Image, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Button, TextInput, Avatar } from 'react-native-paper';
 import styles from '../css/styles';
 
 class CreateUser extends Component {
@@ -9,6 +9,7 @@ class CreateUser extends Component {
     super(props)
     this.state = {
       username: '',
+      create: false,
       email: '',
       password: '',
       hidePassword: true,
@@ -37,7 +38,7 @@ class CreateUser extends Component {
   }
 
   validate = (username, email, password) => {
-    var u = /^(([a-zA-Z0-9]$))/
+    var u = /^([a-zA-Z0-9]$)/
     var u2 = /^.{5,15}$/
     var e = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var p = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
@@ -54,7 +55,7 @@ class CreateUser extends Component {
     if (p.test(password) == false)
       alert("Your password must contain at least one lowercase letter, one number digit and more than 6 characters.")
 
-    if (u.test(username) == true && e.test(email) == true && p.test(password) == true)
+    if (u.test(username) == true && u2.test(username) == true && e.test(email) == true && p.test(password) == true)
       return true;
     else
       return false;
@@ -82,6 +83,7 @@ class CreateUser extends Component {
       }).then((response) => response.json())
         .then((responseJson) => {
 
+          this.setState({ create: true });
           alert(responseJson.message);
 
           if (responseJson.message === 'User created.') {
@@ -103,8 +105,22 @@ class CreateUser extends Component {
 
     let { slideUp, slideDown } = this.state;
 
+    if (this.state.create) {
+      return (
+        <Overlay height={200} isVisible={this.state.isVisible}>
+          <View>
+            <Text style={{ paddingTop: 20, textAlign: "center" }}>This will take a moment.</Text>
+            <ActivityIndicator
+              animating={true}
+              style={styles.indicator}
+              size="large"
+            />
+          </View>
+        </Overlay>
+      );
+    }
+    
     return (
-
       <View style={styles.MainContainer}>
         <Animated.View
           style={{

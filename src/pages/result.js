@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Dimensions, ScrollView, Text, View } from 'react-native';
-import { Overlay, ThemeConsumer } from 'react-native-elements';
-import { Divider, ActivityIndicator, Button, List, DataTable, Chip } from 'react-native-paper';
-import ProgressCircle from 'react-native-progress-circle'
+import { Overlay } from 'react-native-elements';
+import { ActivityIndicator, Button, Chip, Divider, List } from 'react-native-paper';
+import ProgressCircle from 'react-native-progress-circle';
 import styles from '../css/styles';
-import AsyncStorage from '@react-native-community/async-storage';
 
 class Result extends Component {
 
