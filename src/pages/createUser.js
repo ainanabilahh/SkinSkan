@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Animated, Image, Text, TouchableOpacity, View } from 'react-native';
-import { Button, TextInput, Avatar } from 'react-native-paper';
+import { Overlay, Animated, Image, Text, TouchableOpacity, View } from 'react-native';
+import { Button, ActivityIndicator, TextInput, Avatar } from 'react-native-paper';
 import styles from '../css/styles';
 
 class CreateUser extends Component {
@@ -14,6 +14,8 @@ class CreateUser extends Component {
       hidePassword: true,
       slideUp: new Animated.Value(0),
       slideDown: new Animated.Value(0),
+      create: false,
+      isVisible: true
     }
   }
 
@@ -37,16 +39,12 @@ class CreateUser extends Component {
   }
 
   validate = (username, email, password) => {
-    var u = /^(([a-zA-Z0-9]$))/
-    var u2 = /^.{5,15}$/
+    var u = /^(([a-zA-Z0-9]{5,15}$))/
     var e = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var p = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
 
     if (u.test(username) == false)
-      alert("Only letters and numbers are allowed. No spaces.")
-
-    if (u2.test(username) == false)
-      alert("Username must be between 5 to 15 characters.")
+      alert("Username must be between 5 to 15 characters and only contained letters and numbers.")
 
     if (e.test(email) == false)
       alert("Email is not valid.")
@@ -63,6 +61,7 @@ class CreateUser extends Component {
   CreateUser = () => {
 
     var validate = this.validate(this.state.username, this.state.email, this.state.password)
+    this.setState({ create: true });
 
     if (validate == true) {
       fetch('https://www.skinskan.me/register.php', {
@@ -102,6 +101,21 @@ class CreateUser extends Component {
   render() {
 
     let { slideUp, slideDown } = this.state;
+
+    if (this.state.create) {
+      return (
+        <Overlay height={200} isVisible={this.state.isVisible}>
+          <View>
+            <Text style={{ paddingTop: 20, textAlign: "center" }}>This will take a moment.</Text>
+            <ActivityIndicator
+              animating={true}
+              style={styles.indicator}
+              size="large"
+            />
+          </View>
+        </Overlay>
+      );
+    }
 
     return (
 
