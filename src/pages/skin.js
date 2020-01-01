@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { ScrollView, RefreshControl, Text, View, Dimensions } from 'react-native';
+import { TouchableOpacity, ScrollView, RefreshControl, Text, View, Dimensions } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { Button, List, RadioButton } from 'react-native-paper';
 import styles from '../css/styles';
@@ -25,6 +25,7 @@ class Skin extends Component {
             brightening: false,
             uvprotect: false,
             value: '',
+            skin_input: 0
         }
     }
 
@@ -46,9 +47,11 @@ class Skin extends Component {
                 this.setState({
                     value: responseJson.skin_type,
                     ing_eff: responseJson.ing_eff,
-                    prod_pref: responseJson.prod_pref
+                    prod_pref: responseJson.prod_pref,
+                    skin_input: responseJson.skin_input
                 })
 
+                console.log(responseJson)
 
                 if (this.state.ing_eff == null)
                     ing_eff = []
@@ -174,6 +177,10 @@ class Skin extends Component {
         return (
 
             <ScrollView style={{ backgroundColor: '#efefef' }} refreshControl={this._refreshControl()}>
+                {(this.state.skin_input == 0) ? (
+                    <TouchableOpacity onPress={this.Login}>
+                        <Text style={[styles.footerButton, { color: 'black', textAlign: 'right', marginTop: 10, marginHorizontal: 15 }]}>SKIP?</Text>
+                    </TouchableOpacity>) : (null)}
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef', fontWeight: 'bold' }}>1. WHAT IS YOUR SKIN TYPE?</List.Subheader>
                     <RadioButton.Group
