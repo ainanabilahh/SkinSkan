@@ -51,8 +51,6 @@ class Skin extends Component {
                     skin_input: responseJson.skin_input
                 })
 
-                console.log(responseJson)
-
                 if (this.state.ing_eff == null)
                     ing_eff = []
                 else
@@ -95,8 +93,6 @@ class Skin extends Component {
                 if (err.name == 'AbortError') return
                 throw err
             });
-
-       
     }
 
     _refreshControl() {
@@ -107,7 +103,7 @@ class Skin extends Component {
         )
     }
 
-        InsertSkinPreferences = () => {
+    InsertSkinPreferences = () => {
 
         const ing_eff = [];
         const prod_pref = [];

@@ -8,10 +8,6 @@ import styles from '../css/styles';
 
 class Scan extends Component {
 
-  async componentDidMount() {
-    username = await AsyncStorage.getItem('username') || 'undefined';
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -25,8 +21,34 @@ class Scan extends Component {
       effects: null,
       // ingY: [],
       // ingArr: [],
-      imageModalVisible: true
+      imageModalVisible: true,
+      skin_input: 0
     }
+  }
+
+  async componentDidMount() {
+
+    username = await AsyncStorage.getItem('username') || 'undefined';
+
+    fetch('https://www.skinskan.me/viewSkin.php', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+      }),
+    }).then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          skin_input: responseJson.skin_input
+        })
+      }).catch((err) => {
+        alert("There is a network error. Please try again.")
+        if (err.name == 'AbortError') return
+        throw err
+      });
   }
 
   openCamera = () => {
@@ -157,8 +179,16 @@ class Scan extends Component {
         <StatusBar backgroundColor="#512DA8" barStyle="light-content" />
         <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
           <Text style={{ borderColor: "#673AB7", padding: 15, borderWidth: 8, fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 10 }}>This is {"\n"}your first {"\n"}skin care {"\n"}journey!</Text>
-          <Button style={[styles.button, { width: 200 }]} mode="contained" icon="image" onPress={this.selectPhoto}>Select Image</Button>
-          <Button style={[styles.button, { width: 200 }]} mode="contained" icon="camera" onPress={this.openCamera}>Take Photo</Button>
+          {(this.state.skin_input == 0) ? (
+            <View>
+              <Button style={[styles.button, { width: 200 }]} mode="contained" icon="image" onPress={() => alert("You are required to insert your product preferences before proceed.")}>Select Image</Button>
+              <Button style={[styles.button, { width: 200 }]} mode="contained" icon="camera" onPress={() => alert("You are required to insert your product preferences before proceed.")}>Take Photo</Button>
+            </View>) : (
+              <View>
+                <Button style={[styles.button, { width: 200 }]} mode="contained" icon="image" onPress={this.selectPhoto}>Select Image</Button>
+                <Button style={[styles.button, { width: 200 }]} mode="contained" icon="camera" onPress={this.openCamera}>Take Photo</Button>
+              </View>)}
+
         </View>
       </View >
     );
