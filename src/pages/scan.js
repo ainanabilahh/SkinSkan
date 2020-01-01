@@ -184,23 +184,21 @@ class Scan extends Component {
 
     return (
 
-      <ScrollView refreshControl={this._refreshControl()}>
-        <View style={styles.ContentContainer}>
-          <StatusBar backgroundColor="#512DA8" barStyle="light-content" />
-          <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-            <Text style={{ borderColor: "#673AB7", padding: 15, borderWidth: 8, fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 10 }}>This is {"\n"}your first {"\n"}skin care {"\n"}journey!</Text>
-            {(this.state.skin_input == 0) ? (
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} refreshControl={this._refreshControl()}>
+        <StatusBar backgroundColor="#512DA8" barStyle="light-content" />
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text style={{ borderColor: "#673AB7", padding: 15, borderWidth: 8, fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 10 }}>This is {"\n"}your first {"\n"}skin care {"\n"}journey!</Text>
+          {(this.state.skin_input == 0) ? (
+            <View>
+              <Button style={[styles.button, { width: 200 }]} mode="contained" icon="image" onPress={() => alert("You are required to insert your product preferences before proceed.")}>Select Image</Button>
+              <Button style={[styles.button, { width: 200 }]} mode="contained" icon="camera" onPress={() => alert("You are required to insert your product preferences before proceed.")}>Take Photo</Button>
+            </View>) : (
               <View>
-                <Button style={[styles.button, { width: 200 }]} mode="contained" icon="image" onPress={() => alert("You are required to insert your product preferences before proceed.")}>Select Image</Button>
-                <Button style={[styles.button, { width: 200 }]} mode="contained" icon="camera" onPress={() => alert("You are required to insert your product preferences before proceed.")}>Take Photo</Button>
-              </View>) : (
-                <View>
-                  <Button style={[styles.button, { width: 200 }]} mode="contained" icon="image" onPress={this.selectPhoto}>Select Image</Button>
-                  <Button style={[styles.button, { width: 200 }]} mode="contained" icon="camera" onPress={this.openCamera}>Take Photo</Button>
-                </View>)}
+                <Button style={[styles.button, { width: 200 }]} mode="contained" icon="image" onPress={this.selectPhoto}>Select Image</Button>
+                <Button style={[styles.button, { width: 200 }]} mode="contained" icon="camera" onPress={this.openCamera}>Take Photo</Button>
+              </View>)}
 
-          </View>
-        </View >
+        </View>
       </ScrollView>
     );
 
