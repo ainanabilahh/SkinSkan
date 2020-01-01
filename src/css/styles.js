@@ -61,13 +61,15 @@ export default {
 
 
   inputBox2: {
-    height: 60,
-    marginHorizontal: 8,
+    height: 50,
+    margin: 8,
     borderRadius: 10,
     fontSize: 16,
+    fontSize: 14,
     paddingHorizontal: 8,
-    marginVertical: 8,
-    backgroundColor: 'rgba(243, 243, 243, 0.5)',
+    backgroundColor: '#fafafa',
+    borderColor: '#efefef',
+    borderWidth: 1
   },
 
   buttonContainer: {
