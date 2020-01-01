@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { TouchableOpacity, ScrollView, RefreshControl, Text, View, Dimensions } from 'react-native';
+import { BackHandler, Alert, TouchableOpacity, ScrollView, RefreshControl, Text, View, Dimensions } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { Button, List, RadioButton } from 'react-native-paper';
 import styles from '../css/styles';
@@ -95,6 +95,8 @@ class Skin extends Component {
                 if (err.name == 'AbortError') return
                 throw err
             });
+
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     _refreshControl() {
@@ -103,6 +105,27 @@ class Skin extends Component {
                 refreshing={this.state.refreshing}
                 onRefresh={() => this.componentDidMount()} />
         )
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    handleBackButton = () => {
+        Alert.alert(
+            'Exit App',
+            'Exiting the application?', [{
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel'
+            }, {
+                text: 'OK',
+                onPress: () => BackHandler.exitApp()
+            },], {
+            cancelable: false
+        }
+        )
+        return true;
     }
 
     InsertSkinPreferences = () => {
