@@ -1,7 +1,8 @@
 
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { BackHandler, Alert, ActivityIndicator, StatusBar, View } from 'react-native';
+import { Alert, BackHandler, StatusBar, View } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 import { NavigationActions, StackActions } from 'react-navigation';
 import styles from '../css/styles';
 
@@ -56,8 +57,12 @@ class AuthLoadingScreen extends Component {
   render() {
     return (
       <View style={styles.MainContainer}>
-        <ActivityIndicator />
         <StatusBar barStyle="default" />
+        <ActivityIndicator
+          animating={true}
+          color='white'
+          size="large"
+        />
       </View>
     )
   }
