@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Animated, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, Image, StatusBar, Text, TouchableOpacity, View, Alert } from 'react-native';
 import { Button, TextInput, Avatar } from 'react-native-paper';
 import styles from '../css/styles';
 
@@ -57,6 +57,8 @@ class Login extends Component {
           AsyncStorage.setItem('username', this.state.username);
 
           if (responseJson.status == 0) {
+            this.props.navigation.navigate('Homepage');
+            alert("You are required to insert your product preferences before proceed.");
             this.props.navigation.navigate('Skin');
           }
           else if (responseJson.status == 1) {

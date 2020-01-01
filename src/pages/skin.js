@@ -183,10 +183,10 @@ class Skin extends Component {
         return (
 
             <ScrollView style={{ backgroundColor: '#efefef' }} refreshControl={this._refreshControl()}>
-                {(this.state.skin_input == 0) ? (
+                {/* {(this.state.skin_input == 0) ? (
                     <TouchableOpacity onPress={this.Skip}>
                         <Text style={[styles.footerButton, { color: 'black', textAlign: 'right', marginTop: 10, marginHorizontal: 15 }]}>SKIP?</Text>
-                    </TouchableOpacity>) : (null)}
+                    </TouchableOpacity>) : (null)} */}
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef', fontWeight: 'bold' }}>1. WHAT IS YOUR SKIN TYPE?</List.Subheader>
                     <RadioButton.Group
