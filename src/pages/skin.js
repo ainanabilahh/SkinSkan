@@ -169,6 +169,10 @@ class Skin extends Component {
         }
     }
 
+    Skip = () => {
+        this.props.navigation.navigate('Scan');
+    }
+
     render() {
 
         const { paraben, sulfate, alcohol, allergen, fungal, silicone } = this.state;
@@ -178,7 +182,7 @@ class Skin extends Component {
 
             <ScrollView style={{ backgroundColor: '#efefef' }} refreshControl={this._refreshControl()}>
                 {(this.state.skin_input == 0) ? (
-                    <TouchableOpacity onPress={this.Login}>
+                    <TouchableOpacity onPress={this.Skip}>
                         <Text style={[styles.footerButton, { color: 'black', textAlign: 'right', marginTop: 10, marginHorizontal: 15 }]}>SKIP?</Text>
                     </TouchableOpacity>) : (null)}
                 <List.Section style={{ backgroundColor: '#fff' }}>
