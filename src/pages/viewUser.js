@@ -117,7 +117,7 @@ class ViewUser extends Component {
                {this.state.verified
                   ? <List.Item
                      title="Email Verification"
-                     description="Your account is verified."
+                     description="Your email is verified."
                      descriptionStyle={{ color: "#008000" }}
                      style={{ paddingVertical: -10 }}
                      left={() => <List.Icon color="#a3a3a3" icon="person" />}
