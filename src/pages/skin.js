@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { BackHandler, Alert, TouchableOpacity, ScrollView, RefreshControl, Text, View, Dimensions } from 'react-native';
+import { Dimensions, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { Button, List, RadioButton } from 'react-native-paper';
 import styles from '../css/styles';
@@ -159,11 +159,11 @@ class Skin extends Component {
 
                     console.log(responseJson)
                     alert(responseJson);
+                    this.props.navigation.navigate('Scan');
 
                 }).catch((error) => {
                     console.error(error);
                 });
-            this.props.navigation.navigate("Homepage");
         }
     }
 

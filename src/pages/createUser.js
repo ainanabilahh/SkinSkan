@@ -102,20 +102,20 @@ class CreateUser extends Component {
 
     let { slideUp, slideDown } = this.state;
 
-    if (this.state.create) {
-      return (
-        <Overlay height={200} isVisible={this.state.isVisible}>
-          <View>
-            <Text style={{ paddingTop: 20, textAlign: "center" }}>This will take a moment.</Text>
-            <ActivityIndicator
-              animating={true}
-              style={styles.indicator}
-              size="large"
-            />
-          </View>
-        </Overlay>
-      );
-    }
+    // if (this.state.create) {
+    //   return (
+    //     <Overlay height={200} isVisible={this.state.isVisible}>
+    //       <View>
+    //         <Text style={{ paddingTop: 20, textAlign: "center" }}>This will take a moment.</Text>
+    //         <ActivityIndicator
+    //           animating={true}
+    //           style={styles.indicator}
+    //           size="large"
+    //         />
+    //       </View>
+    //     </Overlay>
+    //   );
+    // }
 
     return (
 

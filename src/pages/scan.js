@@ -1,9 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Alert, BackHandler, StatusBar, Text, View } from 'react-native';
-import { Overlay } from 'react-native-elements';
+import { RefreshControl, ScrollView, StatusBar, Text, View } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
-import { ActivityIndicator, Button } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import styles from '../css/styles';
 
 class Scan extends Component {
@@ -11,6 +10,7 @@ class Scan extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      refreshing: false,
       isLoading: true,
       username: '',
       result: '',
@@ -28,7 +28,7 @@ class Scan extends Component {
 
   async componentDidMount() {
 
-    username = await AsyncStorage.getItem('username') || 'undefined';
+    username = await AsyncStorage.getItem('username');
 
     fetch('https://www.skinskan.me/viewSkin.php', {
       method: 'POST',
@@ -44,11 +44,20 @@ class Scan extends Component {
         this.setState({
           skin_input: responseJson.skin_input
         })
+        console.log(this.state.skin_input)
       }).catch((err) => {
         alert("There is a network error. Please try again.")
         if (err.name == 'AbortError') return
         throw err
       });
+  }
+
+  _refreshControl() {
+    return (
+      <RefreshControl
+        refreshing={this.state.refreshing}
+        onRefresh={() => this.componentDidMount()} />
+    )
   }
 
   openCamera = () => {
@@ -175,22 +184,24 @@ class Scan extends Component {
 
     return (
 
-      <View style={styles.ContentContainer}>
-        <StatusBar backgroundColor="#512DA8" barStyle="light-content" />
-        <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-          <Text style={{ borderColor: "#673AB7", padding: 15, borderWidth: 8, fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 10 }}>This is {"\n"}your first {"\n"}skin care {"\n"}journey!</Text>
-          {(this.state.skin_input == 0) ? (
-            <View>
-              <Button style={[styles.button, { width: 200 }]} mode="contained" icon="image" onPress={() => alert("You are required to insert your product preferences before proceed.")}>Select Image</Button>
-              <Button style={[styles.button, { width: 200 }]} mode="contained" icon="camera" onPress={() => alert("You are required to insert your product preferences before proceed.")}>Take Photo</Button>
-            </View>) : (
+      <ScrollView refreshControl={this._refreshControl()}>
+        <View style={styles.ContentContainer}>
+          <StatusBar backgroundColor="#512DA8" barStyle="light-content" />
+          <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+            <Text style={{ borderColor: "#673AB7", padding: 15, borderWidth: 8, fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 10 }}>This is {"\n"}your first {"\n"}skin care {"\n"}journey!</Text>
+            {(this.state.skin_input == 0) ? (
               <View>
-                <Button style={[styles.button, { width: 200 }]} mode="contained" icon="image" onPress={this.selectPhoto}>Select Image</Button>
-                <Button style={[styles.button, { width: 200 }]} mode="contained" icon="camera" onPress={this.openCamera}>Take Photo</Button>
-              </View>)}
+                <Button style={[styles.button, { width: 200 }]} mode="contained" icon="image" onPress={() => alert("You are required to insert your product preferences before proceed.")}>Select Image</Button>
+                <Button style={[styles.button, { width: 200 }]} mode="contained" icon="camera" onPress={() => alert("You are required to insert your product preferences before proceed.")}>Take Photo</Button>
+              </View>) : (
+                <View>
+                  <Button style={[styles.button, { width: 200 }]} mode="contained" icon="image" onPress={this.selectPhoto}>Select Image</Button>
+                  <Button style={[styles.button, { width: 200 }]} mode="contained" icon="camera" onPress={this.openCamera}>Take Photo</Button>
+                </View>)}
 
-        </View>
-      </View >
+          </View>
+        </View >
+      </ScrollView>
     );
 
   }
