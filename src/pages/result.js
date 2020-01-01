@@ -196,7 +196,7 @@ class Result extends Component {
                 title={item}
             >
                 {this.state.notes.map((itemN, key) =>
-                    (itemN.Note == (item)) ? (<Text key={key} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) for {itemN.Note}</Text>) : ((key == 0) ? (<Text key={key} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item}</Text>) : (null))
+                    (itemN.Note == (item)) ? (<Text key={key} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) for {itemN.Note}</Text>) : (null)
                 )}
             </List.Accordion>
         );
