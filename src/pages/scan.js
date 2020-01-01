@@ -10,28 +10,6 @@ class Scan extends Component {
 
   async componentDidMount() {
     username = await AsyncStorage.getItem('username') || 'undefined';
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-  }
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-  }
-
-  handleBackButton = () => {
-    Alert.alert(
-      'Exit App',
-      'Exiting the application?', [{
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel'
-      }, {
-        text: 'OK',
-        onPress: () => BackHandler.exitApp()
-      },], {
-      cancelable: false
-    }
-    )
-    return true;
   }
 
   constructor(props) {

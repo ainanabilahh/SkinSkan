@@ -96,7 +96,7 @@ class Skin extends Component {
                 throw err
             });
 
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+       
     }
 
     _refreshControl() {
@@ -107,28 +107,7 @@ class Skin extends Component {
         )
     }
 
-    componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-    }
-
-    handleBackButton = () => {
-        Alert.alert(
-            'Exit App',
-            'Exiting the application?', [{
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel'
-            }, {
-                text: 'OK',
-                onPress: () => BackHandler.exitApp()
-            },], {
-            cancelable: false
-        }
-        )
-        return true;
-    }
-
-    InsertSkinPreferences = () => {
+        InsertSkinPreferences = () => {
 
         const ing_eff = [];
         const prod_pref = [];
