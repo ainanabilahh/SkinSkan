@@ -116,7 +116,7 @@ class ViewUser extends Component {
                <Divider />
                {this.state.verified
                   ? <List.Item
-                     title="Account Verification"
+                     title="Email Verification"
                      description="Your account is verified."
                      descriptionStyle={{ color: "#008000" }}
                      style={{ paddingVertical: -10 }}
