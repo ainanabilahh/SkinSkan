@@ -64,7 +64,7 @@ class SwiperIntro extends Component {
                             contentStyle={{ borderColor: '#ffffff' }}
                             mode="outlined"
                             color="#ffffff"
-                            icon="person"
+                            icon="person-add"
                             onPress={this.CreateUser}>
                             Sign Up
                         </Button>
@@ -72,7 +72,7 @@ class SwiperIntro extends Component {
                             style={[styles.buttonSwiper, { backgroundColor: '#ffffff' }]}
                             mode="outlined"
                             color="#8a4de8"
-                            icon="person-add"
+                            icon="person"
                             onPress={this.Login}>
                             Sign In
                         </Button>
