@@ -20,7 +20,8 @@ class Result extends Component {
             effects: null,
             ing_eff_string: null,
             prod_pref_string: null,
-            skin_type_string: null
+            skin_type_string: null,
+            normal: false,
         }
     }
 
@@ -68,6 +69,10 @@ class Result extends Component {
                     ing_eff_string: responseJson.ing_eff,
                     prod_pref_string: responseJson.prod_pref
                 })
+
+                if (this.state.skin_type_string == "Normal") {
+                    this.setState({ normal: true })
+                }
 
             }).catch((err) => {
                 alert("There is a network error. Please try again.")
@@ -230,14 +235,21 @@ class Result extends Component {
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={styles.listSubheaderStyle}>Result</List.Subheader>
                     <View style={styles.listStyle}>
-                        <View style={{ flexDirection: 'row', padding: 20, alignItems: 'center', justifyContent: 'center', }}>
-                            {n}
-                            <Text style={{ fontFamily: 'Proxima Nova Bold', fontSize: 16 }}>ingredient(s) <Text style={{ color: '#95E819' }}>good</Text> for {this.state.skin_type_string} skin</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row', padding: 20, alignItems: 'center', justifyContent: 'center',  }}>
-                            {o}
-                            <Text style={{ fontFamily: 'Proxima Nova Bold', fontSize: 16 }}>ingredient(s) <Text style={{ color: '#FF7344' }}>bad</Text> for {this.state.skin_type_string} skin</Text>
-                        </View>
+                        {this.state.normal ? (
+                            <View style={{ flexDirection: 'row', padding: 20, alignItems: 'center', justifyContent: 'center', }}>
+                                <Text style={{ fontFamily: 'Proxima Nova Bold', fontSize: 16 }}>Normal skin type is suitable for all products.</Text>
+                            </View>
+                        ) : (
+                                <View>
+                                    <View style={{ flexDirection: 'row', padding: 20, alignItems: 'center', justifyContent: 'center', }}>
+                                        {n}
+                                        <Text style={{ fontFamily: 'Proxima Nova Bold', fontSize: 16 }}>ingredient(s) <Text style={{ color: '#95E819' }}>good</Text> for {this.state.skin_type_string} skin</Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', padding: 20, alignItems: 'center', justifyContent: 'center', }}>
+                                        {o}
+                                        <Text style={{ fontFamily: 'Proxima Nova Bold', fontSize: 16 }}>ingredient(s) <Text style={{ color: '#FF7344' }}>bad</Text> for {this.state.skin_type_string} skin</Text>
+                                    </View>
+                                </View>)}
                         <Divider />
                         <View style={{ flexDirection: 'row', padding: 20, alignItems: 'center', justifyContent: 'center', }}>
                             <ProgressCircle
@@ -250,7 +262,6 @@ class Result extends Component {
                                 <Text style={{ fontFamily: 'Proxima Nova Bold', fontSize: 18 }}>{prod}%</Text>
                             </ProgressCircle>
                             <Text style={[styles.usernameLabel, { marginTop: 20 }]}>matches with your {"\n"}product preferences!</Text>
-                            <Divider />
                         </View>
                     </View>
                 </List.Section>

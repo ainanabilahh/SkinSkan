@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Image, RefreshControl, ScrollView, TouchableOpacity, View, Dimensions } from 'react-native';
+import { Image, RefreshControl, ScrollView, View, Text } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
-import { Avatar, Button, Card, Paragraph, Title } from 'react-native-paper';
+import { Button, Dialog, Portal, Provider } from 'react-native-paper';
 import styles from '../css/styles';
+
 
 class Scan extends Component {
 
@@ -22,7 +23,11 @@ class Scan extends Component {
       // ingY: [],
       // ingArr: [],
       imageModalVisible: true,
-      skin_input: 0
+      skin_input: 0,
+      visible: false,
+      color: null,
+      response: null,
+      alert: null,
     }
   }
 
@@ -44,6 +49,11 @@ class Scan extends Component {
         this.setState({
           skin_input: responseJson.skin_input
         })
+        if (this.skin_input == 0) {
+          this.setState({
+            visible: true
+          });
+        }
         console.log(this.state.skin_input)
       }).catch((err) => {
         alert("There is a network error. Please try again.")
@@ -117,7 +127,7 @@ class Scan extends Component {
 
     }).catch(e => {
       console.log(e), this.setState({ imageModalVisible: false })
-      
+
     });
   }
 
@@ -180,43 +190,60 @@ class Scan extends Component {
 
     return (
 
-      <ScrollView
-        style={{ backgroundColor: '#FFFFFF' }}
-        contentContainerStyle={{ flexGrow: 1 }}
-        refreshControl={this._refreshControl()}>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          {/* <Text style={{ borderColor: "#673AB7", padding: 15, borderWidth: 8, fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 10 }}>This is {"\n"}your first {"\n"}skin care {"\n"}journey!</Text> */}
-          <Image
-            style={{ marginBottom: 50, width: 300, height: 156 }}
-            source={require('../images/home2.png')}
-            onPress={this.openCamera} />
-          {(this.state.skin_input == 0) ? (
-            <View>
-              <Button
-                style={[styles.button, { width: 300 }]}
-                mode="contained"
-                icon="image"
-                onPress={() => alert("You are required to insert your product preferences before proceed.")}>Select Image</Button>
-              <Button
-                style={[styles.button, { width: 300 }]}
-                mode="contained"
-                icon="camera"
-                onPress={() => alert("You are required to insert your product preferences before proceed.")}>Take Photo</Button>
-            </View>) : (
+      <Provider>
+        <Portal>
+          <Dialog
+            style={{ borderRadius: 10, }}
+            visible={this.state.visible}
+            onDismiss={() => this.setState({ visible: false })}
+            dismissable={true}>
+            <Dialog.Title style={{ fontFamily: 'Proxima Nova Bold', color: '#E22E16' }}>Error</Dialog.Title>
+            <Dialog.Content>
+              <Text style={{ fontFamily: 'ProximaNova-Regular' }}>You are required to insert your product preferences before proceed.</Text>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={() => {this.props.navigation.navigate("Skin"); this.setState({ visible: false })}}>Ok</Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
+        <ScrollView
+          style={{ backgroundColor: '#FFFFFF' }}
+          contentContainerStyle={{ flexGrow: 1 }}
+          refreshControl={this._refreshControl()}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            {/* <Text style={{ borderColor: "#673AB7", padding: 15, borderWidth: 8, fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 10 }}>This is {"\n"}your first {"\n"}skin care {"\n"}journey!</Text> */}
+            <Image
+              style={{ marginBottom: 50, width: 300, height: 156 }}
+              source={require('../images/home2.png')}
+              onPress={this.openCamera} />
+            {(this.state.skin_input == 0) ? (
               <View>
                 <Button
                   style={[styles.button, { width: 300 }]}
                   mode="contained"
                   icon="image"
-                  onPress={this.selectPhoto}>Select Image</Button>
+                  onPress={() => this.setState({ visible: true })}>Select Image</Button>
                 <Button
                   style={[styles.button, { width: 300 }]}
                   mode="contained"
                   icon="camera"
-                  onPress={this.openCamera}>Take Photo</Button>
-              </View>)}
-        </View>
-      </ScrollView>
+                  onPress={() => this.setState({ visible: true })}>Take Photo</Button>
+              </View>) : (
+                <View>
+                  <Button
+                    style={[styles.button, { width: 300 }]}
+                    mode="contained"
+                    icon="image"
+                    onPress={this.selectPhoto}>Select Image</Button>
+                  <Button
+                    style={[styles.button, { width: 300 }]}
+                    mode="contained"
+                    icon="camera"
+                    onPress={this.openCamera}>Take Photo</Button>
+                </View>)}
+          </View>
+        </ScrollView>
+      </Provider>
     );
 
   }

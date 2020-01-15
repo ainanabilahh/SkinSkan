@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { RefreshControl, ScrollView, Text, View, TouchableWithoutFeedback } from 'react-native';
-import { CheckBox, Overlay } from 'react-native-elements';
-import { Button, Dialog, List, Portal, Provider, RadioButton, Modal } from 'react-native-paper';
+import { RefreshControl, ScrollView, Text, View } from 'react-native';
+import { CheckBox } from 'react-native-elements';
+import { Button, Dialog, List, Portal, Provider, RadioButton } from 'react-native-paper';
 import styles from '../css/styles';
 
 class Skin extends Component {
@@ -174,14 +174,23 @@ class Skin extends Component {
             }).then((response) => response.json())
                 .then((responseJson) => {
                     console.log(responseJson)
-                    this.setState({
-                        alert: 'Success',
-                        color: '#5CA51C',
-                        response: responseJson,
-                        visible: true
-                    });
-                    //alert(responseJson);
-                    //this.props.navigation.navigate('Scan');
+
+                    if (responseJson == "Your product preferences has been updated. Please swipe down to refresh.") {
+                        this.setState({
+                            alert: 'Success',
+                            color: '#5CA51C',
+                            response: responseJson,
+                            visible: true
+                        });
+                    }
+                    else {
+                        this.setState({
+                            alert: 'Error',
+                            color: '#E22E16',
+                            response: responseJson,
+                            visible: true
+                        });
+                    }
                 }).catch((error) => {
                     console.error(error);
                 });
@@ -206,7 +215,7 @@ class Skin extends Component {
                             <Text style={{ fontFamily: 'ProximaNova-Regular' }}>{this.state.response}</Text>
                         </Dialog.Content>
                         <Dialog.Actions>
-                            <Button onPress={() => this.setState({ visible: false })}>Ok</Button>
+                            <Button onPress={() => { this.props.navigation.navigate("Scan"); this.setState({ visible: false }) }}>Ok</Button>
                         </Dialog.Actions>
                     </Dialog>
                 </Portal>

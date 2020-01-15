@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Animated, Image, StatusBar, Text, TouchableOpacity, View, Dimensions } from 'react-native';
-import { Avatar, Button, TextInput } from 'react-native-paper';
+import { Dimensions, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Dialog, Portal, Provider, TextInput } from 'react-native-paper';
 import styles from '../css/styles';
 
 class Login extends Component {
@@ -12,7 +12,11 @@ class Login extends Component {
       username: '',
       password: '',
       hidePassword: true,
-      loading: false
+      loading: false,
+      visible: false,
+      color: null,
+      response: null,
+      alert: null,
     }
   }
 
@@ -42,15 +46,7 @@ class Login extends Component {
 
           AsyncStorage.setItem('isLoggedIn', '1');
           AsyncStorage.setItem('username', this.state.username);
-
-          if (responseJson.status == 0) {
-            this.props.navigation.navigate('Homepage');
-            alert("You are required to insert your product preferences before proceed.");
-            this.props.navigation.navigate('Skin');
-          }
-          else if (responseJson.status == 1) {
-            this.props.navigation.navigate('Homepage');
-          }
+          this.props.navigation.navigate('Homepage');
         }
         else {
           alert(responseJson.message);
@@ -70,52 +66,69 @@ class Login extends Component {
 
     return (
 
-      <View style={[styles.MainContainer, { justifyContent: 'flex-start', paddingTop: 50 }]}>
-        <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
-        <TextInput
-          mode="flat"
-          label="Username"
-          autoCapitalize="none"
-          value={this.state.username}
-          onChangeText={username => this.setState({ username })}
-          style={styles.inputBox}
-        />
-        <View style={styles.textBoxBtnHolder}>
+      <Provider>
+        <Portal>
+          <Dialog
+            style={{ borderRadius: 10, }}
+            visible={this.state.visible}
+            onDismiss={() => this.setState({ visible: false })}
+            dismissable={true}>
+            <Dialog.Title style={{ fontFamily: 'Proxima Nova Bold', color: this.state.color }}>{this.state.alert}</Dialog.Title>
+            <Dialog.Content>
+              <Text style={{ fontFamily: 'ProximaNova-Regular' }}>{this.state.response}</Text>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={() => this.setState({ visible: false })}>Ok</Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
+        <View style={[styles.MainContainer, { justifyContent: 'flex-start', paddingTop: 50 }]}>
+          <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
           <TextInput
             mode="flat"
-            label="Password"
-            value={this.state.password}
-            onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
+            label="Username"
+            autoCapitalize="none"
+            value={this.state.username}
+            onChangeText={username => this.setState({ username })}
             style={styles.inputBox}
-            secureTextEntry={this.state.hidePassword}
           />
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.visibilityBtn}
-            onPress={this.managePasswordVisibility}>
-            <Image
-              opacity={0.5}
-              source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')}
-              style={styles.btnImage} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            loading={this.state.loading ? true : false}
-            style={[styles.button, { marginVertical: 20, width: 0.80 * Dimensions.get('window').width, }]}
-            mode="contained"
-            icon="person"
-            onPress={this._login}>
-            Sign In
+          <View style={styles.textBoxBtnHolder}>
+            <TextInput
+              mode="flat"
+              label="Password"
+              value={this.state.password}
+              onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
+              style={styles.inputBox}
+              secureTextEntry={this.state.hidePassword}
+            />
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.visibilityBtn}
+              onPress={this.managePasswordVisibility}>
+              <Image
+                opacity={0.5}
+                source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')}
+                style={styles.btnImage} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              loading={this.state.loading ? true : false}
+              style={[styles.button, { marginVertical: 20, width: 0.80 * Dimensions.get('window').width, }]}
+              mode="contained"
+              icon="person"
+              onPress={this._login}>
+              Sign In
            </Button>
+          </View>
+          <View style={styles.footerContainer}>
+            <Text style={styles.footerText}>Do not have an account yet?</Text>
+            <TouchableOpacity onPress={this.CreateUser}>
+              <Text style={styles.footerButton}> Sign up</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.footerContainer}>
-          <Text style={styles.footerText}>Do not have an account yet?</Text>
-          <TouchableOpacity onPress={this.CreateUser}>
-            <Text style={styles.footerButton}> Sign up</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </Provider>
     );
   }
 }
