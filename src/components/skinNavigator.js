@@ -3,33 +3,33 @@ import Skin from '../pages/skin';
 
 const SkinNavigator = createStackNavigator(
   {
-    Skin: { 
+    Skin: {
       screen: Skin,
       navigationOptions: ({ navigation }) => ({
         title: 'Product Preferences',
-        headerTintColor: '#ffffff',
-        headerStyle: {
-          backgroundColor: '#673AB7',
-          elevation: 0,
-        },
         headerTitleStyle: {
-          fontSize: 20,
-          textAlign: 'center',
-          fontFamily: 'Montserrat-Bold',
-          flex: 1, 
+          fontSize: 22,
+          paddingLeft: 5,
+          fontFamily: 'Proxima Nova Bold',
+          flex: 1,
+          color: '#2b2b2b'
         },
-      }),   
+      }),
     },
   },
   {
-    initialRouteName: "Skin", 
+    initialRouteName: "Skin",
     navigationOptions: {
       tabBarOnPress: ({ navigation, defaultHandler }) => {
         defaultHandler();
       },
+      headerTintColor: '#ffffff',
+      headerStyle: {
+        backgroundColor: '#fff',
+      },
     },
     lazy: false,
-    },
+  },
 );
 
 export default createAppContainer(SkinNavigator);

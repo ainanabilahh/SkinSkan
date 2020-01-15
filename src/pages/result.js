@@ -86,18 +86,19 @@ class Result extends Component {
         prod = Math.round(this.state.percent)
 
         if (prod < 31)
-            color = "#eb0000"
+            color = "#FF7344"
         else if (prod > 30 && prod < 61)
-            color = "#ebeb00"
+            color = "#FFE102"
         else if (prod > 60)
-            color = "#76eb00"
+            color = "#95E819"
 
         if (!this.state.notes && !this.state.skin && !this.state.percent) {
             return (
-                <Overlay height={220} isVisible={this.state.isVisible}>
+                <Overlay height={220} isVisible={this.state.isVisible} overlayStyle={{ borderRadius: 20 }}>
                     <View>
-                        <Text style={{ paddingTop: 20, textAlign: "center" }}>This will take a while depends {"\n"} on your internet connection. {"\n"}Please do not close this window.</Text>
+                        <Text style={{ paddingTop: 20, textAlign: "center", fontFamily: 'ProximaNova-Regular' }}>This will take a while depends {"\n"} on your internet connection. {"\n"}Please do not close this window.</Text>
                         <ActivityIndicator
+                            color="#8a4de8"
                             animating={true}
                             style={styles.indicator}
                             size="large"
@@ -136,11 +137,11 @@ class Result extends Component {
 
         // SKIN TYPE SECTION
         let n = this.state.skin.map((item, key) =>
-            <Text key={key} style={[styles.usernameLabel, { color: '#6adb28' }]}>{item.GoodSkin}</Text>
+            <Text key={key} style={{ fontFamily: 'Proxima Nova Bold', fontSize: 16 }}>{item.GoodSkin} </Text>
         );
 
         let o = this.state.skin.map((item, key) =>
-            <Text key={key} style={[styles.usernameLabel, { color: '#db286a' }]}>{item.BadSkin}</Text>
+            <Text key={key} style={{ fontFamily: 'Proxima Nova Bold', fontSize: 16 }}>{item.BadSkin} </Text>
         );
         // END OF SKIN TYPE SECTION
 
@@ -163,19 +164,31 @@ class Result extends Component {
         let c = a.map((item, key) =>
             <List.Accordion
                 key={key}
-                titleStyle={{ fontSize: 14 }}
+                titleStyle={{ fontSize: 14, fontFamily: 'ProximaNova-Regular' }}
                 title={item}
                 style={{ borderColor: '#ccc', borderRadius: 1 }}
             >
                 <View>
                     {this.state.notes.map((itemN, keyN) =>
-                        (itemN.Note == (item)) ? (<Text key={keyN} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects</Text>) : (null),
+                        (itemN.Note == (item)) ?
+                            (<Text
+                                key={keyN}
+                                style={{ fontFamily: 'ProximaNova-Regular', margin: 15 }}>
+                                This product contains {itemN.Qty} ingredient(s) with {itemN.Note} effects
+                                    </Text>)
+                            : (null),
                     )}
                 </View>
 
                 {this.state.effects.map((itemE, keyE) =>
                     (itemE.Ing.map((itemI) =>
-                        (itemE.Effect == (item)) ? (<View style={{ alignSelf: 'baseline', marginBottom: 10, marginLeft: 15 }}><Chip key={keyE} textStyle={{ fontSize: 9 }} mode="flat">{itemI}</Chip></View>) : (null)
+                        (itemE.Effect == (item)) ?
+                            (<View style={{ alignSelf: 'baseline', marginBottom: 10, marginLeft: 15 }}>
+                                <Chip
+                                    key={keyE}
+                                    textStyle={{ fontSize: 9, fontFamily: 'ProximaNova-Regular', }}
+                                    mode="flat">{itemI}</Chip></View>)
+                            : (null)
                     ))
                 )}
                 <Divider />
@@ -192,52 +205,65 @@ class Result extends Component {
         let y = x.map((item, key) =>
             <List.Accordion
                 key={key}
-                titleStyle={{ fontSize: 14 }}
+                titleStyle={{ fontFamily: 'ProximaNova-Regular', fontSize: 14 }}
                 title={item}
             >
                 {this.state.notes.map((itemN, key) =>
-                    (itemN.Note == (item)) ? (<Text key={key} style={{ margin: 15 }}>This product contains {itemN.Qty} ingredient(s) for {itemN.Note}</Text>) : ((key == 0) ? (<Text key={key} style={{ margin: 15 }}>This product contains 0 ingredient(s) with {item}</Text>) : (null))
+                    (itemN.Note == (item)) ?
+                        (<Text
+                            key={key}
+                            style={{ margin: 15, fontFamily: 'ProximaNova-Regular' }}>
+                            This product contains {itemN.Qty} ingredient(s) for {itemN.Note}</Text>)
+                        : ((key == 0) ?
+                            (<Text
+                                key={key}
+                                style={{ margin: 15, fontFamily: 'ProximaNova-Regular' }}>
+                                This product contains 0 ingredient(s) with {item}</Text>)
+                            : (null))
                 )}
             </List.Accordion>
         );
         // END OF PRODUCT PREFERENCES SECTION
 
         return (
-            <ScrollView style={{ backgroundColor: '#efefef' }}>
+            <ScrollView style={{ backgroundColor: '#F5F5F5' }}>
                 <List.Section style={{ backgroundColor: '#fff' }}>
-                    <List.Subheader style={{ backgroundColor: '#efefef' }}>RESULT</List.Subheader>
-                    <View style={{ flexDirection: 'row', padding: 20 }}>
-                        {n}
-                        <Text style={[styles.usernameLabel, { fontSize: 16, marginTop: 5 }]}>ingredient(s) <Text style={{ color: '#6adb28' }}>good</Text> for {this.state.skin_type_string} skin</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', padding: 20 }}>
-                        {o}
-                        <Text style={[styles.usernameLabel, { fontSize: 16, marginTop: 5 }]}>ingredient(s) <Text style={{ color: '#db286a' }}>bad</Text> for {this.state.skin_type_string} skin</Text>
-                    </View>
-                    <Divider />
-                    <View style={{ flexDirection: 'row', padding: 20 }}>
-                        <ProgressCircle
-                            percent={prod}
-                            radius={50}
-                            borderWidth={8}
-                            color={color}
-                            shadowColor="#999"
-                            bgColor="#fff" >
-                            <Text style={{ fontSize: 18 }}>{prod}%</Text>
-                        </ProgressCircle>
-                        <Text style={[styles.usernameLabel, { marginTop: 20 }]}>matches with your {"\n"}product preferences!</Text>
+                    <List.Subheader style={styles.listSubheaderStyle}>Result</List.Subheader>
+                    <View style={styles.listStyle}>
+                        <View style={{ flexDirection: 'row', padding: 20, alignItems: 'center', justifyContent: 'center', }}>
+                            {n}
+                            <Text style={{ fontFamily: 'Proxima Nova Bold', fontSize: 16 }}>ingredient(s) <Text style={{ color: '#95E819' }}>good</Text> for {this.state.skin_type_string} skin</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', padding: 20, alignItems: 'center', justifyContent: 'center',  }}>
+                            {o}
+                            <Text style={{ fontFamily: 'Proxima Nova Bold', fontSize: 16 }}>ingredient(s) <Text style={{ color: '#FF7344' }}>bad</Text> for {this.state.skin_type_string} skin</Text>
+                        </View>
                         <Divider />
+                        <View style={{ flexDirection: 'row', padding: 20, alignItems: 'center', justifyContent: 'center', }}>
+                            <ProgressCircle
+                                percent={prod}
+                                radius={50}
+                                borderWidth={8}
+                                color={color}
+                                shadowColor="#F5F5F5"
+                                bgColor="#fff" >
+                                <Text style={{ fontFamily: 'Proxima Nova Bold', fontSize: 18 }}>{prod}%</Text>
+                            </ProgressCircle>
+                            <Text style={[styles.usernameLabel, { marginTop: 20 }]}>matches with your {"\n"}product preferences!</Text>
+                            <Divider />
+                        </View>
                     </View>
                 </List.Section>
                 <List.Section style={{ backgroundColor: '#fff' }}>
-                    <List.Subheader style={{ backgroundColor: '#efefef' }}>DETAILS</List.Subheader>
-                    <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 15 }}>Desired effects:</Text>
-                    <Divider />
-                    {c}
-                    <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 15 }}>Ingredients to avoid:</Text>
-                    <Divider />
-                    {y}
-                    {/* <DataTable>
+                    <List.Subheader style={styles.listSubheaderStyle}>Details</List.Subheader>
+                    <View style={styles.listStyle}>
+                        <Text style={{ fontFamily: 'Proxima Nova Bold', margin: 15 }}>Desired effects:</Text>
+                        <Divider />
+                        {c}
+                        <Text style={{ fontFamily: 'Proxima Nova Bold', margin: 15 }}>Ingredients to avoid:</Text>
+                        <Divider />
+                        {y}
+                        {/* <DataTable>
                         <DataTable.Header>
                             <DataTable.Title>Notes</DataTable.Title>
                             <DataTable.Title numeric>Quantity</DataTable.Title>
@@ -249,6 +275,7 @@ class Result extends Component {
                             </DataTable.Row>
                         )}
                     </DataTable> */}
+                    </View>
                 </List.Section>
                 {/* <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={{ backgroundColor: '#efefef' }}>INGREDIENTS</List.Subheader>
@@ -263,10 +290,17 @@ class Result extends Component {
                         {j}
                     </View>
                 </List.Section> */}
-                <Text style={{ textAlign: 'center' }}>Not satisfied?</Text>
-                <Button style={[styles.button, { width: 0.95 * Dimensions.get('window').width }]} mode="contained" icon="arrow-back" onPress={this.Back}>Scan Again</Button>
+                <Text style={{ textAlign: 'center', fontFamily: 'Proxima Nova Bold' }}>Not satisfied?</Text>
+                <View
+                    style={styles.buttonContainer}>
+                    <Button
+                        style={styles.button}
+                        mode="contained"
+                        icon="check"
+                        onPress={this.Back}>Scan Again
+                        </Button>
+                </View>
             </ScrollView >
-
         );
     }
 }

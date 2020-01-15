@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Dimensions, RefreshControl, ScrollView, Text, View } from 'react-native';
-import { CheckBox } from 'react-native-elements';
-import { Button, List, RadioButton } from 'react-native-paper';
+import { RefreshControl, ScrollView, Text, View, TouchableWithoutFeedback } from 'react-native';
+import { CheckBox, Overlay } from 'react-native-elements';
+import { Button, Dialog, List, Portal, Provider, RadioButton, Modal } from 'react-native-paper';
 import styles from '../css/styles';
 
 class Skin extends Component {
@@ -25,13 +25,17 @@ class Skin extends Component {
             brightening: false,
             uvprotect: false,
             value: '',
-            skin_input: 0
+            skin_input: 0,
+            visible: false,
+            color: null,
+            response: null,
+            alert: null,
         }
     }
 
     async componentDidMount() {
 
-        username = await AsyncStorage.getItem('username') || 'undefined';
+        username = await AsyncStorage.getItem('username');
 
         fetch('https://www.skinskan.me/viewSkin.php', {
             method: 'POST',
@@ -133,11 +137,26 @@ class Skin extends Component {
             prod_pref.push("6")
 
         if (this.state.value == null)
-            alert("Please answer question one.");
+            this.setState({
+                alert: 'Error',
+                visible: true,
+                color: '#E22E16',
+                response: 'Please answer question number 1.'
+            });
         else if (ing_eff.length == 0)
-            alert("Please answer question two.");
+            this.setState({
+                alert: 'Error',
+                visible: true,
+                color: '#E22E16',
+                response: 'Please answer question number 2.'
+            });
         else if (prod_pref.length == 0)
-            alert("Please answer question three.");
+            this.setState({
+                alert: 'Error',
+                visible: true,
+                color: '#E22E16',
+                response: 'Please answer question number 3.'
+            });
         else {
             fetch('https://www.skinskan.me/updateSkin.php', {
                 method: 'POST',
@@ -146,29 +165,27 @@ class Skin extends Component {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-
                     username: username,
                     skin_type: this.state.value,
                     prod_pref: prod_pref,
                     ing_eff: ing_eff
-
                 })
 
             }).then((response) => response.json())
                 .then((responseJson) => {
-
                     console.log(responseJson)
-                    alert(responseJson);
-                    this.props.navigation.navigate('Scan');
-
+                    this.setState({
+                        alert: 'Success',
+                        color: '#5CA51C',
+                        response: responseJson,
+                        visible: true
+                    });
+                    //alert(responseJson);
+                    //this.props.navigation.navigate('Scan');
                 }).catch((error) => {
                     console.error(error);
                 });
         }
-    }
-
-    Skip = () => {
-        this.props.navigation.navigate('Scan');
     }
 
     render() {
@@ -177,110 +194,155 @@ class Skin extends Component {
         const { antiaging, woundhealing, acnefight, brightening, uvprotect } = this.state;
 
         return (
-
-            <ScrollView style={{ backgroundColor: '#efefef' }} refreshControl={this._refreshControl()}>
-                {/* {(this.state.skin_input == 0) ? (
+            <Provider>
+                <Portal>
+                    <Dialog
+                        style={{ borderRadius: 10, }}
+                        visible={this.state.visible}
+                        onDismiss={() => this.setState({ visible: false })}
+                        dismissable={true}>
+                        <Dialog.Title style={{ fontFamily: 'Proxima Nova Bold', color: this.state.color }}>{this.state.alert}</Dialog.Title>
+                        <Dialog.Content>
+                            <Text style={{ fontFamily: 'ProximaNova-Regular' }}>{this.state.response}</Text>
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                            <Button onPress={() => this.setState({ visible: false })}>Ok</Button>
+                        </Dialog.Actions>
+                    </Dialog>
+                </Portal>
+                <ScrollView style={{ backgroundColor: '#F5F5F5' }} refreshControl={this._refreshControl()}>
+                    {/* {(this.state.skin_input == 0) ? (
                     <TouchableOpacity onPress={this.Skip}>
                         <Text style={[styles.footerButton, { color: 'black', textAlign: 'right', marginTop: 10, marginHorizontal: 15 }]}>SKIP?</Text>
                     </TouchableOpacity>) : (null)} */}
-                <List.Section style={{ backgroundColor: '#fff' }}>
-                    <List.Subheader style={{ backgroundColor: '#efefef', fontWeight: 'bold' }}>1. WHAT IS YOUR SKIN TYPE?</List.Subheader>
-                    <RadioButton.Group
-                        onValueChange={value => this.setState({ value })}
-                        value={this.state.value}
-                    >
-                        <View style={{ flexDirection: 'column', marginHorizontal: 10 }}>
-                            {/* <View style={styles.radioButtonContainer}>
-                                <RadioButton value="6" color="#2289dc" />
+                    <List.Section style={{ backgroundColor: '#fff' }}>
+                        <List.Subheader style={styles.listSubheaderStyle}>1. WHAT IS YOUR SKIN TYPE?</List.Subheader>
+                        <RadioButton.Group
+                            onValueChange={value => this.setState({ value })}
+                            value={this.state.value}
+                        >
+                            <View style={{ flexDirection: 'column', marginHorizontal: 10 }}>
+                                {/* <View style={styles.radioButtonContainer}>
+                                <RadioButton value="6" color="#8a4de8" />
                                 <Text style={styles.radioButtonStyle}> I don't know</Text>
                             </View> */}
-                            <View style={styles.radioButtonContainer}>
-                                <RadioButton value="1" color="#2289dc" />
-                                <Text style={styles.radioButtonStyle}> Normal Skin</Text>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="1" color="#8a4de8" />
+                                    <Text style={styles.radioButtonStyle}> Normal Skin</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="2" color="#8a4de8" />
+                                    <Text style={styles.radioButtonStyle}> Dry Skin</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="3" color="#8a4de8" />
+                                    <Text style={styles.radioButtonStyle}> Sensitive Skin</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="4" color="#8a4de8" />
+                                    <Text style={styles.radioButtonStyle}> Combination Skin</Text>
+                                </View>
+                                <View style={styles.radioButtonContainer}>
+                                    <RadioButton value="5" color="#8a4de8" />
+                                    <Text style={styles.radioButtonStyle}> Oily Skin</Text>
+                                </View>
                             </View>
-                            <View style={styles.radioButtonContainer}>
-                                <RadioButton value="2" color="#2289dc" />
-                                <Text style={styles.radioButtonStyle}> Dry Skin</Text>
-                            </View>
-                            <View style={styles.radioButtonContainer}>
-                                <RadioButton value="3" color="#2289dc" />
-                                <Text style={styles.radioButtonStyle}> Sensitive Skin</Text>
-                            </View>
-                            <View style={styles.radioButtonContainer}>
-                                <RadioButton value="4" color="#2289dc" />
-                                <Text style={styles.radioButtonStyle}> Combination Skin</Text>
-                            </View>
-                            <View style={styles.radioButtonContainer}>
-                                <RadioButton value="5" color="#2289dc" />
-                                <Text style={styles.radioButtonStyle}> Oily Skin</Text>
-                            </View>
+                        </RadioButton.Group>
+                        <List.Subheader style={styles.listSubheaderStyle}>2. WHAT KIND OF PRODUCT DO YOU SEEK?</List.Subheader>
+                        <View>
+                            <CheckBox
+                                title='Anti-Aging'
+                                checkedColor='#8a4de8'
+                                containerStyle={styles.checkBoxContainer}
+                                checked={this.state.antiaging}
+                                onPress={() => { this.setState({ antiaging: !antiaging }); }}
+                            />
+                            <CheckBox
+                                title='Promotes Wound Healing'
+                                checkedColor='#8a4de8'
+                                containerStyle={styles.checkBoxContainer}
+                                checked={this.state.woundhealing}
+                                onPress={() => { this.setState({ woundhealing: !woundhealing }); }}
+                            />
+                            <CheckBox
+                                title='Acne-Fighting'
+                                checkedColor='#8a4de8'
+                                containerStyle={styles.checkBoxContainer}
+                                checked={this.state.acnefight}
+                                onPress={() => { this.setState({ acnefight: !acnefight }); }}
+                            />
+                            <CheckBox
+                                title='Brightening'
+                                checkedColor='#8a4de8'
+                                containerStyle={styles.checkBoxContainer}
+                                checked={this.state.brightening}
+                                onPress={() => { this.setState({ brightening: !brightening }); }}
+                            />
+                            <CheckBox
+                                title='UV Protection'
+                                checkedColor='#8a4de8'
+                                containerStyle={styles.checkBoxContainer}
+                                checked={this.state.uvprotect}
+                                onPress={() => { this.setState({ uvprotect: !uvprotect }); }}
+                            />
                         </View>
-                    </RadioButton.Group>
-                    <List.Subheader style={{ backgroundColor: '#efefef', fontWeight: 'bold' }}>2. WHAT KIND OF PRODUCT DO YOU SEEK?</List.Subheader>
-                    <View>
-                        <CheckBox
-                            title='Anti-Aging'
-                            checked={this.state.antiaging}
-                            onPress={() => { this.setState({ antiaging: !antiaging }); }}
-                        />
-                        <CheckBox
-                            title='Promotes Wound Healing'
-                            checked={this.state.woundhealing}
-                            onPress={() => { this.setState({ woundhealing: !woundhealing }); }}
-                        />
-                        <CheckBox
-                            title='Acne-Fighting'
-                            checked={this.state.acnefight}
-                            onPress={() => { this.setState({ acnefight: !acnefight }); }}
-                        />
-                        <CheckBox
-                            title='Brightening'
-                            checked={this.state.brightening}
-                            onPress={() => { this.setState({ brightening: !brightening }); }}
-                        />
-                        <CheckBox
-                            title='UV Protection'
-                            checked={this.state.uvprotect}
-                            onPress={() => { this.setState({ uvprotect: !uvprotect }); }}
-                        />
+                        <List.Subheader style={styles.listSubheaderStyle}>3. WHAT INGREDIENTS YOU WANT TO AVOID?</List.Subheader>
+                        <View>
+                            <CheckBox
+                                title='Paraben-Free'
+                                checkedColor='#8a4de8'
+                                containerStyle={styles.checkBoxContainer}
+                                checked={this.state.paraben}
+                                onPress={() => { this.setState({ paraben: !paraben }); }}
+                            />
+                            <CheckBox
+                                title='Sulfate-Free'
+                                checkedColor='#8a4de8'
+                                containerStyle={styles.checkBoxContainer}
+                                checked={this.state.sulfate}
+                                onPress={() => { this.setState({ sulfate: !sulfate }); }}
+                            />
+                            <CheckBox
+                                title='Alcohol-Free'
+                                checkedColor='#8a4de8'
+                                containerStyle={styles.checkBoxContainer}
+                                checked={this.state.alcohol}
+                                onPress={() => { this.setState({ alcohol: !alcohol }); }}
+                            />
+                            <CheckBox
+                                title='Silicone-Free'
+                                checkedColor='#8a4de8'
+                                containerStyle={styles.checkBoxContainer}
+                                checked={this.state.silicone}
+                                onPress={() => { this.setState({ silicone: !silicone }); }}
+                            />
+                            <CheckBox
+                                title='Allergen-Free'
+                                checkedColor='#8a4de8'
+                                containerStyle={styles.checkBoxContainer}
+                                checked={this.state.allergen}
+                                onPress={() => { this.setState({ allergen: !allergen }); }}
+                            />
+                            <CheckBox
+                                title='Fungal Acne Safe'
+                                checkedColor='#8a4de8'
+                                containerStyle={styles.checkBoxContainer}
+                                checked={this.state.fungal}
+                                onPress={() => { this.setState({ fungal: !fungal }); }}
+                            />
+                        </View>
+                    </List.Section>
+                    <View
+                        style={styles.buttonContainer}>
+                        <Button
+                            style={styles.button}
+                            mode="contained"
+                            icon="check"
+                            onPress={this.InsertSkinPreferences}>Submit
+                        </Button>
                     </View>
-                    <List.Subheader style={{ backgroundColor: '#efefef', fontWeight: 'bold' }}>3. WHAT INGREDIENTS YOU WANT TO AVOID?</List.Subheader>
-                    <View>
-                        <CheckBox
-                            title='Paraben-Free'
-                            checked={this.state.paraben}
-                            onPress={() => { this.setState({ paraben: !paraben }); }}
-                        />
-                        <CheckBox
-                            title='Sulfate-Free'
-                            checked={this.state.sulfate}
-                            onPress={() => { this.setState({ sulfate: !sulfate }); }}
-                        />
-                        <CheckBox
-                            title='Alcohol-Free'
-                            checked={this.state.alcohol}
-                            onPress={() => { this.setState({ alcohol: !alcohol }); }}
-                        />
-                        <CheckBox
-                            title='Silicone-Free'
-                            checked={this.state.silicone}
-                            onPress={() => { this.setState({ silicone: !silicone }); }}
-                        />
-                        <CheckBox
-                            title='Allergen-Free'
-                            checked={this.state.allergen}
-                            onPress={() => { this.setState({ allergen: !allergen }); }}
-                        />
-                        <CheckBox
-                            title='Fungal Acne Safe'
-                            checked={this.state.fungal}
-                            onPress={() => { this.setState({ fungal: !fungal }); }}
-                        />
-
-                    </View>
-                </List.Section>
-                <Button style={[styles.button, { width: 0.95 * Dimensions.get('window').width }]} mode="contained" icon="check" onPress={this.InsertSkinPreferences}>Submit</Button>
-            </ScrollView >
+                </ScrollView >
+            </Provider>
         );
     }
 }

@@ -1,4 +1,4 @@
-import { Platform, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 
 export default {
 
@@ -7,7 +7,6 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    backgroundColor: '#673AB7',
   },
 
   textBoxBtnHolder:
@@ -28,25 +27,32 @@ export default {
 
   btnImage:
   {
+    marginTop: 5,
     resizeMode: 'contain',
     height: '100%',
     width: '100%'
   },
 
+  checkBoxContainer: {
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#ebebeb',
+    backgroundColor: '#fff'
+  },
+
   radioButtonContainer: {
     flexDirection: 'row',
-    backgroundColor: '#fafafa',
     borderColor: 'transparent',
     borderRadius: 5,
     borderWidth: 1,
     marginVertical: 5,
     padding: 5,
-    borderColor: '#efefef'
+    borderColor: '#ebebeb'
   },
 
   radioButtonStyle: {
-    marginTop: 7,
-    fontWeight: 'bold',
+    marginTop: 10,
+    fontFamily: 'Proxima Nova Bold',
     color: '#484d51'
   },
 
@@ -59,21 +65,17 @@ export default {
     marginVertical: 8,
   },
 
-
   inputBox2: {
     height: 50,
     margin: 8,
     borderRadius: 10,
-    fontSize: 16,
     fontSize: 14,
+    fontFamily: 'ProximaNova-Regular',
+    paddingBottom: 8,
     paddingHorizontal: 8,
     backgroundColor: '#fafafa',
     borderColor: '#efefef',
     borderWidth: 1
-  },
-
-  buttonContainer: {
-    marginTop: 15,
   },
 
   inputBoxMultiLine: {
@@ -86,12 +88,41 @@ export default {
     backgroundColor: 'rgba(243, 243, 243, 0.5)',
   },
 
+  surface: {
+    borderRadius: 50,
+    elevation: 4,
+    marginBottom: 10,
+  },
+
+  imageMenu: {
+    marginBottom: 10,
+    borderRadius: 30,
+    overflow: 'hidden',
+    elevation: 20
+  },
+
+  buttonContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   button: {
-    backgroundColor: '#673AB7',
-    paddingVertical: 8,
-    marginVertical: 8,
-    width: 300,
-    margin: 10,
+    backgroundColor: '#8a4de8',
+    color: '#ffffff',
+    paddingVertical: 5,
+    marginVertical: 5,
+    borderRadius: 100,
+    width: 0.90 * Dimensions.get('window').width,
+    elevation: 4
+  },
+
+  buttonSwiper: {
+    color: '#8a4de8',
+    paddingVertical: 5,
+    marginVertical: 20,
+    marginHorizontal: 10,
+    borderRadius: 100,
+    width: 0.45 * Dimensions.get('window').width,
   },
 
   indicator: {
@@ -101,12 +132,14 @@ export default {
   },
 
   greenButton: {
-    backgroundColor: '#6adb28',
+    backgroundColor: '#72A310',
+    fontFamily: 'ProximaNova-Regular',
     width: 0.45 * Dimensions.get('window').width
   },
 
   redButton: {
-    backgroundColor: '#db286a',
+    backgroundColor: '#D1481B',
+    fontFamily: 'ProximaNova-Regular',
     width: 0.45 * Dimensions.get('window').width
   },
 
@@ -120,7 +153,40 @@ export default {
     marginLeft: 20,
     marginRight: 10,
     color: '#000',
-    fontWeight: 'bold',
+    fontFamily: 'Proxima Nova Bold'
+  },
+
+  listDescriptionStyle: {
+    fontFamily: 'Proxima Nova Bold',
+    margin: 15
+  },
+
+  listAboutDescStyle: {
+    fontFamily: 'ProximaNova-Regular',
+    margin: 15
+  },
+
+  listMiniDescStyle: {
+    fontFamily: 'Proxima Nova Bold',
+    marginHorizontal: 15,
+    marginBottom: 15,
+    fontSize: 12,
+    color: '#a3a3a3'
+  },
+
+  listSubheaderStyle: {
+    backgroundColor: '#F5F5F5',
+    fontFamily: 'Proxima Nova Bold'
+  },
+
+  listTextStyle: {
+    fontFamily: 'ProximaNova-Regular'
+  },
+
+  listStyle: {
+    borderColor: '#e3e3e3',
+    borderTopWidth: 0.65,
+    borderBottomWidth: 0.65
   },
 
   headerText: {
@@ -142,33 +208,25 @@ export default {
 
   //Footer
   footerContainer: {
-    paddingTop: 16,
-    paddingVertical: 16,
     flexDirection: 'row',
-    paddingVertical: 8,
     marginVertical: 8,
     margin: 60,
   },
 
   footerText: {
-    fontFamily: 'Montserrat-Regular',
-    color: '#fff',
+    fontFamily: 'ProximaNova-Regular',
+    color: '#8a4de8',
     fontSize: 16
   },
 
   footerButton: {
-    fontFamily: 'Montserrat-Bold',
-    color: '#fff',
+    fontFamily: 'Proxima Nova Bold',
+    color: '#8a4de8',
     fontSize: 16,
-    fontWeight: 'bold',
   },
   //End of Footer
 
   //ViewProfile
-  header: {
-    backgroundColor: "#673AB7",
-  },
-
   ContentContainer: {
     flex: 3,
     backgroundColor: '#fff',
@@ -176,12 +234,30 @@ export default {
 
   //End of ViewProfile
 
-  //ViewUser
-  FlatListItemStyle: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
+  wrapper: {
   },
-  //End of ViewUser
-
+  slide1: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  slide2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  slide3: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  linearGradient: {
+    flex: 1,
+  },
 }

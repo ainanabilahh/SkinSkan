@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { Animated, Image, StatusBar, Text, TouchableOpacity, View, Alert } from 'react-native';
-import { Button, TextInput, Avatar } from 'react-native-paper';
+import { Animated, Image, StatusBar, Text, TouchableOpacity, View, Dimensions } from 'react-native';
+import { Avatar, Button, TextInput } from 'react-native-paper';
 import styles from '../css/styles';
 
 class Login extends Component {
@@ -12,25 +12,9 @@ class Login extends Component {
       username: '',
       password: '',
       hidePassword: true,
-      slideUp: new Animated.Value(0),
-      slideDown: new Animated.Value(0),
+      loading: false
     }
   }
-
-  componentDidMount() {
-    return Animated.parallel([
-      Animated.timing(this.state.slideUp, {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: true
-      }),
-      Animated.timing(this.state.slideDown, {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: true
-      }),
-    ]).start();
-  };
 
   managePasswordVisibility = () => {
     this.setState({ hidePassword: !this.state.hidePassword });
@@ -39,6 +23,7 @@ class Login extends Component {
   _login = async () => {
 
     if (!this.state.username || !this.state.password) return;
+    this.setState({ loading: true })
 
     fetch('https://www.skinskan.me/login.php', {
       method: 'POST',
@@ -50,6 +35,8 @@ class Login extends Component {
     })
       .then((response) => response.json())
       .then((responseJson) => {
+
+        this.setState({ loading: false });
 
         if (responseJson.message === 'Data Matched') {
 
@@ -81,71 +68,53 @@ class Login extends Component {
 
   render() {
 
-    let { slideUp, slideDown } = this.state;
-
     return (
 
-      <View style={styles.MainContainer}>
-        <StatusBar backgroundColor="#512DA8" barStyle="light-content" />
-        <Animated.View
-          style={{
-            transform: [
-              {
-                translateY: slideDown.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [-1000, 0]
-                })
-              }
-            ],
-          }}
-        >
-          <View>
-            <Avatar.Image size={200} source={require('../images/1.png')} />
-          </View>
-        </Animated.View>
-        <Text style={{ paddingVertical: 10, color: '#fff', fontSize: 25, fontFamily: 'Montserrat-ExtraBold' }}>Sign In</Text>
-        <Animated.View
-          style={{
-            transform: [
-              {
-                translateY: slideUp.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [1000, 0]
-                })
-              }
-            ],
-          }}
-        >
+      <View style={[styles.MainContainer, { justifyContent: 'flex-start', paddingTop: 50 }]}>
+        <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
+        <TextInput
+          mode="flat"
+          label="Username"
+          autoCapitalize="none"
+          value={this.state.username}
+          onChangeText={username => this.setState({ username })}
+          style={styles.inputBox}
+        />
+        <View style={styles.textBoxBtnHolder}>
           <TextInput
             mode="flat"
-            label="Username"
-            autoCapitalize="none"
-            value={this.state.username}
-            onChangeText={username => this.setState({ username })}
+            label="Password"
+            value={this.state.password}
+            onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
             style={styles.inputBox}
+            secureTextEntry={this.state.hidePassword}
           />
-          <View style={styles.textBoxBtnHolder}>
-            <TextInput
-              mode="flat"
-              label="Password"
-              value={this.state.password}
-              onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
-              style={styles.inputBox}
-              secureTextEntry={this.state.hidePassword}
-            />
-
-            <TouchableOpacity activeOpacity={0.8} style={styles.visibilityBtn} onPress={this.managePasswordVisibility}>
-              <Image source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')} style={styles.btnImage} />
-            </TouchableOpacity>
-          </View>
-
-          <Button style={[styles.button, styles.whiteButton]} mode="outlined" icon="check" onPress={this._login} >Sign In</Button>
-
-          <View style={styles.footerContainer}>
-            <Text style={styles.footerText}>Do not have an account yet?</Text>
-            <TouchableOpacity onPress={this.CreateUser}><Text style={styles.footerButton}> Sign up</Text></TouchableOpacity>
-          </View>
-        </Animated.View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.visibilityBtn}
+            onPress={this.managePasswordVisibility}>
+            <Image
+              opacity={0.5}
+              source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')}
+              style={styles.btnImage} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            loading={this.state.loading ? true : false}
+            style={[styles.button, { marginVertical: 20, width: 0.80 * Dimensions.get('window').width, }]}
+            mode="contained"
+            icon="person"
+            onPress={this._login}>
+            Sign In
+           </Button>
+        </View>
+        <View style={styles.footerContainer}>
+          <Text style={styles.footerText}>Do not have an account yet?</Text>
+          <TouchableOpacity onPress={this.CreateUser}>
+            <Text style={styles.footerButton}> Sign up</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

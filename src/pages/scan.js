@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { Component } from 'react';
-import { RefreshControl, ScrollView, StatusBar, Text, View } from 'react-native';
+import { Image, RefreshControl, ScrollView, TouchableOpacity, View, Dimensions } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
-import { Button } from 'react-native-paper';
+import { Avatar, Button, Card, Paragraph, Title } from 'react-native-paper';
 import styles from '../css/styles';
 
 class Scan extends Component {
@@ -61,6 +61,7 @@ class Scan extends Component {
   }
 
   openCamera = () => {
+
     ImagePicker.openCamera({
       cropping: true,
       width: 500,
@@ -71,7 +72,6 @@ class Scan extends Component {
       includeBase64: true
     }).then(response => {
       this.setState({ imageModalVisible: false })
-
       this.props.navigation.navigate('Result', {
         username: username,
         effects: this.state.effects,
@@ -93,10 +93,8 @@ class Scan extends Component {
         })
       }).then((response) => response.text())
         .then((responseJson) => {
-
           console.log(responseJson)
           var result = JSON.parse(responseJson)
-
           this.setState({
             // ing: result.Ingredients,
             effects: result.Effects,
@@ -116,8 +114,10 @@ class Scan extends Component {
           alert("There is a network error. Please try again.")
           console.log(error);
         });
+
     }).catch(e => {
       console.log(e), this.setState({ imageModalVisible: false })
+      
     });
   }
 
@@ -131,7 +131,6 @@ class Scan extends Component {
       includeBase64: true
     }).then(response => {
       this.setState({ imageModalVisible: false })
-
       this.props.navigation.navigate('Result', {
         username: username,
         effects: this.state.effects,
@@ -139,7 +138,6 @@ class Scan extends Component {
         notes: this.state.notes,
         percent: this.state.percent,
       });
-
       fetch("https://www.skinskan.me/uploadImage.php", {
         method: 'POST',
         headers: {
@@ -153,7 +151,6 @@ class Scan extends Component {
         })
       }).then((response) => response.text())
         .then((responseJson) => {
-
           console.log(responseJson)
           var result = JSON.parse(responseJson)
           this.setState({
@@ -170,7 +167,6 @@ class Scan extends Component {
             notes: this.state.notes,
             percent: this.state.percent,
           });
-
         }).catch((error) => {
           alert("There is a network error. Please try again.")
           console.log(error);
@@ -184,20 +180,41 @@ class Scan extends Component {
 
     return (
 
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }} refreshControl={this._refreshControl()}>
-        <StatusBar backgroundColor="#512DA8" barStyle="light-content" />
+      <ScrollView
+        style={{ backgroundColor: '#FFFFFF' }}
+        contentContainerStyle={{ flexGrow: 1 }}
+        refreshControl={this._refreshControl()}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ borderColor: "#673AB7", padding: 15, borderWidth: 8, fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 10 }}>This is {"\n"}your first {"\n"}skin care {"\n"}journey!</Text>
+          {/* <Text style={{ borderColor: "#673AB7", padding: 15, borderWidth: 8, fontFamily: 'Montserrat-Bold', fontSize: 30, textAlign: 'center', margin: 10 }}>This is {"\n"}your first {"\n"}skin care {"\n"}journey!</Text> */}
+          <Image
+            style={{ marginBottom: 50, width: 300, height: 156 }}
+            source={require('../images/home2.png')}
+            onPress={this.openCamera} />
           {(this.state.skin_input == 0) ? (
             <View>
-              <Button style={[styles.button, { width: 200 }]} mode="contained" icon="image" onPress={() => alert("You are required to insert your product preferences before proceed.")}>Select Image</Button>
-              <Button style={[styles.button, { width: 200 }]} mode="contained" icon="camera" onPress={() => alert("You are required to insert your product preferences before proceed.")}>Take Photo</Button>
+              <Button
+                style={[styles.button, { width: 300 }]}
+                mode="contained"
+                icon="image"
+                onPress={() => alert("You are required to insert your product preferences before proceed.")}>Select Image</Button>
+              <Button
+                style={[styles.button, { width: 300 }]}
+                mode="contained"
+                icon="camera"
+                onPress={() => alert("You are required to insert your product preferences before proceed.")}>Take Photo</Button>
             </View>) : (
               <View>
-                <Button style={[styles.button, { width: 200 }]} mode="contained" icon="image" onPress={this.selectPhoto}>Select Image</Button>
-                <Button style={[styles.button, { width: 200 }]} mode="contained" icon="camera" onPress={this.openCamera}>Take Photo</Button>
+                <Button
+                  style={[styles.button, { width: 300 }]}
+                  mode="contained"
+                  icon="image"
+                  onPress={this.selectPhoto}>Select Image</Button>
+                <Button
+                  style={[styles.button, { width: 300 }]}
+                  mode="contained"
+                  icon="camera"
+                  onPress={this.openCamera}>Take Photo</Button>
               </View>)}
-
         </View>
       </ScrollView>
     );

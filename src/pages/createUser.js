@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Overlay, Animated, Image, Text, TouchableOpacity, View } from 'react-native';
-import { Button, ActivityIndicator, TextInput, Avatar } from 'react-native-paper';
+import { Image, StatusBar, Text, TouchableOpacity, View, Dimensions } from 'react-native';
+import { Button, Dialog, HelperText, Portal, Provider, TextInput } from 'react-native-paper';
 import styles from '../css/styles';
 
 class CreateUser extends Component {
@@ -12,27 +12,15 @@ class CreateUser extends Component {
       email: '',
       password: '',
       hidePassword: true,
-      slideUp: new Animated.Value(0),
-      slideDown: new Animated.Value(0),
       create: false,
-      isVisible: true
+      isVisible: true,
+      visible: false,
+      color: null,
+      response: null,
+      alert: null,
+      loading: false
     }
   }
-
-  componentDidMount() {
-    return Animated.parallel([
-      Animated.timing(this.state.slideUp, {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: true
-      }),
-      Animated.timing(this.state.slideDown, {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: true
-      }),
-    ]).start();
-  };
 
   managePasswordVisibility = () => {
     this.setState({ hidePassword: !this.state.hidePassword });
@@ -62,6 +50,7 @@ class CreateUser extends Component {
 
     var validate = this.validate(this.state.username, this.state.email, this.state.password)
     this.setState({ create: true });
+    this.setState({ loading: true })
 
     if (validate == true) {
       fetch('https://www.skinskan.me/register.php', {
@@ -81,11 +70,18 @@ class CreateUser extends Component {
       }).then((response) => response.json())
         .then((responseJson) => {
 
-          alert(responseJson.message);
+          this.setState({
+            loading: false,
+            alert: 'Success',
+            color: '#5CA51C',
+            response: responseJson.message,
+            visible: true
+          });
 
-          if (responseJson.message === 'User created.') {
-            this.props.navigation.navigate("Login");
-          }
+          console.log(responseJson.message)
+          // if (responseJson.message === 'User created.') {
+          //   this.props.navigation.navigate("Login");
+          // }
 
         }).catch((error) => {
           alert("There is a network error. Please try again.")
@@ -100,63 +96,43 @@ class CreateUser extends Component {
 
   render() {
 
-    let { slideUp, slideDown } = this.state;
-
-    // if (this.state.create) {
-    //   return (
-    //     <Overlay height={200} isVisible={this.state.isVisible}>
-    //       <View>
-    //         <Text style={{ paddingTop: 20, textAlign: "center" }}>This will take a moment.</Text>
-    //         <ActivityIndicator
-    //           animating={true}
-    //           style={styles.indicator}
-    //           size="large"
-    //         />
-    //       </View>
-    //     </Overlay>
-    //   );
-    // }
-
     return (
 
-      <View style={styles.MainContainer}>
-        <Animated.View
-          style={{
-            transform: [
-              {
-                translateY: slideDown.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [-1000, 0]
-                })
-              }
-            ],
-          }}
-        >
+      <Provider>
+        <Portal>
+          <Dialog
+            style={{ borderRadius: 10 }}
+            visible={this.state.visible}
+            onDismiss={() => this.setState({ visible: false })}
+            dismissable={true}>
+            <Dialog.Title style={{ fontFamily: 'Proxima Nova Bold', color: this.state.color }}>{this.state.alert}</Dialog.Title>
+            <Dialog.Content>
+              <Text style={{ fontFamily: 'ProximaNova-Regular' }}>{this.state.response}</Text>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={() => this.props.navigation.navigate("Login")}>Ok</Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
+        <View style={[styles.MainContainer, { justifyContent: 'flex-start', paddingTop: 50 }]}>
+          <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
           <View>
-            <Avatar.Image size={200} source={require('../images/2.png')} />
+            <TextInput
+              mode="flat"
+              label="Username"
+              value={this.state.username}
+              onChangeText={username => this.setState({ username })}
+              underlineColorAndroid='transparent'
+              style={styles.inputBox}
+            />
+            <HelperText
+              type="info"
+              style={{ fontFamily: 'ProximaNova-Regular', marginLeft: 60 }}
+              visible={true}
+            >
+              Username cannot be changed later.
+        </HelperText>
           </View>
-        </Animated.View>
-        <Text style={{ paddingVertical: 10, color: '#fff', fontSize: 25, fontFamily: 'Montserrat-ExtraBold' }}>Sign Up</Text>
-        <Animated.View
-          style={{
-            transform: [
-              {
-                translateY: slideUp.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [1000, 0]
-                })
-              }
-            ],
-          }}
-        >
-          <Text style={{ fontSize: 12, color: '#fff', textAlign: 'center', fontFamily: 'Montserrat-ExtraBold' }}><Text style={{ color: 'red' }}>* </Text>Username cannot be changed later. {"\n"} Choose carefully.</Text>
-          <TextInput
-            mode="flat"
-            label="Username"
-            value={this.state.username}
-            onChangeText={username => this.setState({ username })} underlineColorAndroid='transparent'
-            style={styles.inputBox}
-          />
           <TextInput
             mode="flat"
             type="email"
@@ -171,24 +147,40 @@ class CreateUser extends Component {
               mode="flat"
               label="Password"
               value={this.state.password}
-              onChangeText={password => this.setState({ password })} underlineColorAndroid='transparent'
+              onChangeText={password => this.setState({ password })}
+              underlineColorAndroid='transparent'
               style={styles.inputBox}
               secureTextEntry={this.state.hidePassword}
             />
 
-            <TouchableOpacity activeOpacity={0.8} style={styles.visibilityBtn} onPress={this.managePasswordVisibility}>
-              <Image source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')} style={styles.btnImage} />
+            <TouchableOpacity activeOpacity={0.8}
+              style={styles.visibilityBtn}
+              onPress={this.managePasswordVisibility}>
+              <Image
+                opacity={0.5}
+                source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')}
+                style={styles.btnImage} />
             </TouchableOpacity>
           </View>
-
-          <Button style={[styles.button, styles.whiteButton]} icon="add" mode="outlined" onPress={this.CreateUser} >Sign Up</Button>
-
+          <View
+            style={styles.buttonContainer}>
+            <Button
+              loading={this.state.loading ? true : false}
+              style={[styles.button, { marginVertical: 20, width: 0.80 * Dimensions.get('window').width, }]}
+              mode="contained"
+              icon="person-add"
+              onPress={this.CreateUser}>
+              Sign Up
+           </Button>
+          </View>
           <View style={styles.footerContainer}>
             <Text style={styles.footerText}>Already have an account?</Text>
-            <TouchableOpacity onPress={this.Login}><Text style={styles.footerButton}> Sign in</Text></TouchableOpacity>
+            <TouchableOpacity onPress={this.Login}>
+              <Text style={styles.footerButton}> Sign In</Text>
+            </TouchableOpacity>
           </View>
-        </Animated.View>
-      </View>
+        </View>
+      </Provider>
     );
   }
 }

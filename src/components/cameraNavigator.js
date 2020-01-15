@@ -5,69 +5,62 @@ import Result from '../pages/result';
 
 const CameraNavigator = createStackNavigator(
   {
-    Scan: { 
+    Scan: {
       screen: Scan,
       navigationOptions: ({ navigation }) => ({
-        title: 'Scan Ingredients',
-        headerTintColor: '#ffffff',
+        title: 'Homepage',
+        headerTitleStyle: {
+          fontSize: 22,
+          paddingLeft: 5,
+          fontFamily: 'Proxima Nova Bold',
+          flex: 1,
+          color: '#2b2b2b',
+        },
         headerStyle: {
-          backgroundColor: '#673AB7',
           elevation: 0,
         },
-        headerTitleStyle: {
-          fontSize: 20,
-          textAlign: 'center',
-          fontFamily: 'Montserrat-Bold',
-          flex: 1, 
-        },
-      }),   
+      }),
     },
-    Ingredients: { 
+    Ingredients: {
       screen: Ingredients,
       navigationOptions: ({ navigation }) => ({
         title: 'List of Ingredients',
-        headerTintColor: '#ffffff',
-        headerStyle: {
-          backgroundColor: '#673AB7',
-          elevation: 0,
-        },
         headerTitleStyle: {
-          marginLeft:-40,
-          fontSize: 20,
-          textAlign: 'center',
-          fontFamily: 'Montserrat-Bold',
-          flex: 1, 
+          fontSize: 22,
+          paddingLeft: 5,
+          fontFamily: 'Proxima Nova Bold',
+          flex: 1,
+          color: '#2b2b2b'
         },
-      }),   
+      }),
     },
-    Result: { 
+    Result: {
       screen: Result,
       navigationOptions: ({ navigation }) => ({
         title: 'Result',
-        headerTintColor: '#ffffff',
-        headerStyle: {
-          backgroundColor: '#673AB7',
-          elevation: 0,
-        },
         headerTitleStyle: {
-          marginLeft:-40,
-          fontSize: 20,
-          textAlign: 'center',
-          fontFamily: 'Montserrat-Bold',
-          flex: 1, 
+          fontSize: 22,
+          paddingLeft: 5,
+          fontFamily: 'Proxima Nova Bold',
+          flex: 1,
+          color: '#2b2b2b'
         },
-      }),   
+      }),
     },
   },
   {
-    initialRouteName: "Scan", 
+    initialRouteName: "Scan",
     navigationOptions: {
       tabBarOnPress: ({ navigation, defaultHandler }) => {
         defaultHandler();
       },
+      headerTintColor: '#ffffff',
+      headerStyle: {
+        backgroundColor: '#fff',
+      },
     },
     lazy: false,
-    },
+  },
 );
 
 export default createAppContainer(CameraNavigator);

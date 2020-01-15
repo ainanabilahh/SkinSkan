@@ -1,11 +1,13 @@
+import React from 'react';
+import { Icon } from 'react-native-elements';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
+import AboutApp from '../pages/aboutApp';
 import ChangeEmail from '../pages/changeEmail';
 import ChangePassword from '../pages/changePassword';
 import DeleteUser from '../pages/deleteUser';
 import Logout from '../pages/logout';
-import ViewUser from '../pages/viewUser';
 import VerifyAccount from '../pages/verifyAccount';
-import AboutApp from '../pages/aboutApp';
+import ViewUser from '../pages/viewUser';
 
 const ProfileNavigator = createStackNavigator(
   {
@@ -13,16 +15,12 @@ const ProfileNavigator = createStackNavigator(
       screen: ViewUser,
       navigationOptions: ({ navigation }) => ({
         title: 'Manage Account',
-        headerTintColor: '#ffffff',
-        headerStyle: {
-          backgroundColor: '#673AB7',
-          elevation: 0,
-        },
         headerTitleStyle: {
-          fontSize: 20,
-          textAlign: 'center',
-          fontFamily: 'Montserrat-Bold',
+          fontSize: 22,
+          paddingLeft: 5,
+          fontFamily: 'Proxima Nova Bold',
           flex: 1,
+          color: '#2b2b2b'
         },
       }),
     },
@@ -30,53 +28,38 @@ const ProfileNavigator = createStackNavigator(
       screen: VerifyAccount,
       navigationOptions: ({ navigation }) => ({
         title: 'Verify Account',
-        headerTintColor: '#ffffff',
-        headerStyle: {
-          backgroundColor: '#673AB7',
-          elevation: 0,
-        },
         headerTitleStyle: {
-          marginLeft: -40,
-          fontSize: 20,
-          textAlign: 'center',
-          fontFamily: 'Montserrat-Bold',
+          fontSize: 22,
+          paddingLeft: 5,
+          fontFamily: 'Proxima Nova Bold',
           flex: 1,
+          color: '#2b2b2b'
         },
       }),
     },
     ChangeEmail: {
       screen: ChangeEmail,
       navigationOptions: ({ navigation }) => ({
-        title: 'Update Account',
-        headerTintColor: '#ffffff',
-        headerStyle: {
-          backgroundColor: '#673AB7',
-          elevation: 0,
-        },
+        title: 'Update Email',
         headerTitleStyle: {
-          marginLeft: -40,
-          fontSize: 20,
-          textAlign: 'center',
-          fontFamily: 'Montserrat-Bold',
+          fontSize: 22,
+          paddingLeft: 5,
+          fontFamily: 'Proxima Nova Bold',
           flex: 1,
+          color: '#2b2b2b'
         },
       }),
     },
     ChangePassword: {
       screen: ChangePassword,
       navigationOptions: ({ navigation }) => ({
-        title: 'Update Account',
-        headerTintColor: '#ffffff',
-        headerStyle: {
-          backgroundColor: '#673AB7',
-          elevation: 0,
-        },
+        title: 'Update Password',
         headerTitleStyle: {
-          marginLeft: -40,
-          fontSize: 20,
-          textAlign: 'center',
-          fontFamily: 'Montserrat-Bold',
+          fontSize: 22,
+          paddingLeft: 5,
+          fontFamily: 'Proxima Nova Bold',
           flex: 1,
+          color: '#2b2b2b'
         },
       }),
     },
@@ -84,17 +67,12 @@ const ProfileNavigator = createStackNavigator(
       screen: DeleteUser,
       navigationOptions: ({ navigation }) => ({
         title: 'Delete Account',
-        headerTintColor: '#ffffff',
-        headerStyle: {
-          backgroundColor: '#673AB7',
-          elevation: 0,
-        },
         headerTitleStyle: {
-          marginLeft: -40,
-          fontSize: 20,
-          textAlign: 'center',
-          fontFamily: 'Montserrat-Bold',
+          fontSize: 22,
+          paddingLeft: 5,
+          fontFamily: 'Proxima Nova Bold',
           flex: 1,
+          color: '#2b2b2b'
         },
       }),
     },
@@ -102,36 +80,19 @@ const ProfileNavigator = createStackNavigator(
       screen: AboutApp,
       navigationOptions: ({ navigation }) => ({
         title: 'About SkinSkan',
-        headerTintColor: '#ffffff',
-        headerStyle: {
-          backgroundColor: '#673AB7',
-          elevation: 0,
-        },
         headerTitleStyle: {
-          marginLeft: -40,
-          fontSize: 20,
-          textAlign: 'center',
-          fontFamily: 'Montserrat-Bold',
+          fontSize: 22,
+          paddingLeft: 5,
+          fontFamily: 'Proxima Nova Bold',
           flex: 1,
+          color: '#2b2b2b'
         },
       }),
     },
     Logout: {
       screen: Logout,
       navigationOptions: ({ navigation }) => ({
-        title: 'Delete Account',
-        headerTintColor: '#ffffff',
-        headerStyle: {
-          backgroundColor: '#673AB7',
-          elevation: 0,
-        },
-        headerTitleStyle: {
-          marginLeft: -40,
-          fontSize: 20,
-          textAlign: 'center',
-          fontFamily: 'Montserrat-Bold',
-          flex: 1,
-        },
+        title: 'Logout',
       }),
     },
   },
@@ -140,6 +101,10 @@ const ProfileNavigator = createStackNavigator(
     navigationOptions: {
       tabBarOnPress: ({ navigation, defaultHandler }) => {
         defaultHandler();
+      },
+      headerTintColor: '#2b2b2b',
+      headerStyle: {
+        backgroundColor: '#fff',
       },
     },
     lazy: false,

@@ -63,8 +63,8 @@ const TabNavigator = createBottomTabNavigator(
   {
     initialRouteName: "Scan",
     tabBarOptions: {
-      activeTintColor: '#673AB7',
-      inactiveTintColor: '#a3a3a3',
+      activeTintColor: '#8a4de8',
+      inactiveTintColor: '#b2b2b2',
       labelStyle: {
         fontSize: 12,
       },
@@ -73,6 +73,7 @@ const TabNavigator = createBottomTabNavigator(
         backgroundColor: '#fff',
         borderTopColor: 'transparent',
         elevation: 20,
+        fontFamily: 'Proxima Nova Bold'
       },
     },
     navigationOptions: {

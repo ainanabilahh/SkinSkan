@@ -81,6 +81,46 @@
 		<string>Proxima Nova Th.otf</string>
 		<string>Montserrat-ExtraBold.otf</string>
 		<string>Montserrat-Bold.otf</string>
+		<string>Montserrat-Black.otf</string>
+		<string>Montserrat-BlackItalic.otf</string>
+		<string>Montserrat-BoldItalic.otf</string>
+		<string>Montserrat-ExtraBoldItalic.otf</string>
+		<string>Montserrat-ExtraLight.otf</string>
+		<string>Montserrat-ExtraLightItalic.otf</string>
+		<string>Montserrat-Italic.otf</string>
+		<string>Montserrat-Light.otf</string>
+		<string>Montserrat-LightItalic.otf</string>
+		<string>Montserrat-Medium.otf</string>
+		<string>Montserrat-SemiBold.otf</string>
+		<string>Montserrat-SemiBoldItalic.otf</string>
+		<string>Montserrat-Thin.otf</string>
+		<string>Montserrat-ThinItalic.otf</string>
+		<string>MontserratAlternates-Black.otf</string>
+		<string>MontserratAlternates-BlackItalic.otf</string>
+		<string>MontserratAlternates-Bold.otf</string>
+		<string>MontserratAlternates-BoldItalic.otf</string>
+		<string>MontserratAlternates-ExtraBold.otf</string>
+		<string>MontserratAlternates-ExtraBoldItalic.otf</string>
+		<string>MontserratAlternates-ExtraLight.otf</string>
+		<string>MontserratAlternates-ExtraLightItalic.otf</string>
+		<string>MontserratAlternates-Italic.otf</string>
+		<string>MontserratAlternates-Light.otf</string>
+		<string>MontserratAlternates-LightItalic.otf</string>
+		<string>MontserratAlternates-Medium.otf</string>
+		<string>MontserratAlternates-MediumItalic.otf</string>
+		<string>MontserratAlternates-Regular.otf</string>
+		<string>MontserratAlternates-SemiBold.otf</string>
+		<string>MontserratAlternates-SemiBoldItalic.otf</string>
+		<string>MontserratAlternates-Thin.otf</string>
+		<string>MontserratAlternates-ThinItalic.otf</string>
+		<string>Proxima Nova Alt Bold.otf</string>
+		<string>Proxima Nova Alt Light.otf</string>
+		<string>Proxima Nova Alt Thin.otf</string>
+		<string>Proxima Nova Black.otf</string>
+		<string>Proxima Nova Bold.otf</string>
+		<string>Proxima Nova Extrabold.otf</string>
+		<string>Proxima Nova Thin.otf</string>
+		<string>ProximaNova-Regular.otf</string>
 	</array>
 </dict>
 </plist>

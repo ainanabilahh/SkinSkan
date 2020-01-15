@@ -20,7 +20,7 @@ class AuthLoadingScreen extends Component {
 
         const resetAction = StackActions.reset({
           index: 0,
-          actions: [NavigationActions.navigate({ routeName: 'Login' })],
+          actions: [NavigationActions.navigate({ routeName: 'SwiperIntro' })],
         });
         this.props.navigation.dispatch(resetAction);
       }
@@ -57,7 +57,7 @@ class AuthLoadingScreen extends Component {
   render() {
     return (
       <View style={styles.MainContainer}>
-        <StatusBar barStyle="default" />
+        <StatusBar backgroundColor="#ffffff" barStyle="dark-content"/>
         <ActivityIndicator
           animating={true}
           color='white'
