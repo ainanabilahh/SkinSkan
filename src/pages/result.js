@@ -219,12 +219,7 @@ class Result extends Component {
                             key={key}
                             style={{ margin: 15, fontFamily: 'ProximaNova-Regular' }}>
                             This product contains {itemN.Qty} ingredient(s) for {itemN.Note}</Text>)
-                        : ((key == 0) ?
-                            (<Text
-                                key={key}
-                                style={{ margin: 15, fontFamily: 'ProximaNova-Regular' }}>
-                                This product contains 0 ingredient(s) with {item}</Text>)
-                            : (null))
+                        : (null)
                 )}
             </List.Accordion>
         );
@@ -268,6 +263,8 @@ class Result extends Component {
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={styles.listSubheaderStyle}>Details</List.Subheader>
                     <View style={styles.listStyle}>
+                        <Text style={{ fontFamily: 'Proxima Nova Bold', margin: 15, fontSize: 10 }}>Quick Notes : Your preferences that does not have result means there are no ingredients with it.</Text>
+                        <Divider />
                         <Text style={{ fontFamily: 'Proxima Nova Bold', margin: 15 }}>Desired effects:</Text>
                         <Divider />
                         {c}
