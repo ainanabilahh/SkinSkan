@@ -49,7 +49,7 @@ class Scan extends Component {
         this.setState({
           skin_input: responseJson.skin_input
         })
-        if (this.skin_input == 0) {
+        if (responseJson.skin_input == 0) {
           this.setState({
             visible: true
           });

@@ -295,45 +295,45 @@ class Skin extends Component {
                                 onPress={() => { this.setState({ uvprotect: !uvprotect }); }}
                             />
                         </View>
-                        <List.Subheader style={styles.listSubheaderStyle}>3. WHAT INGREDIENTS YOU WANT TO AVOID?</List.Subheader>
+                        <List.Subheader style={styles.listSubheaderStyle}>3. WHAT YOU WANT TO AVOID?</List.Subheader>
                         <View>
                             <CheckBox
-                                title='Paraben-Free'
+                                title='Paraben'
                                 checkedColor='#8a4de8'
                                 containerStyle={styles.checkBoxContainer}
                                 checked={this.state.paraben}
                                 onPress={() => { this.setState({ paraben: !paraben }); }}
                             />
                             <CheckBox
-                                title='Sulfate-Free'
+                                title='Sulfate'
                                 checkedColor='#8a4de8'
                                 containerStyle={styles.checkBoxContainer}
                                 checked={this.state.sulfate}
                                 onPress={() => { this.setState({ sulfate: !sulfate }); }}
                             />
                             <CheckBox
-                                title='Alcohol-Free'
+                                title='Alcohol'
                                 checkedColor='#8a4de8'
                                 containerStyle={styles.checkBoxContainer}
                                 checked={this.state.alcohol}
                                 onPress={() => { this.setState({ alcohol: !alcohol }); }}
                             />
                             <CheckBox
-                                title='Silicone-Free'
+                                title='Silicone'
                                 checkedColor='#8a4de8'
                                 containerStyle={styles.checkBoxContainer}
                                 checked={this.state.silicone}
                                 onPress={() => { this.setState({ silicone: !silicone }); }}
                             />
                             <CheckBox
-                                title='Allergen-Free'
+                                title='Allergen'
                                 checkedColor='#8a4de8'
                                 containerStyle={styles.checkBoxContainer}
                                 checked={this.state.allergen}
                                 onPress={() => { this.setState({ allergen: !allergen }); }}
                             />
                             <CheckBox
-                                title='Fungal Acne Safe'
+                                title='Fungal Acne'
                                 checkedColor='#8a4de8'
                                 containerStyle={styles.checkBoxContainer}
                                 checked={this.state.fungal}
