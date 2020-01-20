@@ -21,7 +21,6 @@ class Scan extends Component {
       color: null,
       response: null,
       alert: null,
-      verify: true,
     }
   }
 
@@ -40,15 +39,17 @@ class Scan extends Component {
       }),
     }).then((response) => response.json())
       .then((responseJson) => {
-        if (responseJson.skin_input == 0) {
+
+        if (responseJson.verified == 0) {
           this.setState({
             visible: true,
+            response: 'You are required to verify your email first.',
           });
         }
-        if (responseJson.verify == 0) {
+        else if (responseJson.skin_input == 0) {
           this.setState({
             visible: true,
-            verify: false,
+            response: "You are required to insert your product preferences before proceed.",
           });
         }
       }).catch((err) => {
@@ -178,12 +179,10 @@ class Scan extends Component {
             dismissable={true}>
             <Dialog.Title style={{ fontFamily: 'Proxima Nova Bold', color: '#E22E16' }}>Error</Dialog.Title>
             <Dialog.Content>
-              {this.state.verify ?
-                <Text style={{ fontFamily: 'ProximaNova-Regular' }}>You are required to verify your email first.</Text>
-                : <Text style={{ fontFamily: 'ProximaNova-Regular' }}>You are required to insert your product preferences before proceed.</Text>}
+              <Text style={{ fontFamily: 'ProximaNova-Regular' }}>{this.state.response}</Text>
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={() => { this.props.navigation.navigate("Skin"); this.setState({ visible: false }) }}>Ok</Button>
+              <Button onPress={this.state.response == ('You are required to insert your product preferences before proceed.') ? () => { this.props.navigation.navigate("Skin"); this.setState({ visible: false }) } : () => { this.props.navigation.navigate("ViewUser"); this.setState({ visible: false }) }}>Ok</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>

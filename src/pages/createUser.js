@@ -8,10 +8,12 @@ class CreateUser extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: '',
-      email: '',
-      password: '',
+      username: null,
+      email: null,
+      password: null,
+      rePass: null,
       hidePassword: true,
+      hidePassword2: true,
       create: false,
       isVisible: true,
       visible: false,
@@ -23,16 +25,29 @@ class CreateUser extends Component {
     }
   }
 
-  managePasswordVisibility = () => {
-    this.setState({ hidePassword: !this.state.hidePassword });
+  managePasswordVisibility = (num) => {
+
+    if (num == 1)
+      this.setState({ hidePassword: !this.state.hidePassword });
+    else if (num == 2)
+      this.setState({ hidePassword2: !this.state.hidePassword2 });
   }
 
-  validate = (username, email, password) => {
+  validate = (username, email, password, rePass) => {
     var u = /^(([a-zA-Z0-9]{5,15}$))/
     var e = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var p = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
 
-    if (u.test(username) == false) {
+    if (email == null || password == null || username == null || rePass == null) {
+      this.setState({
+        alert: 'Error',
+        loading: false,
+        color: '#E22E16',
+        response: 'Please fill in the blank.',
+        visible: true
+      });
+    }
+    else if (u.test(username) == false) {
       this.setState({
         alert: 'Error',
         loading: false,
@@ -42,8 +57,7 @@ class CreateUser extends Component {
         loading: false,
       });
     }
-
-    if (e.test(email) == false) {
+    else if (e.test(email) == false) {
       this.setState({
         alert: 'Error',
         loading: false,
@@ -53,7 +67,7 @@ class CreateUser extends Component {
         loading: false,
       });
     }
-    if (p.test(password) == false) {
+    else if (p.test(password) == false) {
       this.setState({
         alert: 'Error',
         loading: false,
@@ -63,17 +77,32 @@ class CreateUser extends Component {
         loading: false,
       });
     }
+    else if (password != rePass) {
+      this.setState({
+        alert: 'Error',
+        loading: false,
+        color: '#E22E16',
+        response: 'Your password and confirmation password do not match.',
+        visible: true
+      });
+    }
 
-    if (u.test(username) == true && e.test(email) == true && p.test(password) == true)
-      return true;
-    else
-      return false;
+    if (username != null && email != null && password != null && rePass != null) {
+      if (password == rePass) {
+        if (u.test(username) == true && e.test(email) == true && p.test(password)) {
+          return true;
+        }
+        else return false;
+      }
+      else return false;
+    }
+    else return false;
   }
 
   CreateUser = () => {
 
     this.setState({ loading: true })
-    var validate = this.validate(this.state.username, this.state.email, this.state.password)
+    var validate = this.validate(this.state.username, this.state.email, this.state.password, this.state.rePass)
 
     if (validate == true) {
       fetch('https://www.skinskan.me/register.php', {
@@ -177,7 +206,7 @@ class CreateUser extends Component {
             />
             <TouchableOpacity activeOpacity={0.8}
               style={styles.visibilityBtn}
-              onPress={this.managePasswordVisibility}>
+              onPress={() => this.managePasswordVisibility(1)}>
               <Image
                 opacity={0.5}
                 source={(this.state.hidePassword) ? require('../images/hide.png') : require('../images/view.png')}
@@ -191,6 +220,25 @@ class CreateUser extends Component {
           >
             Your password must contain at least one lowercase letter, one number digit and more than 6 characters.
         </HelperText>
+          <View style={styles.textBoxBtnHolder}>
+            <TextInput
+              mode="flat"
+              label="Confirm Password"
+              value={this.state.rePass}
+              onChangeText={rePass => this.setState({ rePass })}
+              underlineColorAndroid='transparent'
+              style={styles.inputBox}
+              secureTextEntry={this.state.hidePassword2}
+            />
+            <TouchableOpacity activeOpacity={0.8}
+              style={styles.visibilityBtn}
+              onPress={() => this.managePasswordVisibility(2)}>
+              <Image
+                opacity={0.5}
+                source={(this.state.hidePassword2) ? require('../images/hide.png') : require('../images/view.png')}
+                style={styles.btnImage} />
+            </TouchableOpacity>
+          </View>
           <View
             style={styles.buttonContainer}>
             <Button

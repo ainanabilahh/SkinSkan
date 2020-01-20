@@ -30,6 +30,7 @@ class Skin extends Component {
             color: null,
             response: null,
             alert: null,
+            success: false,
         }
     }
 
@@ -173,14 +174,13 @@ class Skin extends Component {
 
             }).then((response) => response.json())
                 .then((responseJson) => {
-                    console.log(responseJson)
-
                     if (responseJson == "Your product preferences has been updated. Please swipe down to refresh.") {
                         this.setState({
                             alert: 'Success',
                             color: '#5CA51C',
                             response: responseJson,
-                            visible: true
+                            visible: true,
+                            success: true,
                         });
                     }
                     else {
@@ -188,7 +188,7 @@ class Skin extends Component {
                             alert: 'Error',
                             color: '#E22E16',
                             response: responseJson,
-                            visible: true
+                            visible: true,
                         });
                     }
                 }).catch((error) => {
@@ -214,9 +214,18 @@ class Skin extends Component {
                         <Dialog.Content>
                             <Text style={{ fontFamily: 'ProximaNova-Regular' }}>{this.state.response}</Text>
                         </Dialog.Content>
-                        <Dialog.Actions>
-                            <Button onPress={() => { this.props.navigation.navigate("Scan"); this.setState({ visible: false }) }}>Ok</Button>
-                        </Dialog.Actions>
+                        {this.state.success
+                            ? (
+                                <Dialog.Actions>
+                                    <Button onPress={() => this.setState({ visible: false })}>Stay</Button>
+                                    <Button onPress={() => { this.props.navigation.navigate("Scan"); this.setState({ visible: false }) }}>Go Home</Button>
+                                </Dialog.Actions>
+                            ) : (
+                                <Dialog.Actions>
+                                    <Button onPress={() => this.setState({ visible: false })}>Ok</Button>
+                                </Dialog.Actions>
+                            )
+                        }
                     </Dialog>
                 </Portal>
                 <ScrollView style={{ backgroundColor: '#F5F5F5' }} refreshControl={this._refreshControl()}>
@@ -351,7 +360,7 @@ class Skin extends Component {
                         </Button>
                     </View>
                 </ScrollView >
-            </Provider>
+            </Provider >
         );
     }
 }
