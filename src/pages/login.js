@@ -17,6 +17,7 @@ class Login extends Component {
       color: null,
       response: null,
       alert: null,
+      create: false,
     }
   }
 
@@ -24,38 +25,70 @@ class Login extends Component {
     this.setState({ hidePassword: !this.state.hidePassword });
   }
 
+  validate = (username, password) => {
+
+    if (username == null || password == null) {
+      this.setState({
+        alert: 'Error',
+        loading: false,
+        color: '#E22E16',
+        response: 'Please fill in the blank.',
+        visible: true
+      });
+    }
+
+    if (username != null && password != null) {
+      return true
+    }
+    else return false;
+  }
+
   _login = async () => {
 
-    if (!this.state.username || !this.state.password) return;
     this.setState({ loading: true })
+    var validate = this.validate(this.state.username, this.state.password)
 
-    fetch('https://www.skinskan.me/login.php', {
-      method: 'POST',
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
+    if (validate == true) {
+      fetch('https://www.skinskan.me/login.php', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: this.state.username,
+          password: this.state.password,
+        })
       })
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
+        .then((response) => response.json())
+        .then((responseJson) => {
 
-        this.setState({ loading: false });
+          if (responseJson.message === 'Data Matched') {
+            AsyncStorage.setItem('isLoggedIn', '1');
+            AsyncStorage.setItem('username', this.state.username);
+            this.props.navigation.navigate('Homepage');
+            this.setState({
+              loading: false,
+              alert: 'Success',
+              color: '#5CA51C',
+              response: responseJson.message,
+              visible: true,
+              loading: false,
+              create: true
+            })
+          }
+          else {
+            this.setState({
+              loading: false,
+              alert: 'Error',
+              color: '#E22E16',
+              response: responseJson.message,
+              visible: true,
+            });
+          }
 
-        if (responseJson.message === 'Data Matched') {
-
-          AsyncStorage.setItem('isLoggedIn', '1');
-          AsyncStorage.setItem('username', this.state.username);
-          this.props.navigation.navigate('Homepage');
-        }
-        else {
-          alert(responseJson.message);
-        }
-
-      }).catch((error) => {
-        alert("There is a network error. Please try again.")
-        console.log(error);
-      });
+        }).catch((error) => {
+          alert("There is a network error. Please try again.")
+          console.log(error);
+        });
+    }
   }
 
   CreateUser = () => {
@@ -78,7 +111,7 @@ class Login extends Component {
               <Text style={{ fontFamily: 'ProximaNova-Regular' }}>{this.state.response}</Text>
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={() => this.setState({ visible: false })}>Ok</Button>
+              <Button onPress={this.state.create ? () => { this.props.navigation.navigate("Home"); this.setState({ visible: false }) } : () => this.setState({ visible: false })}>Ok</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>

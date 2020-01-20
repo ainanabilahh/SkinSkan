@@ -18,7 +18,8 @@ class CreateUser extends Component {
       color: null,
       response: null,
       alert: null,
-      loading: false
+      loading: false,
+      create: false,
     }
   }
 
@@ -31,14 +32,37 @@ class CreateUser extends Component {
     var e = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var p = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
 
-    if (u.test(username) == false)
-      alert("Username must be between 5 to 15 characters and only contained letters and numbers.")
+    if (u.test(username) == false) {
+      this.setState({
+        alert: 'Error',
+        loading: false,
+        color: '#E22E16',
+        response: 'Username must be between 5 to 15 characters and only contained letters and numbers.',
+        visible: true,
+        loading: false,
+      });
+    }
 
-    if (e.test(email) == false)
-      alert("Email is not valid.")
-
-    if (p.test(password) == false)
-      alert("Your password must contain at least one lowercase letter, one number digit and more than 6 characters.")
+    if (e.test(email) == false) {
+      this.setState({
+        alert: 'Error',
+        loading: false,
+        color: '#E22E16',
+        response: 'Email is not valid.',
+        visible: true,
+        loading: false,
+      });
+    }
+    if (p.test(password) == false) {
+      this.setState({
+        alert: 'Error',
+        loading: false,
+        color: '#E22E16',
+        response: 'Your password must contain at least one lowercase letter, one number digit and more than 6 characters.',
+        visible: true,
+        loading: false,
+      });
+    }
 
     if (u.test(username) == true && e.test(email) == true && p.test(password) == true)
       return true;
@@ -48,9 +72,8 @@ class CreateUser extends Component {
 
   CreateUser = () => {
 
-    var validate = this.validate(this.state.username, this.state.email, this.state.password)
-    this.setState({ create: true });
     this.setState({ loading: true })
+    var validate = this.validate(this.state.username, this.state.email, this.state.password)
 
     if (validate == true) {
       fetch('https://www.skinskan.me/register.php', {
@@ -60,29 +83,22 @@ class CreateUser extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-
           username: this.state.username,
           email: this.state.email,
           password: this.state.password
 
         })
-
       }).then((response) => response.json())
         .then((responseJson) => {
-
           this.setState({
             loading: false,
             alert: 'Success',
             color: '#5CA51C',
             response: responseJson.message,
-            visible: true
+            visible: true,
+            loading: false,
+            create: true
           });
-
-          console.log(responseJson.message)
-          // if (responseJson.message === 'User created.') {
-          //   this.props.navigation.navigate("Login");
-          // }
-
         }).catch((error) => {
           alert("There is a network error. Please try again.")
           console.log(error);
@@ -110,7 +126,7 @@ class CreateUser extends Component {
               <Text style={{ fontFamily: 'ProximaNova-Regular' }}>{this.state.response}</Text>
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={() => this.props.navigation.navigate("Login")}>Ok</Button>
+              <Button onPress={this.state.create ? () => { this.props.navigation.navigate("Login"); this.setState({ visible: false }) } : () => this.setState({ visible: false })}>Ok</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>
@@ -127,10 +143,10 @@ class CreateUser extends Component {
             />
             <HelperText
               type="info"
-              style={{ fontFamily: 'ProximaNova-Regular', marginLeft: 60 }}
+              style={{ fontFamily: 'ProximaNova-Regular', marginLeft: 60, width: 300 }}
               visible={true}
             >
-              Username cannot be changed later.
+              Username must be between 5 to 15 characters and only contained letters and numbers.
         </HelperText>
           </View>
           <TextInput
@@ -142,6 +158,13 @@ class CreateUser extends Component {
             underlineColorAndroid='transparent'
             style={styles.inputBox}
           />
+          <HelperText
+            type="info"
+            style={{ fontFamily: 'ProximaNova-Regular', width: 300 }}
+            visible={true}
+          >
+            Use a valid email address.
+        </HelperText>
           <View style={styles.textBoxBtnHolder}>
             <TextInput
               mode="flat"
@@ -152,7 +175,6 @@ class CreateUser extends Component {
               style={styles.inputBox}
               secureTextEntry={this.state.hidePassword}
             />
-
             <TouchableOpacity activeOpacity={0.8}
               style={styles.visibilityBtn}
               onPress={this.managePasswordVisibility}>
@@ -162,6 +184,13 @@ class CreateUser extends Component {
                 style={styles.btnImage} />
             </TouchableOpacity>
           </View>
+          <HelperText
+            type="info"
+            style={{ fontFamily: 'ProximaNova-Regular', width: 300 }}
+            visible={true}
+          >
+            Your password must contain at least one lowercase letter, one number digit and more than 6 characters.
+        </HelperText>
           <View
             style={styles.buttonContainer}>
             <Button
