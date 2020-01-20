@@ -21,6 +21,7 @@ class Scan extends Component {
       color: null,
       response: null,
       alert: null,
+      verify: true,
     }
   }
 
@@ -41,7 +42,13 @@ class Scan extends Component {
       .then((responseJson) => {
         if (responseJson.skin_input == 0) {
           this.setState({
-            visible: true
+            visible: true,
+          });
+        }
+        if (responseJson.verify == 0) {
+          this.setState({
+            visible: true,
+            verify: false,
           });
         }
       }).catch((err) => {
@@ -171,7 +178,9 @@ class Scan extends Component {
             dismissable={true}>
             <Dialog.Title style={{ fontFamily: 'Proxima Nova Bold', color: '#E22E16' }}>Error</Dialog.Title>
             <Dialog.Content>
-              <Text style={{ fontFamily: 'ProximaNova-Regular' }}>You are required to insert your product preferences before proceed.</Text>
+              {this.state.verify ?
+                <Text style={{ fontFamily: 'ProximaNova-Regular' }}>You are required to verify your email first.</Text>
+                : <Text style={{ fontFamily: 'ProximaNova-Regular' }}>You are required to insert your product preferences before proceed.</Text>}
             </Dialog.Content>
             <Dialog.Actions>
               <Button onPress={() => { this.props.navigation.navigate("Skin"); this.setState({ visible: false }) }}>Ok</Button>
