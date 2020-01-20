@@ -13,17 +13,10 @@ class Scan extends Component {
     this.state = {
       refreshing: false,
       isLoading: true,
-      username: '',
-      result: '',
       // ing: [],
-      notes: null,
-      percent: null,
-      skin: null,
-      effects: null,
       // ingY: [],
       // ingArr: [],
       imageModalVisible: true,
-      skin_input: 0,
       visible: false,
       color: null,
       response: null,
@@ -46,15 +39,11 @@ class Scan extends Component {
       }),
     }).then((response) => response.json())
       .then((responseJson) => {
-        this.setState({
-          skin_input: responseJson.skin_input
-        })
         if (responseJson.skin_input == 0) {
           this.setState({
             visible: true
           });
         }
-        console.log(this.state.skin_input)
       }).catch((err) => {
         alert("There is a network error. Please try again.")
         if (err.name == 'AbortError') return
@@ -103,21 +92,13 @@ class Scan extends Component {
         })
       }).then((response) => response.text())
         .then((responseJson) => {
-          console.log(responseJson)
-          var result = JSON.parse(responseJson)
-          this.setState({
-            // ing: result.Ingredients,
-            effects: result.Effects,
-            skin: result.Skin,
-            notes: result.Notes,
-            percent: result.Percent
-          })
+
           this.props.navigation.navigate('Result', {
             username: username,
-            effects: this.state.effects,
-            skin: this.state.skin,
-            notes: this.state.notes,
-            percent: this.state.percent,
+            effects: JSON.parse(responseJson).Effects,
+            skin: JSON.parse(responseJson).Skin,
+            notes: JSON.parse(responseJson).Notes,
+            percent: JSON.parse(responseJson).Percent
           });
 
         }).catch((error) => {
@@ -161,21 +142,12 @@ class Scan extends Component {
         })
       }).then((response) => response.text())
         .then((responseJson) => {
-          console.log(responseJson)
-          var result = JSON.parse(responseJson)
-          this.setState({
-            // ing: result.Ingredients,
-            effects: result.Effects,
-            skin: result.Skin,
-            notes: result.Notes,
-            percent: result.Percent
-          })
           this.props.navigation.navigate('Result', {
             username: username,
-            effects: this.state.effects,
-            skin: this.state.skin,
-            notes: this.state.notes,
-            percent: this.state.percent,
+            effects: JSON.parse(responseJson).Effects,
+            skin: JSON.parse(responseJson).Skin,
+            notes: JSON.parse(responseJson).Notes,
+            percent: JSON.parse(responseJson).Percent
           });
         }).catch((error) => {
           alert("There is a network error. Please try again.")
@@ -202,7 +174,7 @@ class Scan extends Component {
               <Text style={{ fontFamily: 'ProximaNova-Regular' }}>You are required to insert your product preferences before proceed.</Text>
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={() => {this.props.navigation.navigate("Skin"); this.setState({ visible: false })}}>Ok</Button>
+              <Button onPress={() => { this.props.navigation.navigate("Skin"); this.setState({ visible: false }) }}>Ok</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>

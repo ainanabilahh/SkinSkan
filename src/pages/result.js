@@ -70,7 +70,7 @@ class Result extends Component {
                     prod_pref_string: responseJson.prod_pref
                 })
 
-                if (this.state.skin_type_string == "Normal") {
+                if (responseJson.skin_type == "Normal") {
                     this.setState({ normal: true })
                 }
 
@@ -79,10 +79,6 @@ class Result extends Component {
                 if (err.name == 'AbortError') return
                 throw err
             });
-    }
-
-    Back = () => {
-        this.props.navigation.navigate('Scan');
     }
 
     render() {
@@ -263,7 +259,7 @@ class Result extends Component {
                 <List.Section style={{ backgroundColor: '#fff' }}>
                     <List.Subheader style={styles.listSubheaderStyle}>Details</List.Subheader>
                     <View style={styles.listStyle}>
-                        <Text style={{ fontFamily: 'Proxima Nova Bold', margin: 15, fontSize: 10 }}>Quick Notes : Your preferences that does not have result means there are no ingredients with it.</Text>
+                        <Text style={{ fontFamily: 'Proxima Nova Bold', margin: 15, fontSize: 12 }}>Quick Notes : Your preferences that does not have result means there are no ingredients with it.</Text>
                         <Divider />
                         <Text style={{ fontFamily: 'Proxima Nova Bold', margin: 15 }}>Desired effects:</Text>
                         <Divider />
@@ -305,7 +301,7 @@ class Result extends Component {
                         style={styles.button}
                         mode="contained"
                         icon="check"
-                        onPress={this.Back}>Scan Again
+                        onPress={() => this.props.navigation.navigate('Scan')}>Scan Again
                         </Button>
                 </View>
             </ScrollView >
